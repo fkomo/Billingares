@@ -1,0 +1,81 @@
+﻿@using System.Net.Http.Json
+@using Billingares.App.ViewModels
+@using Billingares.Base
+@using System.ComponentModel.DataAnnotations
+
+@inherits ComponentBase<ClaimsViewModel>;
+
+<MudGrid>
+	<MudItem xs="12">
+		<EditForm Model="@ViewModel.ToAdd" OnValidSubmit="AddNewClaim">
+			<DataAnnotationsValidator />
+			<MudCardContent>
+				<MudTextField @bind-Value="ViewModel.ToAdd.Owner"
+							  For="@(() => ViewModel.ToAdd.Owner)"
+							  Label="Owner" />
+				<MudTextField @bind-Value="ViewModel.ToAdd.Amount"
+							  For="@(() => ViewModel.ToAdd.Amount)"
+							  Label="Amount [€]"
+							  InputType="InputType.Number" />
+				<MudTextField @bind-Value="ViewModel.ToAdd.AgainstList"
+							  For="@(() => ViewModel.ToAdd.AgainstList)"
+							  Label="Against (comma separated)"
+							  HelperText="Multiple names needs to be comma separated." />
+				<MudTextField @bind-Value="ViewModel.ToAdd.Description"
+							  For="@(() => ViewModel.ToAdd.Description)"
+							  Label="Description" />
+			</MudCardContent>
+			<MudCardActions>
+				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add</MudButton>
+			</MudCardActions>
+		</EditForm>
+	</MudItem>
+	<MudItem xs="12">
+		<MudTable Items="@ViewModel.Claims" Loading="@IsBusy"
+				  Dense="true" Hover="true" ReadOnly="false" CanCancelEdit="true" Filter="new Func<Claim, bool>(ViewModel.FilterFunc)"
+				  RowEditCommit="ItemHasBeenCommitted" IsEditRowSwitchingBlocked="true"
+				  SortLabel="Sort By" CommitEditTooltip="Commit Edit"
+				  RowEditPreview="BackupItem" RowEditCancel="ResetItemToOriginalValues"
+				  @bind-SelectedItem="ViewModel.Selected">
+			<ToolBarContent>
+				<MudText Typo="Typo.h6">Claims</MudText>
+				<MudSpacer />
+				<MudTextField @bind-Value="@ViewModel.SearchString" Placeholder="Search" Adornment="Adornment.Start"
+							  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
+			</ToolBarContent>
+			<ColGroup>
+				<col style="width:100px;" />
+				<col style="width:150px;" />
+				<col style="width:300px;" />
+				<col />
+				<col style="width:50px;" />
+			</ColGroup>
+			<HeaderContent>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Owner)">Owner</MudTableSortLabel></MudTh>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Amount)">Amount [€]</MudTableSortLabel></MudTh>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Description)">Description</MudTableSortLabel></MudTh>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.AgainstList)">Against</MudTableSortLabel></MudTh>
+			</HeaderContent>
+			<RowTemplate>
+				<MudTd DataLabel="Owner">@context.Owner</MudTd>
+				<MudTd DataLabel="Amount">@context.Amount</MudTd>
+				<MudTd DataLabel="Description">@context.Description</MudTd>
+				<MudTd DataLabel="Against">@context.AgainstList</MudTd>
+			</RowTemplate>
+			<RowEditingTemplate>
+				<MudTd DataLabel="Owner">
+					<MudTextField @bind-Value="@context.Owner" Required />
+				</MudTd>
+				<MudTd DataLabel="Amount">
+					<MudNumericField @bind-Value="@context.Amount" Required />
+				</MudTd>
+				<MudTd DataLabel="Description">
+					<MudTextField @bind-Value="@context.Description" />
+				</MudTd>
+				<MudTd DataLabel="Against">
+					<MudTextField @bind-Value="@context.AgainstList" Required />
+				</MudTd>
+			</RowEditingTemplate>
+		</MudTable>
+	</MudItem>
+</MudGrid>
