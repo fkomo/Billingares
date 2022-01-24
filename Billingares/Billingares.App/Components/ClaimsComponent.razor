@@ -1,0 +1,102 @@
+﻿@using System.Net.Http.Json
+@using Billingares.App.ViewModels
+@using Billingares.Base
+@using System.ComponentModel.DataAnnotations
+@using Ujeby.Blazor.Base.Components
+
+@inherits ComponentBase<ClaimsViewModel, ApplicationState>;
+
+<MudGrid>
+	<MudItem xs="12">
+		<EditForm Model="@ViewModel.ToAdd" OnValidSubmit="AddNewItemAsync">
+			<DataAnnotationsValidator />
+			<MudCardContent>
+				<MudTextField @bind-Value="ViewModel.ToAdd.Owner"
+							  For="@(() => ViewModel.ToAdd.Owner)"
+							  Label="Claim Owner" />
+				<MudTextField @bind-Value="ViewModel.ToAdd.Amount"
+							  For="@(() => ViewModel.ToAdd.Amount)"
+							  Label="Amount [€]"
+							  InputType="InputType.Number" />
+				<MudTextField @bind-Value="ViewModel.ToAdd.AgainstList"
+							  For="@(() => ViewModel.ToAdd.AgainstList)"
+							  Label="Claim Against (comma separated names)"
+							  HelperText="Multiple names needs to be comma separated." />
+				<MudTextField @bind-Value="ViewModel.ToAdd.Description"
+							  For="@(() => ViewModel.ToAdd.Description)"
+							  Label="Description" />
+			</MudCardContent>
+			<MudCardActions>
+				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Icon="@Icons.Material.Filled.Add">Add</MudButton>
+			</MudCardActions>
+		</EditForm>
+	</MudItem>
+
+	<MudItem xs="12">
+		<MudTable Items="@ViewModel.Claims" Loading="@IsBusy" Striped="true" MultiSelection="true"
+				  Dense="true" Hover="true" ReadOnly="false" CanCancelEdit="true" Filter="new Func<Claim, bool>(ViewModel.FilterFunc)"
+				  RowEditCommit="OnItemUpdatedAsync" IsEditRowSwitchingBlocked="true"
+				  SortLabel="Sort By" CommitEditTooltip="Commit Edit"
+				  RowEditPreview="OnItemUpdatePreview" RowEditCancel="OnItemResetOriginal"
+				  @bind-SelectedItem="ViewModel.Selected" @bind-SelectedItems="ViewModel.SelectedItems">
+			<ToolBarContent>
+				<MudText Typo="Typo.h6">Claims (@ViewModel.Claims.Count)</MudText>
+				<MudSpacer />
+				<MudTextField @bind-Value="@ViewModel.SearchString" Placeholder="Search" Adornment="Adornment.Start"
+							  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
+			</ToolBarContent>
+			<ColGroup>
+				<col style="width:100px;" />
+				<col style="width:150px;" />
+				<col style="width:300px;" />
+				<col />
+				<col style="width:50px;" />
+			</ColGroup>
+			<HeaderContent>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Owner)">Owner</MudTableSortLabel></MudTh>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Amount)">Amount [€]</MudTableSortLabel></MudTh>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.AgainstList)">Against</MudTableSortLabel></MudTh>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Description)">Description</MudTableSortLabel></MudTh>
+			</HeaderContent>
+			<RowTemplate>
+				<MudTd DataLabel="Owner">@context.Owner</MudTd>
+				<MudTd DataLabel="Amount">@context.Amount.ToString("0.00")</MudTd>
+				<MudTd DataLabel="Against">@context.AgainstList</MudTd>
+				<MudTd DataLabel="Description">@context.Description</MudTd>
+			</RowTemplate>
+			<RowEditingTemplate>
+				<MudTd DataLabel="Owner">
+					<MudTextField @bind-Value="@context.Owner" Required />
+				</MudTd>
+				<MudTd DataLabel="Amount">
+					<MudNumericField @bind-Value="@context.Amount" Required />
+				</MudTd>
+				<MudTd DataLabel="Description">
+					<MudTextField @bind-Value="@context.Description" />
+				</MudTd>
+				<MudTd DataLabel="Against">
+					<MudTextField @bind-Value="@context.AgainstList" Required />
+				</MudTd>
+			</RowEditingTemplate>
+		</MudTable>
+	</MudItem>
+	<MudItem xs="12">
+
+		<div class="d-flex flex-wrap mt-4">
+			<MudSwitch @bind-Checked="@ViewModel.OptimizedTransactions" Label="Optimize" Color="Color.Primary" />
+
+			@if (ViewModel.Claims.Any())
+			{
+				<MudSpacer />
+				@if (ViewModel.SelectedItems.Any())
+				{
+					<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Style="margin-right:10px;"
+					   OnClick="RemoveSelectedItems">Delete</MudButton>
+				}
+				<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary"
+					OnClick="Save">Save</MudButton>
+			}
+		</div>
+
+	</MudItem>
+</MudGrid>

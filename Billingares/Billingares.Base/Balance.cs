@@ -6,15 +6,23 @@ namespace Billingares.Base
 		public string Name { get; set; }
 		public decimal Amount { get; set; }
 
+		public decimal AmountIn { get; set; }
+		public decimal AmountOut { get; set; }
+
 		public Balance(string name, decimal amount)
 		{
 			Name = name;
 			Amount = amount;
 		}
 
-		public override string ToString()
+		public Balance(string name, decimal amountIn, decimal amountOut)
 		{
-			return $"{ Name }={ Amount.ToString("0.00") }";
+			Name = name;
+			Amount = amountIn - amountOut;
+			AmountIn = amountIn;
+			AmountOut = amountOut;
 		}
+
+		public override string ToString() => $"{ Name }={ Amount.ToString("0.00") }";
 	}
 }
