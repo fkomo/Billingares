@@ -1,38 +1,38 @@
 {
-	"$schema": "https://json.schemastore.org/launchsettings.json",
-	"iisSettings": {
-		"windowsAuthentication": false,
-		"anonymousAuthentication": true,
-		"iisExpress": {
-			"applicationUrl": "http://localhost:23207",
-			"sslPort": 44334
-		}
-	},
-	"profiles": {
-		"Billingares.WebApi": {
-			"commandName": "Project",
-			"launchBrowser": true,
-			"launchUrl": "claims",
-			"environmentVariables": {
-				"ASPNETCORE_ENVIRONMENT": "Development"
-			},
-			"applicationUrl": "https://localhost:7103;http://localhost:5103",
-			"dotnetRunMessages": true
-		},
-		"IIS Express": {
-			"commandName": "IISExpress",
-			"launchBrowser": true,
-			"launchUrl": "claims",
-			"environmentVariables": {
-				"ASPNETCORE_ENVIRONMENT": "Development"
-			}
-		},
-		"Docker": {
-			"commandName": "Docker",
-			"launchBrowser": true,
-			"launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/claims",
-			"publishAllPorts": true,
-			"useSSL": true
-		}
-	}
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:60983/",
+      "sslPort": 44346
+    }
+  },
+  "profiles": {
+    "Billingares.WebApi": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "claims",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:7103;http://localhost:5103",
+      "dotnetRunMessages": true
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "claims",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/claims",
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  }
 }

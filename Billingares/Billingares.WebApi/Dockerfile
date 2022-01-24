@@ -6,6 +6,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Billingares.WebApi/Billingares.WebApi.csproj", "Billingares.WebApi/"]
+COPY ["Billingares.Base/Billingares.Base.csproj", "Billingares.Base/"]
 RUN dotnet restore "Billingares.WebApi/Billingares.WebApi.csproj"
 COPY . .
 WORKDIR "/src/Billingares.WebApi"

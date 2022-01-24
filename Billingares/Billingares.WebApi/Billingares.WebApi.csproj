@@ -16,4 +16,10 @@
     <ProjectReference Include="..\Billingares.Base\Billingares.Base.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="..\.dockerignore">
+      <DependentUpon>dockerfile</DependentUpon>
+    </None>
+  </ItemGroup>
+
 </Project>
