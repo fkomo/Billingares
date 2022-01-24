@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.Base", "Billing
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.App", "Billingares.App\Billingares.App.csproj", "{6B0CD4D1-5273-4D04-8304-4200C12D1068}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ujeby.Blazor.Base", "Ujeby.Blazor.Base\Ujeby.Blazor.Base.csproj", "{B720C3D8-4013-427F-80C6-23E23CA4C9DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ujeby.Blazor.Base", "Ujeby.Blazor.Base\Ujeby.Blazor.Base.csproj", "{B720C3D8-4013-427F-80C6-23E23CA4C9DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
