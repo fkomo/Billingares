@@ -1,14 +1,16 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Billingares.App.ViewModels
+namespace Ujeby.Blazor.Base.ViewModels
 {
-	public class ViewModelBase<TViewModel> : INotifyPropertyChanged
+	public class ViewModelBase : INotifyPropertyChanged
 	{
 		public ViewModelBase()
 		{
 
 		}
+
+		public bool IsValid { get; set; }
 
 		#region Implementation of INotifyPropertyChanged
 

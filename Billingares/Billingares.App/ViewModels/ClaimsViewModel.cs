@@ -1,15 +1,37 @@
 ﻿using Billingares.Base;
+using Ujeby.Blazor.Base.ViewModels;
 
 namespace Billingares.App.ViewModels
 {
-	public class ClaimsViewModel : ViewModelBase<ClaimsViewModel>
+	public class ClaimsViewModel : ViewModelBase
 	{
+		public string SearchString { get; set; } = string.Empty;
+
+		public List<Claim> Claims { get; set; } = new List<Claim>();
+
+		public Claim ToAdd { get; set; } = new Claim();
+		public Claim Selected { get; set; }
+
+		public HashSet<Claim> SelectedItems { get; set; } = new HashSet<Claim>();
+
+		public Claim BeforeEdit { get; set; }
+
+		private bool optimizedTransactions;
+		public bool OptimizedTransactions
+		{
+			get { return optimizedTransactions; }
+			set
+			{
+				if (value != optimizedTransactions)
+				{
+					optimizedTransactions = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
 		public ClaimsViewModel() : base()
 		{
-			Claims = new List<Claim>();
-			SearchString = string.Empty;
-
-			ToAdd = new Claim();
 		}
 
 		public bool FilterFunc(Claim claim)
@@ -28,19 +50,5 @@ namespace Billingares.App.ViewModels
 
 			return false;
 		}
-
-		public bool IsValid { get; set; }
-
-		public Claim ToAdd { get; set; }
-
-		public string SearchString { get; set; }
-
-		public List<Claim> Claims { get; set; }
-
-		public Claim Selected { get; set; }
-
-		public Claim BeforeEdit { get; set; }
-
-		public int SelectedItemIndex { get; set; }
 	}
 }

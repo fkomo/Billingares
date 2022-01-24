@@ -1,5 +1,81 @@
 ﻿@using Billingares.App.ViewModels
+@using Ujeby.Blazor.Base.Components
 
-@inherits ComponentBase<TransactionsViewModel>;
+@inherits ComponentBase<TransactionsViewModel, ApplicationState>;
 
-<MudSwitch @bind-Checked="@ViewModel.Minimalized" Label="Minimalized" Color="Color.Primary" />
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+	<MudTabPanel Text="Table" Icon="@Icons.Material.Filled.TableView">
+		<MudTable Items="@ViewModel.Transactions" Loading="@IsBusy"
+				  Hover="true" Dense="true" ReadOnly="true" FixedHeader="false" Striped="true">
+			<ToolBarContent>
+				<MudText Typo="Typo.h6">Transactions (@ViewModel.Transactions.Length)</MudText>
+			</ToolBarContent>
+			<HeaderContent>
+				<MudTh>From</MudTh>
+				<MudTh>To</MudTh>
+				<MudTh>Amount [€]</MudTh>
+			</HeaderContent>
+			<RowTemplate>
+				<MudTd DataLabel="From">@context.From</MudTd>
+				<MudTd DataLabel="To">@context.To</MudTd>
+				<MudTd DataLabel="Amount">@Math.Round(context.Amount, 1).ToString("0.00")</MudTd>
+			</RowTemplate>
+		</MudTable>
+	</MudTabPanel>
+	<MudTabPanel Text="Matrix" Icon="@Icons.Material.Filled.Apps">
+		@if (ViewModel.Users.Any())
+		{
+			<MudSimpleTable Dense="true" Hover="false" Bordered="true" Striped="true" Style="overflow-x: auto;">
+				<tbody>
+					<tr>
+						<td style="background-color:var(--mud-palette-primary-lighten)">&nbsp;</td>
+						@foreach (var user in ViewModel.Users)
+						{
+							<td><strong>@user</strong></td>
+						}
+					</tr>
+					@foreach (var user in ViewModel.Users)
+					{
+						<tr>
+							<td><strong>@user</strong></td>
+							@foreach (var amount in ViewModel.MatrixRow(user))
+							{
+								if (amount == decimal.MinValue)
+								{
+									<td style="background-color:var(--mud-palette-primary-lighten)">&nbsp;</td>
+								}
+								else
+								{
+									<td>@(amount.HasValue ? Math.Round(amount.Value, 1).ToString("0.00") : "")</td>
+								}
+							}
+						</tr>
+					}
+				</tbody>
+			</MudSimpleTable>
+		}
+	</MudTabPanel>
+	<MudTabPanel Text="Balance" Icon="@Icons.Material.Filled.AccountBalance">
+		<MudSimpleTable Dense="true" Hover="true" Bordered="false" Striped="true" Style="overflow-x: auto;">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Balance [€]</th>
+					<th>In [€]</th>
+					<th>Out [€]</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var balance in ViewModel.Balance())
+				{
+					<tr>
+						<td>@balance.Name</td>
+						<td>@Math.Round(balance.Amount, 1).ToString("0.00")</td>
+						<td>@Math.Round(balance.AmountIn, 1).ToString("0.00")</td>
+						<td>@Math.Round(balance.AmountOut, 1).ToString("0.00")</td>
+					</tr>
+				}
+			</tbody>
+		</MudSimpleTable>
+	</MudTabPanel>
+</MudTabs> 

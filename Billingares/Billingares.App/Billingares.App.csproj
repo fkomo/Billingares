@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Billingares.Base\Billingares.Base.csproj" />
+    <ProjectReference Include="..\Ujeby.Blazor.Base\Ujeby.Blazor.Base.csproj" />
   </ItemGroup>
 
 </Project>

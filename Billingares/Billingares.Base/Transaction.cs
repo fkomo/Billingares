@@ -17,15 +17,6 @@ namespace Billingares.Base
 			Amount = amount;
 		}
 
-		public Transaction(string flow, decimal amount)
-		{
-			var split = flow.Split(":");
-			From = split[0];
-			To = split[1];
-
-			Amount = amount;
-		}
-
 		public override string ToString() => $"{ Flow }={ Amount.ToString("0.00") }";
 	}
 }

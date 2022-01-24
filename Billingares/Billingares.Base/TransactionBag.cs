@@ -37,9 +37,7 @@ namespace Billingares.Base
 			Transactions.Clear();
 		}
 
-		public IEnumerable<Transaction> Filter(decimal minAmount) => Transactions.Where(t => Math.Abs(t.Amount) > minAmount);
-
-		private static IEnumerable<string> ListUsers(IEnumerable<Transaction> transactions) =>
+		public static IEnumerable<string> ListUsers(IEnumerable<Transaction> transactions) =>
 			transactions.Select(t => t.From).Union(transactions.Select(t => t.To))
 				.Distinct();
 
@@ -85,7 +83,8 @@ namespace Billingares.Base
 			{
 				var amounts = orderedUsers.Select(u =>
 				{
-					return transactions.SingleOrDefault(t => t.From == user && t.To == u)?.Amount;
+					var amount = transactions.SingleOrDefault(t => t.From == user && t.To == u)?.Amount;
+					return (amount.HasValue) ? Math.Round(amount.Value, 1).ToString("0.00") : null;
 				});
 
 				lines.Add(user + ";" + string.Join(';', amounts));
