@@ -11,3 +11,6 @@
 /Billingares/Ujeby.Blazor.Base/bin
 /Billingares/Ujeby.Blazor.Base/obj
 /Billingares/Billingares.App/billingares.app-docker.tar
+/Billingares/Billingares.WebApi/bin
+/Billingares/Billingares.WebApi/obj
+/Billingares/Billingares.WebApi/billingares.api-docker.tar
