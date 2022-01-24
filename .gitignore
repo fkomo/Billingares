@@ -2,15 +2,13 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/Billingares/Billingares.Base/obj
-/Billingares/Billingares.Base/bin/Debug/net6.0
-/Billingares/Billingares.Base/Billingares.Base.csproj
-/Billingares/.vs/Billingares/v17
 /.vs
-/Billingares/Billingares.App/bin/Debug/net6.0
-/Billingares/.vs/Billingares
+/Billingares/.vs
+/Billingares/Billingares.Base/obj
+/Billingares/Billingares.Base/bin
+/Billingares/Billingares.App/bin
 /Billingares/Billingares.App/obj
-/Billingares/Ujeby.Blazor.Base/bin/Debug/net6.0
+/Billingares/Ujeby.Blazor.Base/bin
 /Billingares/Ujeby.Blazor.Base/obj
 /Billingares/Billingares.App/billingares.app.dock.tar
 /Billingares/Billingares.WebApi/bin/Debug/net6.0
