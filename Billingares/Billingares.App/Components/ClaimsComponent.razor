@@ -45,14 +45,6 @@
 				<MudTextField @bind-Value="@ViewModel.SearchString" Placeholder="Search" Adornment="Adornment.Start"
 							  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
 			</ToolBarContent>
-			<ColGroup>
-				<col style="width:20px;" />
-				<col style="width:100px;" />
-				<col style="width:150px;" />
-				<col style="width:400px;" />
-				<col />
-				<col style="width:50px;" />
-			</ColGroup>
 			<HeaderContent>
 				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Owner)">Owner</MudTableSortLabel></MudTh>
 				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Amount)">Amount [€]</MudTableSortLabel></MudTh>
