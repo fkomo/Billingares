@@ -35,7 +35,7 @@
 	<MudItem xs="12">
 		<MudTable Items="@ViewModel.Claims" Loading="@IsBusy" Striped="true" MultiSelection="true"
 				  Dense="true" Hover="true" ReadOnly="false" CanCancelEdit="true" Filter="new Func<Claim, bool>(ViewModel.FilterFunc)"
-				  RowEditCommit="OnItemUpdatedAsync" IsEditRowSwitchingBlocked="true"
+				  RowEditCommit="OnItemUpdatedAsync" IsEditRowSwitchingBlocked="false"
 				  SortLabel="Sort By" CommitEditTooltip="Commit Edit"
 				  RowEditPreview="OnItemUpdatePreview" RowEditCancel="OnItemResetOriginal"
 				  @bind-SelectedItem="ViewModel.Selected" @bind-SelectedItems="ViewModel.SelectedItems">
@@ -46,9 +46,10 @@
 							  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
 			</ToolBarContent>
 			<ColGroup>
+				<col style="width:20px;" />
 				<col style="width:100px;" />
 				<col style="width:150px;" />
-				<col style="width:300px;" />
+				<col style="width:400px;" />
 				<col />
 				<col style="width:50px;" />
 			</ColGroup>
@@ -71,11 +72,11 @@
 				<MudTd DataLabel="Amount">
 					<MudNumericField @bind-Value="@context.Amount" Required />
 				</MudTd>
-				<MudTd DataLabel="Description">
-					<MudTextField @bind-Value="@context.Description" />
-				</MudTd>
 				<MudTd DataLabel="Against">
 					<MudTextField @bind-Value="@context.AgainstList" Required />
+				</MudTd>
+				<MudTd DataLabel="Description">
+					<MudTextField @bind-Value="@context.Description" />
 				</MudTd>
 			</RowEditingTemplate>
 		</MudTable>
