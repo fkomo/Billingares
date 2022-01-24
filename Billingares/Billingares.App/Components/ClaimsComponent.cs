@@ -21,9 +21,9 @@ namespace Billingares.App.Components
 		{
 			var claim = (Claim)element;
 
-			claim.Owner = ViewModel.BeforeEdit.Owner;
+			claim.Creditor = ViewModel.BeforeEdit.Creditor;
 			claim.Amount = ViewModel.BeforeEdit.Amount;
-			claim.AgainstList = ViewModel.BeforeEdit.AgainstList;
+			claim.DebtorList = ViewModel.BeforeEdit.DebtorList;
 			claim.Description = ViewModel.BeforeEdit.Description;
 
 			ViewModel.BeforeEdit = null;
