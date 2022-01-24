@@ -33,3 +33,9 @@ finally
 	# move back app directory
 	Set-Location -Path ".\Billingares.App"
 }
+
+# save image
+docker save -o billingares.app.dock.tar billingares.app-wasm-docker
+
+# load image
+#docker load -i billingares.app.dock.tar
