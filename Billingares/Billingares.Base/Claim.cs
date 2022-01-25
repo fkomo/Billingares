@@ -55,8 +55,17 @@ namespace Billingares.Base
 		public string[] Debtors => DebtorList?.Split(", ")?.ToArray();
 
 		[JsonIgnore]
-		public IEnumerable<Transaction> Transactions => Debtors
-			?.Except(new string[] { Creditor })
-			?.Select(a => new Transaction(a, Creditor, Math.Round(Amount ?? 0 / Debtors.Length, 2)));
+		public IEnumerable<Transaction> Transactions
+		{
+			get
+			{
+				if (!Amount.HasValue)
+					return null;
+
+				return Debtors
+					?.Except(new string[] { Creditor })
+					?.Select(a => new Transaction(a, Creditor, Math.Round(Amount.Value / (decimal)Debtors.Length, 2)));
+			}
+		}
 	}
 }
