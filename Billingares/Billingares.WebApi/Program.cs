@@ -2,10 +2,11 @@ using Billingares.Base;
 using Billingares.WebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.AddJsonConsole();
+
+builder.Services.AddSingleton<ClaimsRepository>();
 
 builder.Services.AddSingleton<ClaimsRepository>();
 
@@ -56,9 +57,7 @@ app.MapPost("/api/claim/{id}", ([FromServices] ClaimsRepository repository, stri
 		if (string.IsNullOrWhiteSpace(id))
 			return Results.BadRequest(nameof(id));
 
-		item = repository.Add(id, item);
-
-		return Results.Ok(item);
+		return Results.Ok(repository.List(id));
 	}
 	catch (global::System.Exception)
 	{
