@@ -39,13 +39,13 @@ namespace Billingares.App.ViewModels
 			if (string.IsNullOrWhiteSpace(SearchString))
 				return true;
 
-			if (claim.Owner.Contains(SearchString, StringComparison.OrdinalIgnoreCase))
+			if (claim.Creditor.Contains(SearchString, StringComparison.OrdinalIgnoreCase))
 				return true;
 
 			if (claim.Description.Contains(SearchString, StringComparison.OrdinalIgnoreCase))
 				return true;
 
-			if (claim.Against.Any(a => a.Contains(SearchString, StringComparison.OrdinalIgnoreCase)))
+			if (claim.Debtors.Any(a => a.Contains(SearchString, StringComparison.OrdinalIgnoreCase)))
 				return true;
 
 			return false;

@@ -1,34 +1,33 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Billingares.Base
 {
 	public class Claim
 	{
 		[Required]
-		public string Owner { get; set; }
+		public string Creditor { get; set; }
 
 		[Required]
 		[Range(1.0, double.MaxValue, ErrorMessage = "Amount must be greater than {1}.")]
-		public decimal Amount { get; set; }
+		public decimal? Amount { get; set; }
 
 
 		[Required]
-		public string AgainstList 
+		public string DebtorList 
 		{
-			get { return _againstList; }
+			get { return _debtorList; }
 			set 
 			{
 				var fixedList = value?.Split(",", StringSplitOptions.RemoveEmptyEntries)?.Select(a => a.Trim());
 				if (fixedList != null)
-					_againstList = string.Join(", ", fixedList);
+					_debtorList = string.Join(", ", fixedList);
 				else
-					_againstList = null;
+					_debtorList = null;
 			}
 		}
-		private string _againstList;
-
-		public string[] Against => AgainstList?.Split(", ")?.ToArray();
+		private string _debtorList;
 
 		public string Description { get; set; }
 
@@ -37,23 +36,27 @@ namespace Billingares.Base
 
 		}
 
-		public Claim(string owner, decimal amount, string againstList)
+		public Claim(string creditor, decimal amount, string debtorList)
 		{
-			Owner = owner;
+			Creditor = creditor;
 			Amount = amount;
-			AgainstList = againstList;
+			DebtorList = debtorList;
 		}
 
 		public Claim(Claim claim)
 		{
-			Owner = claim.Owner;
+			Creditor = claim.Creditor;
 			Amount = claim.Amount;
-			_againstList = claim._againstList;
+			_debtorList = claim._debtorList;
 			Description = claim.Description;
 		}
 
-		public IEnumerable<Transaction> Transactions => Against
-			?.Except(new string[] { Owner })
-			?.Select(a => new Transaction(a, Owner, Math.Round(Amount / Against.Length, 2)));
+		[JsonIgnore]
+		public string[] Debtors => DebtorList?.Split(", ")?.ToArray();
+
+		[JsonIgnore]
+		public IEnumerable<Transaction> Transactions => Debtors
+			?.Except(new string[] { Creditor })
+			?.Select(a => new Transaction(a, Creditor, Math.Round(Amount ?? 0 / Debtors.Length, 2)));
 	}
 }

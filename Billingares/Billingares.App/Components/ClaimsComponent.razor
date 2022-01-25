@@ -11,20 +11,20 @@
 		<EditForm Model="@ViewModel.ToAdd" OnValidSubmit="AddNewItemAsync">
 			<DataAnnotationsValidator />
 			<MudCardContent>
-				<MudTextField @bind-Value="ViewModel.ToAdd.Owner"
-							  For="@(() => ViewModel.ToAdd.Owner)"
-							  Label="Claim Owner" />
+				<MudTextField @bind-Value="ViewModel.ToAdd.Creditor"
+							  For="@(() => ViewModel.ToAdd.Creditor)"
+							  Label="@nameof(Claim.Creditor)" />
 				<MudTextField @bind-Value="ViewModel.ToAdd.Amount"
 							  For="@(() => ViewModel.ToAdd.Amount)"
-							  Label="Amount [€]"
+							  Label="Debt Amount [€]"
 							  InputType="InputType.Number" />
-				<MudTextField @bind-Value="ViewModel.ToAdd.AgainstList"
-							  For="@(() => ViewModel.ToAdd.AgainstList)"
-							  Label="Claim Against (comma separated names)"
-							  HelperText="Multiple names needs to be comma separated." />
+				<MudTextField @bind-Value="ViewModel.ToAdd.DebtorList"
+							  For="@(() => ViewModel.ToAdd.DebtorList)"
+							  Label="@nameof(Claim.Debtors)"
+							  HelperText="Multiple names needs to be separated by comma." />
 				<MudTextField @bind-Value="ViewModel.ToAdd.Description"
 							  For="@(() => ViewModel.ToAdd.Description)"
-							  Label="Description" />
+							  Label="@nameof(Claim.Description)" />
 			</MudCardContent>
 			<MudCardActions>
 				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Icon="@Icons.Material.Filled.Add">Add</MudButton>
@@ -45,37 +45,29 @@
 				<MudTextField @bind-Value="@ViewModel.SearchString" Placeholder="Search" Adornment="Adornment.Start"
 							  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
 			</ToolBarContent>
-			<ColGroup>
-				<col style="width:20px;" />
-				<col style="width:100px;" />
-				<col style="width:150px;" />
-				<col style="width:400px;" />
-				<col />
-				<col style="width:50px;" />
-			</ColGroup>
 			<HeaderContent>
-				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Owner)">Owner</MudTableSortLabel></MudTh>
-				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Amount)">Amount [€]</MudTableSortLabel></MudTh>
-				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.AgainstList)">Against</MudTableSortLabel></MudTh>
-				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Description)">Description</MudTableSortLabel></MudTh>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Creditor)">@nameof(Claim.Creditor)</MudTableSortLabel></MudTh>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Amount)">@nameof(Claim.Amount) [€]</MudTableSortLabel></MudTh>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.DebtorList)">@nameof(Claim.Debtors)</MudTableSortLabel></MudTh>
+				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Description)">@nameof(Claim.Description)</MudTableSortLabel></MudTh>
 			</HeaderContent>
 			<RowTemplate>
-				<MudTd DataLabel="Owner">@context.Owner</MudTd>
-				<MudTd DataLabel="Amount">@context.Amount.ToString("0.00")</MudTd>
-				<MudTd DataLabel="Against">@context.AgainstList</MudTd>
-				<MudTd DataLabel="Description">@context.Description</MudTd>
+				<MudTd DataLabel="@nameof(context.Creditor)">@context.Creditor</MudTd>
+				<MudTd DataLabel="@nameof(context.Amount)">@context.Amount.Value.ToString("0.00")</MudTd>
+				<MudTd DataLabel="@nameof(context.Debtors)">@context.DebtorList</MudTd>
+				<MudTd DataLabel="@nameof(context.Description)">@context.Description</MudTd>
 			</RowTemplate>
 			<RowEditingTemplate>
-				<MudTd DataLabel="Owner">
-					<MudTextField @bind-Value="@context.Owner" Required />
+				<MudTd DataLabel="@nameof(context.Creditor)">
+					<MudTextField @bind-Value="@context.Creditor" Required />
 				</MudTd>
-				<MudTd DataLabel="Amount">
+				<MudTd DataLabel="@nameof(context.Amount)">
 					<MudNumericField @bind-Value="@context.Amount" Required />
 				</MudTd>
-				<MudTd DataLabel="Against">
-					<MudTextField @bind-Value="@context.AgainstList" Required />
+				<MudTd DataLabel="@nameof(context.Debtors)">
+					<MudTextField @bind-Value="@context.DebtorList" Required />
 				</MudTd>
-				<MudTd DataLabel="Description">
+				<MudTd DataLabel="@nameof(context.Description)">
 					<MudTextField @bind-Value="@context.Description" />
 				</MudTd>
 			</RowEditingTemplate>

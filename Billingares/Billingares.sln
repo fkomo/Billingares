@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.App", "Billinga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ujeby.Blazor.Base", "Ujeby.Blazor.Base\Ujeby.Blazor.Base.csproj", "{B720C3D8-4013-427F-80C6-23E23CA4C9DF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.WebApi", "Billingares.WebApi\Billingares.WebApi.csproj", "{EBEF1E80-D30A-4C1D-A790-D8C75BD13EA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billingares.Api.Client", "Billingares.Api.Client\Billingares.Api.Client.csproj", "{5F96F6DE-D039-490B-ABB7-8E99C7D475CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{B720C3D8-4013-427F-80C6-23E23CA4C9DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B720C3D8-4013-427F-80C6-23E23CA4C9DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B720C3D8-4013-427F-80C6-23E23CA4C9DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBEF1E80-D30A-4C1D-A790-D8C75BD13EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBEF1E80-D30A-4C1D-A790-D8C75BD13EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBEF1E80-D30A-4C1D-A790-D8C75BD13EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBEF1E80-D30A-4C1D-A790-D8C75BD13EA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F96F6DE-D039-490B-ABB7-8E99C7D475CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F96F6DE-D039-490B-ABB7-8E99C7D475CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F96F6DE-D039-490B-ABB7-8E99C7D475CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F96F6DE-D039-490B-ABB7-8E99C7D475CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
