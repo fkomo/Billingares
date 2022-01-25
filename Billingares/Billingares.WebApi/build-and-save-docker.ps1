@@ -6,16 +6,20 @@ try
 	# copy config files to solution root (temporary)
 	Copy-Item Billingares.WebApi\dockerfile -Destination .\dockerfile-Billingares.WebApi -verbose
 
-	# stop&remove old docker image
-	docker stop billingares.api
-	docker rm billingares.api
-	docker image prune -a -f
-
 	# build new docker image
 	docker build -f dockerfile-Billingares.WebApi -t billingares.api-docker .
+	
+	# save image
+	docker save -o billingares.api-docker.tar billingares.api-docker
 
-	# run new image on localhost:8088
-	docker run -d --name billingares.api -p 8089:80 billingares.api-docker
+	$timestamp = (Get-Date).ToString('yyyyMMddHHmmss')
+	$deployDestination = '.\Deploy\billingares.api-docker_' + $timestamp + '.tar'
+
+	# copy image to deploy dir
+	Move-Item -Path billingares.api-docker.tar -Destination $deployDestination -verbose
+
+	# load image
+	#docker load -i billingares.api-docker.tar
 
 	# remove temporary files
 	Remove-Item .\dockerfile-Billingares.WebApi -verbose

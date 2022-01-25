@@ -7,16 +7,20 @@ try
 	Copy-Item Billingares.App\dockerfile -Destination .\dockerfile-Billingares.App -verbose
 	Copy-Item Billingares.App\nginx.conf -Destination . -verbose
 
-	# stop&remove old docker image
-	docker stop billingares.app
-	docker rm billingares.app
-	docker image prune -a -f
-
 	# build new docker image
 	docker build -f dockerfile-Billingares.App -t billingares.app-docker .
 
-	# run new image on localhost:8088
-	docker run -d --name billingares.app -p 8088:80 billingares.app-docker
+	# save image
+	docker save -o billingares.app-docker.tar billingares.app-docker
+
+	$timestamp = (Get-Date).ToString('yyyyMMddHHmmss')
+	$deployDestination = '.\Deploy\billingares.app-docker_' + $timestamp + '.tar'
+
+	# copy image to deploy dir
+	Move-Item -Path billingares.app-docker.tar -Destination $deployDestination -verbose
+
+	# load image
+	#docker load -i billingares.app-docker.tar
 
 	# remove temporary files
 	Remove-Item .\dockerfile-Billingares.App -verbose
