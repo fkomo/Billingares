@@ -42,7 +42,9 @@ app.MapGet("/api/claims/{id}", ([FromServices] ClaimsRepository repository, stri
 		if (string.IsNullOrWhiteSpace(id))
 			return Results.BadRequest(nameof(id));
 
-		return Results.Ok(repository.List(id));
+		var items = repository.List(id);
+
+		return Results.Ok(items);
 	}
 	catch (global::System.Exception)
 	{
@@ -57,7 +59,9 @@ app.MapPost("/api/claim/{id}", ([FromServices] ClaimsRepository repository, stri
 		if (string.IsNullOrWhiteSpace(id))
 			return Results.BadRequest(nameof(id));
 
-		return Results.Ok(repository.List(id));
+		item = repository.Add(id, item);
+
+		return Results.Ok(item);
 	}
 	catch (global::System.Exception)
 	{
@@ -72,7 +76,9 @@ app.MapPost("/api/claims/{id}", ([FromServices] ClaimsRepository repository, str
 		if (string.IsNullOrWhiteSpace(id))
 			return Results.BadRequest(nameof(id));
 
-		return Results.Created($"/claims/{ id }", repository.Update(id, items));
+		items = repository.Update(id, items).ToArray();
+
+		return Results.Created($"/claims/{ id }", items);
 	}
 	catch (global::System.Exception)
 	{
