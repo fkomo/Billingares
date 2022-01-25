@@ -13,17 +13,17 @@ namespace Billingares.Api.Client.Services
 
 		public Task<IEnumerable<Claim>> List(string id)
 		{
-			return Get<IEnumerable<Claim>>($"api/claims/{ id }");
+			return Get<IEnumerable<Claim>>($"claims/{ id }");
 		}
 
 		public Task<IEnumerable<Claim>> Update(string id, Claim[] items)
 		{
-			return Post<Claim[], IEnumerable<Claim>>($"api/claims/{ id }", items);
+			return Post<Claim[], IEnumerable<Claim>>($"claims/{ id }", items);
 		}
 
 		public Task<Claim> Add(string id, Claim item)
 		{
-			return Post<Claim, Claim>($"api/claim/{ id }", item);
+			return Post<Claim, Claim>($"claim/{ id }", item);
 		}
 	}
 }

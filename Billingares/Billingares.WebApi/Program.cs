@@ -2,19 +2,31 @@ using Billingares.Base;
 using Billingares.WebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.AddJsonConsole();
 
 builder.Services.AddSingleton<ClaimsRepository>();
 
-// Add services to the container.
+// client addresses needs to be allowed here
+var AllowSpecificOrigins = "_allowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy(name: AllowSpecificOrigins,
+					  builder =>
+					  {
+						  builder.AllowAnyOrigin();
+						  builder.AllowAnyMethod();
+						  builder.AllowAnyHeader();
+					  });
+});
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
 app.UseHttpsRedirection();
+app.UseCors(AllowSpecificOrigins);
 
 
 app.MapGet("/", () =>
