@@ -5,7 +5,7 @@ namespace Billingares.Api.Client.Base
 {
 	public class ClientBase
 	{
-		protected string BaseUrl { get; private set; }
+		protected Uri BaseUri { get; private set; }
 
 		protected static HttpClient HttpClient { get; set; }
 
@@ -16,7 +16,7 @@ namespace Billingares.Api.Client.Base
 
 		public ClientBase(string baseUrl)
 		{
-			BaseUrl = baseUrl;
+			BaseUri = new Uri(baseUrl);
 		}
 
 		//protected Uri GetUri(string controllerRoute, string action, string queryString = null)
@@ -63,7 +63,7 @@ namespace Billingares.Api.Client.Base
 
 		protected async Task<TResponse> Post<TRequest, TResponse>(string route, TRequest request)
 		{
-			var uri = new Uri(route);
+			var uri = new Uri(BaseUri, route);
 			var response = await ClientBase.HttpClient.PostAsJsonAsync(uri, request);
 
 			response.EnsureSuccessStatusCode();
@@ -75,7 +75,7 @@ namespace Billingares.Api.Client.Base
 
 		protected async Task<TResponse> Get<TResponse>(string route)
 		{
-			var uri = new Uri(route);
+			var uri = new Uri(BaseUri, route);
 			var response = await ClientBase.HttpClient.GetAsync(uri);
 
 			response.EnsureSuccessStatusCode();

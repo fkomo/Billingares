@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Billingares.Base
 {
@@ -28,8 +29,6 @@ namespace Billingares.Base
 		}
 		private string _debtorList;
 
-		public string[] Debtors => DebtorList?.Split(", ")?.ToArray();
-
 		public string Description { get; set; }
 
 		public Claim()
@@ -52,6 +51,10 @@ namespace Billingares.Base
 			Description = claim.Description;
 		}
 
+		[JsonIgnore]
+		public string[] Debtors => DebtorList?.Split(", ")?.ToArray();
+
+		[JsonIgnore]
 		public IEnumerable<Transaction> Transactions => Debtors
 			?.Except(new string[] { Creditor })
 			?.Select(a => new Transaction(a, Creditor, Math.Round(Amount ?? 0 / Debtors.Length, 2)));

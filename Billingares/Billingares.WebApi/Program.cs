@@ -8,13 +8,26 @@ builder.Logging.AddJsonConsole();
 
 builder.Services.AddSingleton<ClaimsRepository>();
 
-// Add services to the container.
+builder.Services.AddSingleton<ClaimsRepository>();
+
+// client addresses needs to be allowed here
+var AllowSpecificOrigins = "_allowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy(name: AllowSpecificOrigins,
+					  builder =>
+					  {
+						  builder.AllowAnyOrigin();
+						  builder.AllowAnyMethod();
+						  builder.AllowAnyHeader();
+					  });
+});
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
 app.UseHttpsRedirection();
+app.UseCors(AllowSpecificOrigins);
 
 
 app.MapGet("/", () =>
@@ -44,9 +57,7 @@ app.MapPost("/api/claim/{id}", ([FromServices] ClaimsRepository repository, stri
 		if (string.IsNullOrWhiteSpace(id))
 			return Results.BadRequest(nameof(id));
 
-		item = repository.Add(id, item);
-
-		return Results.Ok(item);
+		return Results.Ok(repository.List(id));
 	}
 	catch (global::System.Exception)
 	{
