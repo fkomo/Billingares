@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Ujeby.Blazor.Base\Ujeby.Blazor.Base.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="..\.dockerignore" Link="Deploy\.dockerignore" />
+  </ItemGroup>
+
 </Project>

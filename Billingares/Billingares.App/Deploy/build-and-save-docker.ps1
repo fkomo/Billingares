@@ -1,11 +1,11 @@
 # move to solution root
-Set-Location -Path ".."
+Set-Location -Path "..\.."
 
 try
 {
 	# copy config files to solution root (temporary)
-	Copy-Item Billingares.App\dockerfile -Destination .\dockerfile-Billingares.App -verbose
-	Copy-Item Billingares.App\nginx.conf -Destination . -verbose
+	Copy-Item Billingares.App\Deploy\dockerfile -Destination .\dockerfile-Billingares.App -verbose
+	Copy-Item Billingares.App\Deploy\nginx.conf -Destination . -verbose
 
 	# build new docker image
 	docker build -f dockerfile-Billingares.App -t billingares.app-docker .
@@ -35,5 +35,5 @@ catch
 finally
 {
 	# move back app directory
-	Set-Location -Path ".\Billingares.App"
+	Set-Location -Path ".\Billingares.App\Deploy"
 }

@@ -1,11 +1,16 @@
-﻿using Billingares.App.ViewModels;
+﻿using Billingares.Api.Client.Services;
+using Billingares.App.ViewModels;
 using Billingares.Base;
+using Microsoft.AspNetCore.Components;
 using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.App.Components
 {
 	public partial class ClaimsComponent : ComponentBase<ClaimsViewModel, ApplicationState>
 	{
+		[Inject]
+		private ApplicationSettings AppSettings { get; set; }
+
 		private async void OnItemUpdatedAsync(object element)
 		{
 			await OnUpdateAsync();
@@ -67,6 +72,42 @@ namespace Billingares.App.Components
 		{
 			// TODO serialize claims and save somewhere ...
 			await Task.CompletedTask;
+		}
+
+		private async Task ListClaimsAsync()
+		{
+			IsBusy = true;
+
+			var client = new ClaimsClient(AppSettings.ApiUrl);
+			var response = await client.List(AppState.ClientId);
+
+			ViewModel.Claims = response.ToList();
+
+			IsBusy = false;
+		}
+
+		private async Task AddClaimAsync(Claim claim)
+		{
+			IsBusy = true;
+
+			var client = new ClaimsClient(AppSettings.ApiUrl);
+			var response = await client.Add(AppState.ClientId, claim);
+
+			ViewModel.Claims.Add(response);
+
+			IsBusy = false;
+		}
+
+		private async Task UpdateClaimsAsync()
+		{
+			IsBusy = true;
+
+			var client = new ClaimsClient(AppSettings.ApiUrl);
+			var response = await client.Update(AppState.ClientId, ViewModel.Claims.ToArray());
+
+			ViewModel.Claims = response.ToList();
+
+			IsBusy = false;
 		}
 	}
 }

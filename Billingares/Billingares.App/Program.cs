@@ -7,10 +7,11 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
 builder.Services.AddMudServices();
 
 builder.Services.AddScoped<ApplicationState>();
+
+builder.Services.AddSingleton((_) =>
+	builder.Configuration.GetSection(nameof(ApplicationSettings)).Get<ApplicationSettings>());
 
 await builder.Build().RunAsync();

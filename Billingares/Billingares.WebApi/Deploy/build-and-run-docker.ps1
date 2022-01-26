@@ -1,10 +1,10 @@
 # move to solution root
-Set-Location -Path ".."
+Set-Location -Path "..\.."
 
 try
 {
 	# copy config files to solution root (temporary)
-	Copy-Item Billingares.WebApi\dockerfile -Destination .\dockerfile-Billingares.WebApi -verbose
+	Copy-Item Billingares.WebApi\Deploy\dockerfile -Destination .\dockerfile-Billingares.WebApi -verbose
 
 	# stop&remove old docker image
 	docker stop billingares.api
@@ -29,5 +29,5 @@ catch
 finally
 {
 	# move back app directory
-	Set-Location -Path ".\Billingares.WebApi"
+	Set-Location -Path ".\Billingares.WebApi\Deploy"
 }
