@@ -7,11 +7,12 @@ namespace Billingares.App.Components
 	{
 		protected override async Task OnInitializedAsync()
 		{
-			AppState.OnChange += OnTransactionsChanged;
+			AppState.OnChange += OnTransactionsChangedAsync;
+
 			await base.OnInitializedAsync();
 		}
 
-		private async void OnTransactionsChanged()
+		private async void OnTransactionsChangedAsync()
 		{
 			await OnUpdateAsync();
 
@@ -20,7 +21,7 @@ namespace Billingares.App.Components
 
 		protected override void Dispose(bool disposing)
 		{
-			AppState.OnChange -= OnTransactionsChanged;
+			AppState.OnChange -= OnTransactionsChangedAsync;
 		}
 
 		protected override async Task OnUpdateAsync()

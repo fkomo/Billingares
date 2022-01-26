@@ -59,8 +59,12 @@ namespace Ujeby.Blazor.Base.Components
 
 		protected virtual async Task OnUpdateAsync()
 		{
+			StateHasChanged();
+
 			await Task.CompletedTask;
 		}
+
+		#region IDisposable & IAsyncDisposable
 
 		/// <summary>
 		/// https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose#implement-the-dispose-pattern
@@ -108,5 +112,7 @@ namespace Ujeby.Blazor.Base.Components
 		{
 			return ValueTask.CompletedTask;
 		}
+
+		#endregion
 	}
 }

@@ -9,7 +9,11 @@ namespace Billingares.App
 
         public ApplicationState()
 		{
+#if DEBUG
+            ClientId = "debug";
+#else
             ClientId = Guid.NewGuid().ToString("N");
+#endif
         }
 
         public Transaction[] Transactions { get; private set; }

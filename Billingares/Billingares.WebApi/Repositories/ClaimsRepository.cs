@@ -8,7 +8,6 @@ namespace Billingares.WebApi.Repositories
 
 		public ClaimsRepository()
 		{
-			Repository.Add("test", new List<Claim> { new Claim("jeden", 200M, "jeden,dva,tri") });
 		}
 
 		public IEnumerable<Claim> List(string id)

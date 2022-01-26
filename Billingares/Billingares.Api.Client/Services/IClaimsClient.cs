@@ -1,5 +1,4 @@
-﻿
-using Billingares.Base;
+﻿using Billingares.Base;
 
 namespace Billingares.Api.Client.Services
 {
@@ -7,8 +6,8 @@ namespace Billingares.Api.Client.Services
 	{
 		Task<IEnumerable<Claim>> List(string id);
 
-		Task<IEnumerable<Claim>> Update(string id, Claim[] items);
+		Task<IEnumerable<Claim>> Update(string id, Claim[] claims);
 
-		Task<Claim> Add(string id, Claim item);
+		Task<Claim> Add(string id, Claim claim);
 	}
 }

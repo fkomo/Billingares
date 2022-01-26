@@ -1,6 +1,4 @@
-﻿
-using Billingares.Api.Client.Base;
-using Billingares.Base;
+﻿using Billingares.Base;
 
 namespace Billingares.Api.Client.Services
 {
@@ -8,7 +6,6 @@ namespace Billingares.Api.Client.Services
 	{
 		public ClaimsClient(string baseUrl) : base(baseUrl)
 		{
-
 		}
 
 		public Task<IEnumerable<Claim>> List(string id)
@@ -16,14 +13,16 @@ namespace Billingares.Api.Client.Services
 			return Get<IEnumerable<Claim>>($"claims/{ id }");
 		}
 
-		public Task<IEnumerable<Claim>> Update(string id, Claim[] items)
+		public Task<IEnumerable<Claim>> Update(string id, Claim[] claims)
 		{
-			return Post<Claim[], IEnumerable<Claim>>($"claims/{ id }", items);
+			var request = new RequestEnvelope<Claim[]>(id, claims);
+			return Post<RequestEnvelope<Claim[]>, IEnumerable<Claim>>($"claims", request);
 		}
 
-		public Task<Claim> Add(string id, Claim item)
+		public Task<Claim> Add(string id, Claim claim)
 		{
-			return Post<Claim, Claim>($"claim/{ id }", item);
+			var request = new RequestEnvelope<Claim>(id, claim);
+			return Post<RequestEnvelope<Claim>, Claim>($"claim", request);
 		}
 	}
 }
