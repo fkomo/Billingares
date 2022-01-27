@@ -1,20 +1,20 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http.Json;
 
-namespace Billingares.Api.Client
+namespace Ujeby.Api.Client.Base
 {
-	public class ClientBase
+	public class ClientApiBase
 	{
 		protected Uri BaseUri { get; private set; }
 
 		protected static HttpClient HttpClient { get; set; }
 
-		static ClientBase()
+		static ClientApiBase()
 		{
 			HttpClient = new HttpClient();
 		}
 
-		public ClientBase(string baseUrl)
+		public ClientApiBase(string baseUrl)
 		{
 			BaseUri = new Uri(baseUrl);
 		}
@@ -23,7 +23,7 @@ namespace Billingares.Api.Client
 		{
 			var uri = new Uri(BaseUri, route);
 
-			var response = await ClientBase.HttpClient.PostAsJsonAsync(uri, request);
+			var response = await ClientApiBase.HttpClient.PostAsJsonAsync(uri, request);
 
 			response.EnsureSuccessStatusCode();
 
@@ -35,7 +35,7 @@ namespace Billingares.Api.Client
 		protected async Task<TResponse> Get<TResponse>(string route)
 		{
 			var uri = new Uri(BaseUri, route);
-			var response = await ClientBase.HttpClient.GetAsync(uri);
+			var response = await ClientApiBase.HttpClient.GetAsync(uri);
 
 			response.EnsureSuccessStatusCode();
 

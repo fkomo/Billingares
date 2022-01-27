@@ -129,18 +129,18 @@ namespace Billingares.App.Components
 
 		#endregion
 
-		private IClaimsClient CreateClaimsClient()
+		private IClaimsApi CreateClaimsClient()
 		{
 			if (!string.IsNullOrWhiteSpace(AppSettings.ApiUrl))
-				return new ClaimsClient(AppSettings.ApiUrl);
+				return new ClaimsApiClient(AppSettings.ApiUrl);
 
 			return new OfflineClaimsClient();
 		}
 
-		private ITransactionsClient CreateTransactionsClient()
+		private ITransactionsApi CreateTransactionsClient()
 		{
 			if (!string.IsNullOrWhiteSpace(AppSettings.ApiUrl))
-				return new TransactionsClient(AppSettings.ApiUrl);
+				return new TransactionsApiClient(AppSettings.ApiUrl);
 
 			return new OfflineTransactionsClient();
 		}

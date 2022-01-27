@@ -5,6 +5,16 @@ namespace Billingares.Base
 	{
 		public List<Transaction> Transactions { get; private set; } = new List<Transaction>();
 
+		public IEnumerable<Transaction> Add(Claim[] claims, bool optimize)
+		{
+			foreach (var claim in claims)
+				foreach (var transaction in claim.Transactions)
+					Add(transaction);
+
+			return optimize ?
+				Optimize() : Transactions.AsEnumerable();
+		}
+
 		public Transaction Add(Transaction transaction)
 		{
 			var oldTransaction = Transactions.SingleOrDefault(t => t.Flow == transaction.Flow);
@@ -41,7 +51,7 @@ namespace Billingares.Base
 			transactions.Select(t => t.From).Union(transactions.Select(t => t.To))
 				.Distinct();
 
-		public IEnumerable<Transaction> Minimalize()
+		public IEnumerable<Transaction> Optimize()
 		{
 			var users = ListUsers(Transactions);
 

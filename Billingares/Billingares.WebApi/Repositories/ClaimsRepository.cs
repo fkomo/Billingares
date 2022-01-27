@@ -2,7 +2,7 @@
 
 namespace Billingares.WebApi.Repositories
 {
-	class ClaimsRepository
+	public class ClaimsRepository
 	{
 		private readonly Dictionary<string, List<Claim>> Repository = new Dictionary<string, List<Claim>>();
 
@@ -12,8 +12,8 @@ namespace Billingares.WebApi.Repositories
 
 		public IEnumerable<Claim> List(string id)
 		{
-			if (Repository.TryGetValue(id, out List<Claim> claims))
-				return claims;
+			if (Repository.TryGetValue(id, out List<Claim> itemStorage))
+				return itemStorage;
 
 			var emptyList = Array.Empty<Claim>().ToList();
 			Repository.Add(id, emptyList);
@@ -22,8 +22,8 @@ namespace Billingares.WebApi.Repositories
 
 		public Claim Add(string id, Claim item)
 		{
-			if (Repository.TryGetValue(id, out List<Claim> claims))
-				claims.Add(item);
+			if (Repository.TryGetValue(id, out List<Claim> itemStorage))
+				itemStorage.Add(item);
 
 			else
 				Repository.Add(id, new List<Claim>(new Claim[] { item }));

@@ -2,18 +2,13 @@
 
 namespace Billingares.Api.Client.Services
 {
-	public class OfflineTransactionsClient : ITransactionsClient
+	public class OfflineTransactionsClient : ITransactionsApi
 	{
-		public Task<IEnumerable<Transaction>> List(string id, Claim[] claims, bool optimize)
+		public Task<IEnumerable<Transaction>> List(string clientId, Claim[] claims, bool optimize)
 		{
-			var tBag = new TransactionBag();
-			foreach (var claim in claims)
-				foreach (var transaction in claim.Transactions)
-					tBag.Add(transaction);
-			var transactions = optimize ?
-				tBag.Minimalize().ToArray() : tBag.Transactions.ToArray();
+			var transactions = new TransactionBag().Add(claims, optimize);
 
-			return Task.FromResult(transactions.AsEnumerable());
+			return Task.FromResult(transactions);
 		}
 	}
 }

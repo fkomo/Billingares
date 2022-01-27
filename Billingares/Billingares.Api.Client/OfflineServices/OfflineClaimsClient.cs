@@ -2,19 +2,19 @@
 
 namespace Billingares.Api.Client.Services
 {
-	public class OfflineClaimsClient : IClaimsClient
+	public class OfflineClaimsClient : IClaimsApi
 	{
-		public Task<IEnumerable<Claim>> List(string id)
+		public Task<IEnumerable<Claim>> List(string clientId)
 		{
 			return Task.FromResult(Array.Empty<Claim>().AsEnumerable());
 		}
 
-		public Task<IEnumerable<Claim>> Update(string id, Claim[] claims)
+		public Task<IEnumerable<Claim>> Update(string clientId, Claim[] claims)
 		{
 			return Task.FromResult(claims.AsEnumerable());
 		}
 
-		public Task<Claim> Add(string id, Claim claim)
+		public Task<Claim> Add(string clientId, Claim claim)
 		{
 			return Task.FromResult(claim);
 		}
