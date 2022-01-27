@@ -44,12 +44,10 @@ namespace Ujeby.Blazor.Base.Components
 			await OnUpdateAsync();
 		}
 
-        private async void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected virtual async void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is TViewModel viewModel)
+            if (sender is TViewModel)
 				await OnPropertyChangedAsync(e.PropertyName);
-
-			StateHasChanged();
 		}
 
 		protected virtual async Task OnLoadDataAsync()

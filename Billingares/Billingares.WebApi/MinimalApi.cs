@@ -1,4 +1,5 @@
-﻿using Billingares.Base;
+﻿using Billingares.Api.Interfaces;
+using Billingares.Base;
 using Billingares.WebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,14 +7,20 @@ namespace Billingares.WebApi
 {
 	public class MinimalApi
 	{
+		private static string ApiBaseUrl = "/api";
+	
 		public static void Use(WebApplication app)
 		{
-			app.MapGet("/api", () =>
+			app.MapGet(ApiBaseUrl, () =>
 			{
-				return "Billingares.Api";
+				return new ApiInfo("Billingares.Api (minimal)", ApiBaseUrl,
+					("/claims", typeof(IClaimsApi)),
+					("/transactions", typeof(ITransactionsApi))
+				);
 			});
 
-			app.MapPost("/api/transactions/list", (bool optimize, string clientId, [FromBody] Claim[] claims) =>
+			app.MapPost($"{ ApiBaseUrl }/transactions/list", (bool optimize, string clientId, 
+				[FromBody] Claim[] claims) =>
 			{
 				try
 				{
@@ -33,7 +40,7 @@ namespace Billingares.WebApi
 				}
 			});
 
-			app.MapGet("/api/claims/list", ([FromServices] ClaimsRepository repository, string clientId) =>
+			app.MapGet($"{ ApiBaseUrl }/claims/list", ([FromServices] IClaimsRepository repository, string clientId) =>
 			{
 				try
 				{
@@ -50,7 +57,8 @@ namespace Billingares.WebApi
 				}
 			});
 
-			app.MapPost("/api/claims/add", ([FromServices] ClaimsRepository repository, string clientId, [FromBody] Claim claim) =>
+			app.MapPost($"{ ApiBaseUrl }/claims/add", ([FromServices] IClaimsRepository repository, string clientId, 
+				[FromBody] Claim claim) =>
 			{
 				try
 				{
@@ -67,7 +75,8 @@ namespace Billingares.WebApi
 				}
 			});
 
-			app.MapPost("/api/claims/update", ([FromServices] ClaimsRepository repository, string clientId, [FromBody] Claim[] claims) =>
+			app.MapPost($"{ ApiBaseUrl }/claims/update", ([FromServices] IClaimsRepository repository, string clientId, 
+				[FromBody] Claim[] claims) =>
 			{
 				try
 				{

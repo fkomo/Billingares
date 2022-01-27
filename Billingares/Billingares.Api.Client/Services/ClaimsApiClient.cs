@@ -1,4 +1,5 @@
-﻿using Billingares.Base;
+﻿using Billingares.Api.Interfaces;
+using Billingares.Base;
 using Ujeby.Api.Client.Base;
 
 namespace Billingares.Api.Client.Services

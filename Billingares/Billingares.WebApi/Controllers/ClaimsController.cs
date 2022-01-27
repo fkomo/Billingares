@@ -1,4 +1,4 @@
-﻿using Billingares.Api.Client.Services;
+﻿using Billingares.Api.Interfaces;
 using Billingares.Base;
 using Billingares.WebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +10,9 @@ namespace Billingares.WebApi.Controllers
 	[ApiController]
 	public class ClaimsController : ApiControllerBase, IClaimsApi
 	{
-		private ClaimsRepository Repository { get; set; }
+		private IClaimsRepository Repository { get; set; }
 
-		public ClaimsController([FromServices] ClaimsRepository repository)
+		public ClaimsController([FromServices] IClaimsRepository repository)
 		{
 			Repository = repository;
 		}

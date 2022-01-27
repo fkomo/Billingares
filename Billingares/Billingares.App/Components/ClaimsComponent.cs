@@ -1,7 +1,9 @@
 ﻿using Billingares.Api.Client.Services;
+using Billingares.Api.Interfaces;
 using Billingares.App.ViewModels;
 using Billingares.Base;
 using Microsoft.AspNetCore.Components;
+using System.ComponentModel;
 using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.App.Components
@@ -74,7 +76,7 @@ namespace Billingares.App.Components
 
 		protected override async Task OnUpdateAsync()
 		{
-			var transactions = await ListTransactionsAsync(ViewModel.Claims.ToArray(), ViewModel.OptimizedTransactions);
+			var transactions = await ListTransactionsAsync(ViewModel.Claims.ToArray(), ViewModel.Optimize);
 
 			AppState.SetTransactions(transactions.ToArray());
 
@@ -118,11 +120,7 @@ namespace Billingares.App.Components
 
 		private async Task<IEnumerable<Transaction>> ListTransactionsAsync(Claim[] claims, bool optimize)
 		{
-			IsBusy = true;
-
 			var response = await CreateTransactionsClient().List(AppState.ClientId, claims, optimize);
-
-			IsBusy = false;
 
 			return response;
 		}
@@ -131,7 +129,7 @@ namespace Billingares.App.Components
 
 		private IClaimsApi CreateClaimsClient()
 		{
-			if (!string.IsNullOrWhiteSpace(AppSettings.ApiUrl))
+			if (!string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
 				return new ClaimsApiClient(AppSettings.ApiUrl);
 
 			return new OfflineClaimsClient();
@@ -139,7 +137,7 @@ namespace Billingares.App.Components
 
 		private ITransactionsApi CreateTransactionsClient()
 		{
-			if (!string.IsNullOrWhiteSpace(AppSettings.ApiUrl))
+			if (!string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
 				return new TransactionsApiClient(AppSettings.ApiUrl);
 
 			return new OfflineTransactionsClient();

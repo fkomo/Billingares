@@ -1,4 +1,4 @@
-﻿using Billingares.Api.Client.Services;
+﻿using Billingares.Api.Interfaces;
 using Billingares.Base;
 using Microsoft.AspNetCore.Mvc;
 using Ujeby.Api.Base;

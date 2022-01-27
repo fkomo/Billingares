@@ -1,6 +1,6 @@
 ﻿using Billingares.Base;
 
-namespace Billingares.Api.Client.Services
+namespace Billingares.Api.Interfaces
 {
 	public interface IClaimsApi
 	{

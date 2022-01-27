@@ -1,4 +1,3 @@
-using Billingares.WebApi;
 using Billingares.WebApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +9,12 @@ builder.Services.AddControllers();
 
 builder.Logging.AddJsonConsole();
 
-builder.Services.AddSingleton<ClaimsRepository>();
+// created once pre each injection
+//builder.Services.AddTransient<IClaimsRepository, ClaimsRepository>();
+// created once per request
+//builder.Services.AddScoped<IClaimsRepository, ClaimsRepository>();
+// created only once per application
+builder.Services.AddSingleton<IClaimsRepository, ClaimsRepository>();
 
 var AllowSpecificOrigins = "_allowSpecificOrigins";
 builder.Services.AddCors(options =>
@@ -31,7 +35,7 @@ app.UseHttpsRedirection();
 app.UseCors(AllowSpecificOrigins);
 
 #if MINIMAL_API
-MinimalApi.Use(app);
+Billingares.WebApi.MinimalApi.Use(app);
 #else
 app.UseAuthorization();
 app.MapControllers();
