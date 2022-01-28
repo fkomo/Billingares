@@ -28,13 +28,14 @@
 							  Label="@nameof(Claim.Description)" />
 			</MudCardContent>
 			<MudCardActions>
-				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Icon="@Icons.Material.Filled.Add">Add</MudButton>
+				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto"
+						   Icon="@Icons.Material.Filled.Add">Add</MudButton>
 			</MudCardActions>
 		</EditForm>
 	</MudItem>
 
 	<MudItem xs="12">
-		<MudTable Items="@ViewModel.Claims" Loading="@IsBusy" Striped="true" MultiSelection="true"  LoadingProgressColor="Color.Primary"
+		<MudTable Items="@ViewModel.Claims" Loading="@IsBusy" Striped="true" MultiSelection="true" LoadingProgressColor="Color.Primary"
 				  Dense="true" Hover="true" ReadOnly="false" CanCancelEdit="true" Filter="new Func<Claim, bool>(ViewModel.FilterFunc)"
 				  RowEditCommit="OnItemEditCommitAsync" IsEditRowSwitchingBlocked="false"
 				  SortLabel="Sort By" CommitEditTooltip="Commit Edit"
@@ -55,7 +56,12 @@
 			<RowTemplate>
 				<MudTd DataLabel="@nameof(context.Creditor)">@context.Creditor</MudTd>
 				<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount.Value)</MudTd>
-				<MudTd DataLabel="@nameof(context.Debtors)">@context.DebtorList</MudTd>
+				<MudTd>
+					@foreach (var debtor in @context.Debtors)
+					{
+						<MudChip Label="true" Variant="Variant.Text" Size="Size.Medium">@debtor</MudChip>
+					}
+				</MudTd>
 				<MudTd DataLabel="@nameof(context.Description)">@context.Description</MudTd>
 			</RowTemplate>
 			<RowEditingTemplate>
@@ -74,21 +80,24 @@
 			</RowEditingTemplate>
 		</MudTable>
 	</MudItem>
-	<MudItem xs="12">
 
+	<MudItem xs="12">
 		<div class="d-flex flex-wrap mt-4">
 			<MudSwitch @bind-Checked="@ViewModel.Optimize" Label="Optimize" Color="Color.Primary" />
-
 			@if (ViewModel.Claims.Any())
 			{
 				<MudSpacer />
 				@if (ViewModel.SelectedItems.Any())
 				{
-					<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" 
-						OnClick="RemoveSelectedItemsAsync">Delete</MudButton>
+					<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Style="margin-right:10px;"
+					   OnClick="RemoveSelectedItemsAsync">Delete</MudButton>
 				}
+				<ShareComponent />
 			}
 		</div>
-
 	</MudItem>
 </MudGrid>
+
+@code {
+	private MudTheme Theme = new MudTheme();
+}

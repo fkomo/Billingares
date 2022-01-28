@@ -129,18 +129,23 @@ namespace Billingares.App.Components
 
 		private IClaimsApi CreateClaimsClient()
 		{
-			if (!string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
-				return new ClaimsApiClient(AppSettings.ApiUrl);
+			if (string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
+				return new OfflineClaimsClient();
 
-			return new OfflineClaimsClient();
+			return new ClaimsApiClient(AppSettings.ApiUrl);
 		}
 
 		private ITransactionsApi CreateTransactionsClient()
 		{
-			if (!string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
-				return new TransactionsApiClient(AppSettings.ApiUrl);
+			if (string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
+				return new OfflineTransactionsClient();
 
-			return new OfflineTransactionsClient();
+			return new TransactionsApiClient(AppSettings.ApiUrl);
+		}
+
+		private static string GetColor(string value)
+		{
+			return "#ff0000";
 		}
 	}
 }

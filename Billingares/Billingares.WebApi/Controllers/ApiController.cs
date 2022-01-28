@@ -1,4 +1,5 @@
-﻿using Billingares.Api.Interfaces;
+﻿using Billingares.Api;
+using Billingares.Api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Ujeby.Api.Base;
 
@@ -8,10 +9,17 @@ namespace Billingares.WebApi.Controllers
 	[ApiController]
 	public class ApiController : ApiControllerBase
 	{
-		[HttpGet]
-		public Task<ApiInfo> Index()
+		private readonly IConfiguration Configuration;
+
+		public ApiController(IConfiguration configuration)
 		{
-			return Task.FromResult(new ApiInfo("Billingares.Api", "/api",
+			Configuration = configuration;
+		}
+
+		[HttpGet]
+		public Task<AppInfo> Index()
+		{
+			return Task.FromResult(new AppInfo(Configuration["AppInfo:Name"], Configuration["AppInfo:Version"], "/api",
 				("/claims", typeof(IClaimsApi)), 
 				("/transactions", typeof(ITransactionsApi))
 			));

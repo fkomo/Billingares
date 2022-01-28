@@ -1,21 +1,21 @@
-﻿using System;
-
-namespace Billingares.WebApi
+﻿namespace Billingares.Api
 {
-	public class ApiInfo
+	public class AppInfo
 	{
 		public string Name { get; set; }
+		public string Version { get; set; }
 		public string[] Endpoints { get; set; }
 
-		public ApiInfo(string name)
+		public AppInfo()
 		{
-			Name = name;
-			Endpoints = Array.Empty<string>();
+
 		}
 
-		public ApiInfo(string name, string endpointBase, params (string, Type)[] endpoints) : this(name)
+		public AppInfo(string name, string version, string endpointBase, params (string, Type)[] endpoints)
 		{
 			Name = name;
+			Version = version;
+
 			Endpoints = endpoints.Select(e => 
 				e.Item2.GetMembers().Select(mi => $"{ endpointBase }{ e.Item1 }/{ mi.Name.ToLower() }"))
 					.SelectMany(e => e)

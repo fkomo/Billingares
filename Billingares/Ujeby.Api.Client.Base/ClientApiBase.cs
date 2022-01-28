@@ -32,7 +32,7 @@ namespace Ujeby.Api.Client.Base
 			));
 		}
 
-		protected async Task<TResponse> Get<TResponse>(string route)
+		protected async Task<TResponse> Get<TResponse>(string route = null)
 		{
 			var uri = new Uri(BaseUri, route);
 			var response = await ClientApiBase.HttpClient.GetAsync(uri);

@@ -1,4 +1,5 @@
-﻿using Billingares.Api.Interfaces;
+﻿using Billingares.Api;
+using Billingares.Api.Interfaces;
 using Billingares.Base;
 using Billingares.WebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +12,9 @@ namespace Billingares.WebApi
 	
 		public static void Use(WebApplication app)
 		{
-			app.MapGet(ApiBaseUrl, () =>
+			app.MapGet(ApiBaseUrl, ([FromServices] IConfiguration configuration) =>
 			{
-				return new ApiInfo("Billingares.Api (minimal)", ApiBaseUrl,
+				return new AppInfo(configuration["AppInfo:Name"], configuration["AppInfo:Version"], ApiBaseUrl,
 					("/claims", typeof(IClaimsApi)),
 					("/transactions", typeof(ITransactionsApi))
 				);

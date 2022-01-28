@@ -5,7 +5,7 @@ namespace Billingares.App
 {
     public class ApplicationState : ApplicationStateBase
     {
-        public string ClientId { get; private set; }
+        public string ClientId { get; set; }
 
         public ApplicationState()
 		{

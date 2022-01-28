@@ -1,0 +1,1 @@
+﻿run build* scripts from this (deploy) folder

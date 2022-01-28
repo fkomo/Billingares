@@ -1,0 +1,8 @@
+﻿@using Billingares.App.ViewModels
+@using Billingares.Base
+@using Ujeby.Blazor.Base.Components
+
+@inherits ComponentBase<ShareViewModel, ApplicationState>;
+
+<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Share" Color="Color.Info"
+		   OnClick="GenerateShareLinkAsync">Share</MudButton>
