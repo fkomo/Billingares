@@ -11,12 +11,6 @@ namespace Billingares.App.Components
 			new string[] { "https://", "http://localhost" }
 				.Any(s => MyNavigationManager.BaseUri.StartsWith(s));
 
-		[Inject]
-		private ApplicationSettings AppSettings { get; set; }
-
-		[Inject]
-		private MudBlazor.IDialogService DialogService { get; set; }
-
 		[Inject] 
 		private ClipboardService ClipboardService { get; set; }
 
