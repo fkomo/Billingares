@@ -7,6 +7,10 @@ namespace Billingares.App.Components
 {
 	public partial class ShareComponent : ComponentBase<ShareViewModel, ApplicationState>
 	{
+		private bool IsSecureConnection =>
+			new string[] { "https://", "http://localhost" }
+				.Any(s => MyNavigationManager.BaseUri.StartsWith(s));
+
 		[Inject]
 		private ApplicationSettings AppSettings { get; set; }
 
@@ -22,17 +26,15 @@ namespace Billingares.App.Components
 		private async Task GenerateShareLinkAsync()
 		{
 			ViewModel.ShareUrl = $"{ MyNavigationManager.BaseUri }{ AppState.ClientId }";
+			ViewModel.IsOpen = true;
 
-			await DialogService.ShowMessageBox(ViewModel.ShareUrl, "", "Copy",
-				options: new MudBlazor.DialogOptions
-				{
-					CloseButton = false,
-					NoHeader = false,
-				});
+			await Task.CompletedTask;
+		}
 
+		private async Task CopyUrlToClipboardAsync()
+		{
 			await ClipboardService.WriteTextAsync(ViewModel.ShareUrl);
-
-			StateHasChanged();
+			ViewModel.IsOpen = false;
 		}
 	}
 }

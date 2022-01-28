@@ -1,24 +1,29 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Ujeby.Blazor.Base.Services
 {
+	/// <summary>
+	/// requires a secure origin — either HTTPS or localhost
+	/// </summary>
 	public sealed class ClipboardService
 	{
-		private readonly IJSRuntime _jsRuntime;
+		[Inject]
+		private IJSRuntime JSRuntime { get; set; }
 
 		public ClipboardService(IJSRuntime jsRuntime)
 		{
-			_jsRuntime = jsRuntime;
+			JSRuntime = jsRuntime;
 		}
 
-		public ValueTask<string> ReadTextAsync()
+		public async Task<string> ReadTextAsync()
 		{
-			return _jsRuntime.InvokeAsync<string>("navigator.clipboard.readText");
+			return await JSRuntime.InvokeAsync<string>("navigator.clipboard.readText");
 		}
 
-		public ValueTask WriteTextAsync(string text)
+		public async Task WriteTextAsync(string text)
 		{
-			return _jsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
+			await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
 		}
 	}
 }

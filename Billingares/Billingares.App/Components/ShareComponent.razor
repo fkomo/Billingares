@@ -6,3 +6,15 @@
 
 <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Share" Color="Color.Info"
 		   OnClick="GenerateShareLinkAsync">Share</MudButton>
+
+<MudOverlay @bind-Visible="ViewModel.IsOpen" DarkBackground="true" AutoClose="true"/>
+<MudPopover Open="@ViewModel.IsOpen" Fixed="true" Class="px-4 pt-4" OverflowBehavior="OverflowBehavior.FlipAlways"
+			AnchorOrigin="Origin.CenterCenter" TransformOrigin="Origin.CenterCenter" Paper="true">
+	<div class="d-flex flex-column">
+		<MudText><a target="_blank" href="@ViewModel.ShareUrl">@ViewModel.ShareUrl</a></MudText>
+		@if(IsSecureConnection)
+		{
+			<MudButton OnClick="CopyUrlToClipboardAsync" Class="ml-auto mr-n3 mb-1" Color="Color.Info">Copy</MudButton>
+		}
+	</div>
+</MudPopover>

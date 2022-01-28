@@ -16,16 +16,27 @@ builder.Logging.AddJsonConsole();
 // created only once per application
 builder.Services.AddSingleton<IClaimsRepository, ClaimsRepository>();
 
+var allowedOrigins = builder.Configuration["AllowedOrigins"].Split(',', StringSplitOptions.RemoveEmptyEntries);
+
 var AllowSpecificOrigins = "_allowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy(name: AllowSpecificOrigins,
 		builder =>
 		{
-			// client addresses needs to be allowed here
-			builder.AllowAnyOrigin();
-			builder.AllowAnyMethod();
-			builder.AllowAnyHeader();
+			//builder.AllowAnyOrigin();
+			builder.WithOrigins(allowedOrigins);
+
+			//builder.AllowAnyMethod();
+			builder.WithMethods(
+				"GET",
+				"POST"
+			);
+
+			//builder.AllowAnyHeader();
+			builder.WithHeaders(
+				"content-type"
+			);
 		});
 });
 
