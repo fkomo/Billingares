@@ -1,89 +1,55 @@
-using Billingares.Base;
 using Billingares.WebApi.Repositories;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#if MINIMAL_API
+#else
+builder.Services.AddControllers();
+#endif
+
 builder.Logging.AddJsonConsole();
 
-builder.Services.AddSingleton<ClaimsRepository>();
+// created once pre each injection
+//builder.Services.AddTransient<IClaimsRepository, ClaimsRepository>();
+// created once per request
+//builder.Services.AddScoped<IClaimsRepository, ClaimsRepository>();
+// created only once per application
+builder.Services.AddSingleton<IClaimsRepository, ClaimsRepository>();
 
-builder.Services.AddSingleton<ClaimsRepository>();
+var allowedOrigins = builder.Configuration["AllowedOrigins"].Split(',', StringSplitOptions.RemoveEmptyEntries);
 
-// client addresses needs to be allowed here
 var AllowSpecificOrigins = "_allowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy(name: AllowSpecificOrigins,
-					  builder =>
-					  {
-						  builder.AllowAnyOrigin();
-						  builder.AllowAnyMethod();
-						  builder.AllowAnyHeader();
-					  });
-});
+		builder =>
+		{
+			//builder.AllowAnyOrigin();
+			builder.WithOrigins(allowedOrigins);
 
+			//builder.AllowAnyMethod();
+			builder.WithMethods(
+				"GET",
+				"POST"
+			);
+
+			//builder.AllowAnyHeader();
+			builder.WithHeaders(
+				"content-type"
+			);
+		});
+});
 
 var app = builder.Build();
 
 app.UseHttpsRedirection();
 app.UseCors(AllowSpecificOrigins);
 
-
-app.MapGet("/", () =>
-{
-	return "Billingares.Api";
-});
-
-app.MapGet("/api/claims/{id}", ([FromServices] ClaimsRepository repository, string id) =>
-{
-	try
-	{
-		if (string.IsNullOrWhiteSpace(id))
-			return Results.BadRequest(nameof(id));
-
-		var items = repository.List(id);
-
-		return Results.Ok(items);
-	}
-	catch (global::System.Exception)
-	{
-		return Results.Problem();
-	}
-});
-
-app.MapPost("/api/claim/{id}", ([FromServices] ClaimsRepository repository, string id, Claim item) =>
-{
-	try
-	{
-		if (string.IsNullOrWhiteSpace(id))
-			return Results.BadRequest(nameof(id));
-
-		item = repository.Add(id, item);
-
-		return Results.Ok(item);
-	}
-	catch (global::System.Exception)
-	{
-		return Results.Problem();
-	}
-});
-
-app.MapPost("/api/claims/{id}", ([FromServices] ClaimsRepository repository, string id, Claim[] items) =>
-{
-	try
-	{
-		if (string.IsNullOrWhiteSpace(id))
-			return Results.BadRequest(nameof(id));
-
-		items = repository.Update(id, items).ToArray();
-
-		return Results.Created($"/claims/{ id }", items);
-	}
-	catch (global::System.Exception)
-	{
-		return Results.Problem();
-	}
-});
+#if MINIMAL_API
+Billingares.WebApi.MinimalApi.Use(app);
+#else
+app.UseAuthorization();
+app.MapControllers();
+#endif
 
 app.Run();

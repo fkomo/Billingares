@@ -11,8 +11,6 @@
   "profiles": {
     "Billingares.WebApi": {
       "commandName": "Project",
-      "launchBrowser": false,
-      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -21,18 +19,18 @@
     },
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": false,
-      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Docker": {
-        "commandName": "Docker",
-        "launchBrowser": false,
-        "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-        "publishAllPorts": true,
-        "useSSL": true
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Release"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
     }
   }
 }

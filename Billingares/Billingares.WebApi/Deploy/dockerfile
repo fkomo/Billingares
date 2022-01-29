@@ -1,12 +1,13 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Billingares.WebApi/Billingares.WebApi.csproj", "Billingares.WebApi/"]
+COPY ["Billingares.Api.Client/Billingares.Api.Client.csproj", "Billingares.Api.Client/"]
 COPY ["Billingares.Base/Billingares.Base.csproj", "Billingares.Base/"]
+COPY ["Ujeby.Api.Base/Ujeby.Api.Base.csproj", "Ujeby.Api.Base/"]
 RUN dotnet restore "Billingares.WebApi/Billingares.WebApi.csproj"
 COPY . .
 WORKDIR "/src/Billingares.WebApi"

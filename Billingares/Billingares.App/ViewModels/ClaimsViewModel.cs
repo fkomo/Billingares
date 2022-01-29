@@ -16,15 +16,15 @@ namespace Billingares.App.ViewModels
 
 		public Claim BeforeEdit { get; set; }
 
-		private bool optimizedTransactions;
-		public bool OptimizedTransactions
+		private bool optimize;
+		public bool Optimize
 		{
-			get { return optimizedTransactions; }
+			get { return optimize; }
 			set
 			{
-				if (value != optimizedTransactions)
+				if (value != optimize)
 				{
-					optimizedTransactions = value;
+					optimize = value;
 					OnPropertyChanged();
 				}
 			}

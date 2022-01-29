@@ -15,8 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Billingares.Api.Client\Billingares.Api.Client.csproj" />
     <ProjectReference Include="..\Billingares.Base\Billingares.Base.csproj" />
     <ProjectReference Include="..\Ujeby.Blazor.Base\Ujeby.Blazor.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="..\.dockerignore" Link="Deploy\.dockerignore" />
   </ItemGroup>
 
 </Project>

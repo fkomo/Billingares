@@ -44,12 +44,10 @@ namespace Ujeby.Blazor.Base.Components
 			await OnUpdateAsync();
 		}
 
-        private async void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected virtual async void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is TViewModel viewModel)
+            if (sender is TViewModel)
 				await OnPropertyChangedAsync(e.PropertyName);
-
-			StateHasChanged();
 		}
 
 		protected virtual async Task OnLoadDataAsync()
@@ -59,8 +57,12 @@ namespace Ujeby.Blazor.Base.Components
 
 		protected virtual async Task OnUpdateAsync()
 		{
+			StateHasChanged();
+
 			await Task.CompletedTask;
 		}
+
+		#region IDisposable & IAsyncDisposable
 
 		/// <summary>
 		/// https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose#implement-the-dispose-pattern
@@ -108,5 +110,7 @@ namespace Ujeby.Blazor.Base.Components
 		{
 			return ValueTask.CompletedTask;
 		}
+
+		#endregion
 	}
 }

@@ -1,23 +1,25 @@
-﻿using Billingares.App.ViewModels;
+﻿using Billingares.Api.Client.Services;
+using Billingares.Api.Interfaces;
+using Billingares.App.ViewModels;
 using Billingares.Base;
+using Microsoft.AspNetCore.Components;
+using System.ComponentModel;
 using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.App.Components
 {
 	public partial class ClaimsComponent : ComponentBase<ClaimsViewModel, ApplicationState>
 	{
-		private async void OnItemUpdatedAsync(object element)
-		{
-			await OnUpdateAsync();
-		}
+		[Inject]
+		private ApplicationSettings AppSettings { get; set; }
 
-		private void OnItemUpdatePreview(object element)
+		private void OnItemEditPreview(object element)
 		{
 			var claimToBackup = (Claim)element;
 			ViewModel.BeforeEdit = new Claim(claimToBackup);
 		}
 
-		private void OnItemResetOriginal(object element)
+		private void OnItemEditCancel(object element)
 		{
 			var claim = (Claim)element;
 
@@ -29,44 +31,121 @@ namespace Billingares.App.Components
 			ViewModel.BeforeEdit = null;
 		}
 
-		private async Task AddNewItemAsync()
+		private async void OnItemEditCommitAsync(object element)
 		{
-			ViewModel.Claims.Add(ViewModel.ToAdd);
+			//var changedClaim = element as Claim;
+			var claims = await UpdateClaimsAsync(ViewModel.Claims.ToArray());
+
+			ViewModel.Claims = claims.ToList();
+
+			await OnUpdateAsync();
+		}
+
+		private async void OnItemSubmitAsync()
+		{
+			var toAddTmp = ViewModel.ToAdd;
+
+			toAddTmp = await AddClaimAsync(toAddTmp);
+
+			ViewModel.Claims.Add(toAddTmp);
 			ViewModel.ToAdd = new Claim();
 
 			await OnUpdateAsync();
 		}
 
-		protected override async Task OnUpdateAsync()
+		private async void RemoveSelectedItemsAsync()
 		{
-			var tBag = new TransactionBag();
+			var newClaimsTmp = ViewModel.Claims.Except(ViewModel.SelectedItems);
 
-			foreach (var claim in ViewModel.Claims)
-				foreach (var transaction in claim.Transactions)
-					tBag.Add(transaction);
+			var claims = await UpdateClaimsAsync(newClaimsTmp.ToArray());
 
-			var transactions = ViewModel.OptimizedTransactions ?
-				tBag.Minimalize().ToArray() : tBag.Transactions.ToArray();
-
-			AppState.SetTransactions(transactions);
-
-			await Task.CompletedTask;
-		}
-
-		public async Task RemoveSelectedItems()
-		{
-			foreach (var item in ViewModel.SelectedItems)
-				ViewModel.Claims.Remove(item);
-
+			ViewModel.Claims = claims.ToList();
 			ViewModel.SelectedItems.Clear();
 
 			await OnUpdateAsync();
 		}
 
-		public async Task Save()
+		protected override async Task OnLoadDataAsync()
 		{
-			// TODO serialize claims and save somewhere ...
-			await Task.CompletedTask;
+			var claims = await ListClaimsAsync();
+
+			ViewModel.Claims = claims.ToList();
+
+			await base.OnLoadDataAsync();
+		}
+
+		protected override async Task OnUpdateAsync()
+		{
+			var transactions = await ListTransactionsAsync(ViewModel.Claims.ToArray(), ViewModel.Optimize);
+
+			AppState.SetTransactions(transactions.ToArray());
+
+			await base.OnUpdateAsync();
+		}
+
+		#region api calls
+
+		private async Task<IEnumerable<Claim>> ListClaimsAsync()
+		{
+			IsBusy = true;
+
+			var response = await CreateClaimsClient().List(AppState.ClientId);
+
+			IsBusy = false;
+
+			return response;
+		}
+
+		private async Task<Claim> AddClaimAsync(Claim claim)
+		{
+			IsBusy = true;
+
+			var response = await CreateClaimsClient().Add(AppState.ClientId, claim);
+
+			IsBusy = false;
+
+			return response;
+		}
+
+		private async Task<IEnumerable<Claim>> UpdateClaimsAsync(Claim[] claims)
+		{
+			IsBusy = true;
+
+			var response = await CreateClaimsClient().Update(AppState.ClientId, claims);
+
+			IsBusy = false;
+
+			return response;
+		}
+
+		private async Task<IEnumerable<Transaction>> ListTransactionsAsync(Claim[] claims, bool optimize)
+		{
+			var response = await CreateTransactionsClient().List(AppState.ClientId, claims, optimize);
+
+			return response;
+		}
+
+		#endregion
+
+		private IClaimsApi CreateClaimsClient()
+		{
+			if (string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
+				return new OfflineClaimsClient();
+
+			return new ClaimsApiClient(AppSettings.ApiUrl);
+		}
+
+		private ITransactionsApi CreateTransactionsClient()
+		{
+			if (string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
+				return new OfflineTransactionsClient();
+
+			return new TransactionsApiClient(AppSettings.ApiUrl);
+		}
+
+		private static string GetColor(string value)
+		{
+			return "#ff0000";
 		}
 	}
 }

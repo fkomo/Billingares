@@ -11,7 +11,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ujeby.Blazor.Base", "Ujeby.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.WebApi", "Billingares.WebApi\Billingares.WebApi.csproj", "{EBEF1E80-D30A-4C1D-A790-D8C75BD13EA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billingares.Api.Client", "Billingares.Api.Client\Billingares.Api.Client.csproj", "{5F96F6DE-D039-490B-ABB7-8E99C7D475CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.Api.Client", "Billingares.Api.Client\Billingares.Api.Client.csproj", "{5F96F6DE-D039-490B-ABB7-8E99C7D475CF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ujeby.Api.Base", "Ujeby.Api.Base\Ujeby.Api.Base.csproj", "{942D3B58-3F57-4669-BBC1-61E7DB531EBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{1CEA7F57-929E-4DA8-B872-44C0697B5564}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ujeby.Api.Client.Base", "Ujeby.Api.Client.Base\Ujeby.Api.Client.Base.csproj", "{BAE8BA14-6BE2-4B0C-B55A-052B0BCD1093}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{FE7C41A7-7B6E-463F-B971-0CFF90AD37AA}"
+	ProjectSection(SolutionItems) = preProject
+		Deploy\build-and-save-docker.ps1 = Deploy\build-and-save-docker.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +50,22 @@ Global
 		{5F96F6DE-D039-490B-ABB7-8E99C7D475CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F96F6DE-D039-490B-ABB7-8E99C7D475CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F96F6DE-D039-490B-ABB7-8E99C7D475CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{942D3B58-3F57-4669-BBC1-61E7DB531EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942D3B58-3F57-4669-BBC1-61E7DB531EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942D3B58-3F57-4669-BBC1-61E7DB531EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942D3B58-3F57-4669-BBC1-61E7DB531EBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAE8BA14-6BE2-4B0C-B55A-052B0BCD1093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAE8BA14-6BE2-4B0C-B55A-052B0BCD1093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAE8BA14-6BE2-4B0C-B55A-052B0BCD1093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAE8BA14-6BE2-4B0C-B55A-052B0BCD1093}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B720C3D8-4013-427F-80C6-23E23CA4C9DF} = {1CEA7F57-929E-4DA8-B872-44C0697B5564}
+		{942D3B58-3F57-4669-BBC1-61E7DB531EBC} = {1CEA7F57-929E-4DA8-B872-44C0697B5564}
+		{BAE8BA14-6BE2-4B0C-B55A-052B0BCD1093} = {1CEA7F57-929E-4DA8-B872-44C0697B5564}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F7678A3-7720-421B-9432-7B56C2514208}
