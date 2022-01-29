@@ -14,8 +14,8 @@
 /Billingares/Billingares.WebApi/obj
 /Billingares/Billingares.Api.Client/bin
 /Billingares/Billingares.Api.Client/obj
-/Billingares/Deploy
 /Billingares/Ujeby.Api.Base/obj
 /Billingares/Ujeby.Api.Base/bin
 /Billingares/Ujeby.Api.Client.Base/bin
 /Billingares/Ujeby.Api.Client.Base/obj
+/Billingares/Deploy/*.tar

@@ -40,6 +40,6 @@ finally
 	# restore appsettings.Debug.json
 	Copy-Item Billingares.App\wwwroot\appsettings.Debug.json -Destination Billingares.App\wwwroot\appsettings.json -verbose
 
-	# move back app directory
+	# move back to app directory
 	Set-Location -Path ".\Billingares.App\Deploy"
 }

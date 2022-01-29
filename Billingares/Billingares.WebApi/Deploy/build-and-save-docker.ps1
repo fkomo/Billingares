@@ -38,6 +38,6 @@ finally
 	# restore appsettings.Debug.json
 	Copy-Item Billingares.WebApi\appsettings.Debug.json -Destination Billingares.WebApi\appsettings.json -verbose
 
-	# move back app directory
+	# move back to app directory
 	Set-Location -Path ".\Billingares.WebApi\Deploy"
 }

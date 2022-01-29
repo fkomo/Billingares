@@ -18,7 +18,7 @@ try
 	# build new docker image
 	docker build -f dockerfile-Billingares.App -t billingares.app-docker .
 
-	# run new image on localhost:8088
+	# run new image on localhost
 	docker run -d --name billingares.app -p 8088:80 billingares.app-docker
 
 	Write-Output "... Success!"
@@ -36,6 +36,6 @@ finally
 	# restore appsettings.Debug.json
 	Copy-Item Billingares.App\wwwroot\appsettings.Debug.json -Destination Billingares.App\wwwroot\appsettings.json -verbose
 
-	# move back app directory
+	# move back to app directory
 	Set-Location -Path ".\Billingares.App\Deploy"
 }
