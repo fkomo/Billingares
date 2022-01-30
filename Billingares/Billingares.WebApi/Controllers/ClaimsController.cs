@@ -18,21 +18,21 @@ namespace Billingares.WebApi.Controllers
 		}
 
 		[HttpPost]
-		public Task<Claim> Add(string clientId, Claim claim)
+		public async Task<Claim> Add(string clientId, Claim claim)
 		{
-			return Task.FromResult(Repository.Add(clientId, claim));
+			return await Repository.AddAsync(clientId, claim);
 		}
 
 		[HttpGet]
-		public Task<IEnumerable<Claim>> List(string clientId)
+		public async Task<IEnumerable<Claim>> List(string clientId)
 		{
-			return Task.FromResult(Repository.List(clientId));
+			return await Repository.ListAsync(clientId);
 		}
 
 		[HttpPost]
-		public Task<IEnumerable<Claim>> Update(string clientId, Claim[] claims)
+		public async Task<IEnumerable<Claim>> Update(string clientId, Claim[] claims)
 		{
-			return Task.FromResult(Repository.Update(clientId, claims));
+			return await Repository.UpdateAsync(clientId, claims);
 		}
 	}
 }
