@@ -1,69 +1,77 @@
 ﻿using Billingares.Base;
+using System.Text.Json;
+using Ujeby.Api.Base.Db;
 
 namespace Billingares.WebApi.Repositories
 {
-	public interface IRepository<TItem>
-		where TItem : class
+	public class ClaimsRepository : KeyDataRepository, IClaimsRepository
 	{
-		TItem Get(string key);
-		TItem Update(string key, TItem item);
-	}
-
-	public interface IListRepository<TItem>
-		where TItem : class
-	{
-		TItem Add(string key, TItem item);
-		IEnumerable<TItem> List(string key);
-	}
-
-	public interface IClaimsRepository : IRepository<IEnumerable<Claim>>, IListRepository<Claim>
-	{
-
-	}
-
-	public class ClaimsRepository : IClaimsRepository
-	{
-		private readonly Dictionary<string, List<Claim>> Repository = new();
-
-		public ClaimsRepository()
+		public ClaimsRepository(IConfiguration configuration) : base(null)
 		{
+			ConnectionString = configuration["ConnectionStrings:mysql-ujeby"];
 		}
 
-		public IEnumerable<Claim> Get(string key)
+		public async Task<IEnumerable<Claim>> GetAsync(string key)
 		{
-			if (Repository.TryGetValue(key, out List<Claim> itemStorage))
-				return itemStorage;
+			var result = await this.ReadAsync(
+				new KeyDataItem
+				{
+					Key = key,
+				});
 
-			var emptyList = Array.Empty<Claim>().ToList();
-			Repository.Add(key, emptyList);
-			return emptyList;
+			if (result == null)
+				return Array.Empty<Claim>();
+
+			return Deserialize(result.Data);
 		}
 
-		public Claim Add(string key, Claim item)
+		public async Task<IEnumerable<Claim>> UpdateAsync(string key, IEnumerable<Claim> item)
 		{
-			if (Repository.TryGetValue(key, out List<Claim> itemStorage))
-				itemStorage.Add(item);
+			var result = await this.ReadAsync(
+				new KeyDataItem
+				{
+					Key = key
+				});
+
+			var keyItem = new KeyDataItem
+			{
+				Key = key,
+				Data = Serialize(item)
+			};
+
+			if (result == null)
+				result = await this.CreateAsync(keyItem);
 
 			else
-				Repository.Add(key, new List<Claim>(new Claim[] { item }));
+				result = await this.UpdateAsync(keyItem);
 
+			return Deserialize(result.Data);
+		}
+
+		public async Task<Claim> AddAsync(string key, Claim item)
+		{
+			var current = await GetAsync(key);
+
+			var list = current.ToList();
+			list.Add(item);
+
+			await UpdateAsync(key, list);
 			return item;
 		}
 
-		public IEnumerable<Claim> Update(string key, IEnumerable<Claim> item)
+		public async Task<IEnumerable<Claim>> ListAsync(string key)
 		{
-			if (Repository.Remove(key, out List<Claim> _))
-			{
-				Repository.Add(key, item.ToList());
-				return item;
-			}
-
-			return Array.Empty<Claim>().ToList();
+			return await GetAsync(key);
 		}
 
-		public IEnumerable<Claim> List(string key)
+		private string Serialize(IEnumerable<Claim> data)
 		{
-			return Get(key);
+			return JsonSerializer.Serialize(data);
+		}
+
+		private IEnumerable<Claim> Deserialize(string data)
+		{
+			return JsonSerializer.Deserialize<Claim[]>(data);
 		}
 	}
 }

@@ -13,7 +13,6 @@ namespace Billingares.Base
 		[Range(1.0, double.MaxValue, ErrorMessage = "Amount must be greater than {1}.")]
 		public decimal? Amount { get; set; }
 
-
 		[Required]
 		public string DebtorList 
 		{
