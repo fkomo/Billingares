@@ -24,15 +24,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{FE7C41
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.Api.gRPC", "Billingares.Api.gRPC\Billingares.Api.gRPC.csproj", "{37FCB7E0-81B4-4BBB-AA8D-A5698EE48F13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billingares.Backend", "Billingares.Backend\Billingares.Backend.csproj", "{27268601-220D-4879-AB6E-9E8E3AC4CDFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.Backend", "Billingares.Backend\Billingares.Backend.csproj", "{27268601-220D-4879-AB6E-9E8E3AC4CDFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billingares.Api", "Billingares.Api\Billingares.Api.csproj", "{1371A94A-E0BF-48F3-81DB-2A8B8DE1F8B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.Api", "Billingares.Api\Billingares.Api.csproj", "{1371A94A-E0BF-48F3-81DB-2A8B8DE1F8B2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{2A3EA043-BDB2-4903-AF52-B027444A75FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{9C351003-F98E-4B56-B02D-059DDA2A68FD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.Api.REST", "Billingares.Api.REST\Billingares.Api.REST.csproj", "{AF4182BA-D2B5-4AE0-A358-42D407BEFB48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.App", "Test.App\Test.App.csproj", "{BF93C143-6E08-441A-9F85-891A7D99E4D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +82,10 @@ Global
 		{AF4182BA-D2B5-4AE0-A358-42D407BEFB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF4182BA-D2B5-4AE0-A358-42D407BEFB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF4182BA-D2B5-4AE0-A358-42D407BEFB48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF93C143-6E08-441A-9F85-891A7D99E4D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF93C143-6E08-441A-9F85-891A7D99E4D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF93C143-6E08-441A-9F85-891A7D99E4D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF93C143-6E08-441A-9F85-891A7D99E4D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{37FCB7E0-81B4-4BBB-AA8D-A5698EE48F13} = {9C351003-F98E-4B56-B02D-059DDA2A68FD}
 		{27268601-220D-4879-AB6E-9E8E3AC4CDFB} = {9C351003-F98E-4B56-B02D-059DDA2A68FD}
 		{AF4182BA-D2B5-4AE0-A358-42D407BEFB48} = {9C351003-F98E-4B56-B02D-059DDA2A68FD}
+		{BF93C143-6E08-441A-9F85-891A7D99E4D8} = {2A3EA043-BDB2-4903-AF52-B027444A75FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F7678A3-7720-421B-9432-7B56C2514208}

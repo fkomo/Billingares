@@ -21,6 +21,7 @@ namespace Billingares.Api.Client.gRPC
 		{
 			if (Client == null && !string.IsNullOrWhiteSpace(BaseUrl))
 			{
+				//var channel = GrpcChannel.ForAddress(BaseUrl);
 				var channel = GrpcChannel.ForAddress(BaseUrl,
 					new GrpcChannelOptions
 					{

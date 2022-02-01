@@ -50,6 +50,8 @@ namespace Billingares.Base
 			Description = claim.Description;
 		}
 
+		public override string ToString() => $"{ Creditor };{ Transaction.FormatCurrency(Amount.Value) };{ DebtorList }";
+
 		[JsonIgnore]
 		public string[] Debtors => DebtorList?.Split(", ")?.ToArray();
 
