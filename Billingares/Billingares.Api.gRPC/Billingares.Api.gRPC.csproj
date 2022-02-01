@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>c4d376fc-eec3-4034-8a72-90d55a9fc118</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.42.0" />
+    <PackageReference Include="Grpc.AspNetCore.Web" Version="2.42.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Billingares.Api\Billingares.Api.csproj" />
+    <ProjectReference Include="..\Billingares.Backend\Billingares.Backend.csproj" />
+    <ProjectReference Include="..\Billingares.Base\Billingares.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="..\.dockerignore" Link="Deploy\.dockerignore" />
+  </ItemGroup>
+
+</Project>

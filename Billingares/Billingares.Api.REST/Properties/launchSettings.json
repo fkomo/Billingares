@@ -1,35 +1,34 @@
 {
+	"$schema": "https://json.schemastore.org/launchsettings.json",
 	"iisSettings": {
 		"windowsAuthentication": false,
 		"anonymousAuthentication": true,
 		"iisExpress": {
-			"applicationUrl": "http://localhost:54971",
-			"sslPort": 44382
+			"applicationUrl": "http://localhost:60983/",
+			"sslPort": 44346
 		}
 	},
 	"profiles": {
-		"Billingares.App": {
+		"Billingares.Api.REST": {
 			"commandName": "Project",
-			"launchBrowser": true,
 			"environmentVariables": {
 				"ASPNETCORE_ENVIRONMENT": "Debug"
 			},
-			"inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
-			"applicationUrl": "https://localhost:7250;http://localhost:5250",
+			"applicationUrl": "https://localhost:7103;http://localhost:5103",
 			"dotnetRunMessages": true
 		},
 		"IIS Express": {
 			"commandName": "IISExpress",
-			"launchBrowser": true,
 			"environmentVariables": {
 				"ASPNETCORE_ENVIRONMENT": "Debug"
-			},
-			"inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
+			}
 		},
 		"Docker": {
 			"commandName": "Docker",
-			"launchBrowser": true,
 			"launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+			"environmentVariables": {
+				"ASPNETCORE_ENVIRONMENT": "Release"
+			},
 			"publishAllPorts": true,
 			"useSSL": true
 		}

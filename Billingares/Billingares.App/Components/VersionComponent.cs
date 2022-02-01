@@ -1,4 +1,4 @@
-﻿using Billingares.Api.Client.Services;
+﻿using Billingares.Api.Interfaces;
 using Billingares.App.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Ujeby.Blazor.Base.Components;
@@ -18,10 +18,26 @@ namespace Billingares.App.Components
 
 		private async Task<string> ApiVersion()
 		{
+			IsBusy = true; 
+			
+			var response = await CreateClient().Version();
+
+			IsBusy = false;
+
+			return response;
+		}
+
+		private IInfoApi CreateClient()
+		{
 			if (string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
 				return null;
 
-			return await new ApiClient(AppSettings.ApiUrl).Version();
+			return AppSettings.ApiType switch
+			{
+				"REST" => new Api.Client.REST.InfoClient(AppSettings.ApiUrl),
+				"gRPC" => new Api.Client.gRPC.InfoClient(AppSettings.ApiUrl),
+				_ => throw new NotImplementedException($"{ nameof(AppSettings.ApiType) }:{ AppSettings.ApiType }"),
+			};
 		}
 	}
 }

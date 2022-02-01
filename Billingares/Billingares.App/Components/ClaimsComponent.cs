@@ -1,9 +1,7 @@
-﻿using Billingares.Api.Client.Services;
-using Billingares.Api.Interfaces;
+﻿using Billingares.Api.Interfaces;
 using Billingares.App.ViewModels;
 using Billingares.Base;
 using Microsoft.AspNetCore.Components;
-using System.ComponentModel;
 using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.App.Components
@@ -12,6 +10,19 @@ namespace Billingares.App.Components
 	{
 		[Inject]
 		private ApplicationSettings AppSettings { get; set; }
+
+		[Inject]
+		private IServiceProvider ServiceProvider { get; set; }
+
+		private Api.Interfaces.gRPC.Claims.ClaimsClient ClaimsClient { get; set; }
+
+		protected override void OnInitialized()
+		{
+			ClaimsClient = ServiceProvider.GetService(typeof(Api.Interfaces.gRPC.Claims.ClaimsClient)) 
+				as Api.Interfaces.gRPC.Claims.ClaimsClient;
+
+			base.OnInitialized();
+		}
 
 		private void OnItemEditPreview(object element)
 		{
@@ -130,22 +141,27 @@ namespace Billingares.App.Components
 		private IClaimsApi CreateClaimsClient()
 		{
 			if (string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
-				return new OfflineClaimsClient();
+				return new Api.Client.Offline.ClaimsClient();
 
-			return new ClaimsApiClient(AppSettings.ApiUrl);
+			return AppSettings.ApiType switch
+			{
+				"REST" => new Api.Client.REST.ClaimsClient(AppSettings.ApiUrl),
+				"gRPC" => new Api.Client.gRPC.ClaimsClient(ClaimsClient),
+				_ => throw new NotImplementedException($"{ nameof(AppSettings.ApiType) }:{ AppSettings.ApiType }"),
+			};
 		}
 
 		private ITransactionsApi CreateTransactionsClient()
 		{
 			if (string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
-				return new OfflineTransactionsClient();
+				return new Api.Client.Offline.TransactionsClient();
 
-			return new TransactionsApiClient(AppSettings.ApiUrl);
-		}
-
-		private static string GetColor(string value)
-		{
-			return "#ff0000";
+			return AppSettings.ApiType switch
+			{
+				"REST" => new Api.Client.REST.TransactionsClient(AppSettings.ApiUrl),
+				"gRPC" => new Api.Client.gRPC.TransactionsClient(AppSettings.ApiUrl),
+				_ => throw new NotImplementedException($"{ nameof(AppSettings.ApiType) }:{ AppSettings.ApiType }"),
+			};
 		}
 	}
 }

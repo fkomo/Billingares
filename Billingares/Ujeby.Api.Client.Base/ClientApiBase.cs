@@ -3,18 +3,18 @@ using System.Net.Http.Json;
 
 namespace Ujeby.Api.Client.Base
 {
-	public class ClientApiBase
+	public class RESTClientBase
 	{
 		protected Uri BaseUri { get; private set; }
 
 		protected static HttpClient HttpClient { get; set; }
 
-		static ClientApiBase()
+		static RESTClientBase()
 		{
 			HttpClient = new HttpClient();
 		}
 
-		public ClientApiBase(string baseUrl)
+		public RESTClientBase(string baseUrl)
 		{
 			BaseUri = new Uri(baseUrl);
 		}
@@ -23,7 +23,7 @@ namespace Ujeby.Api.Client.Base
 		{
 			var uri = new Uri(BaseUri, route);
 
-			var response = await ClientApiBase.HttpClient.PostAsJsonAsync(uri, request);
+			var response = await HttpClient.PostAsJsonAsync(uri, request);
 
 			response.EnsureSuccessStatusCode();
 
@@ -35,7 +35,7 @@ namespace Ujeby.Api.Client.Base
 		protected async Task<TResponse> Get<TResponse>(string route = null)
 		{
 			var uri = new Uri(BaseUri, route);
-			var response = await ClientApiBase.HttpClient.GetAsync(uri);
+			var response = await HttpClient.GetAsync(uri);
 
 			response.EnsureSuccessStatusCode();
 

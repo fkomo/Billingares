@@ -23,6 +23,6 @@ namespace Billingares.Base
 			AmountOut = amountOut;
 		}
 
-		public override string ToString() => $"{ Name }={ Amount.ToString("0.00") }";
+		public override string ToString() => $"{ Name }={ Amount:0.00}";
 	}
 }
