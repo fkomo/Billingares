@@ -1,7 +1,6 @@
 ﻿@using Billingares.App.ViewModels
-@using Billingares.Base
 @using Ujeby.Blazor.Base.Components
 
-@inherits ComponentBase<VersionViewModel, ApplicationState>;
+@inherits ComponentBase<VersionViewModel, ApplicationState, ApplicationSettings>;
 
 <div style="margin-top:20px;font-size:small;width:95%;text-align:right;@($"color:{ Colors.Grey.Lighten2 }")">@ViewModel.Version</div>

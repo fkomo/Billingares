@@ -5,7 +5,7 @@ using Ujeby.Blazor.Base.Services;
 
 namespace Billingares.App.Components
 {
-	public partial class ShareComponent : ComponentBase<ShareViewModel, ApplicationState>
+	public partial class ShareComponent : ComponentBase<ShareViewModel, ApplicationState, ApplicationSettings>
 	{
 		private bool IsSecureConnection =>
 			new string[] { "https://", "http://localhost" }

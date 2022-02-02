@@ -1,16 +1,12 @@
 ﻿using Billingares.Api.Interfaces;
 using Billingares.App.ViewModels;
-using Billingares.Base;
 using Microsoft.AspNetCore.Components;
 using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.App.Components
 {
-	public partial class ClaimsComponent : ComponentBase<ClaimsViewModel, ApplicationState>
+	public partial class ClaimsComponent : ComponentBase<ClaimsViewModel, ApplicationState, ApplicationSettings>
 	{
-		[Inject]
-		private ApplicationSettings AppSettings { get; set; }
-
 		[Inject]
 		private IServiceProvider ServiceProvider { get; set; }
 
@@ -87,9 +83,7 @@ namespace Billingares.App.Components
 
 		protected override async Task OnUpdateAsync()
 		{
-			var transactions = await ListTransactionsAsync(ViewModel.Claims.ToArray(), ViewModel.Optimize);
-
-			AppState.SetTransactions(transactions.ToArray());
+			AppState.UpdateClaims(ViewModel.Claims.ToArray(), ViewModel.Optimize);
 
 			await base.OnUpdateAsync();
 		}
@@ -100,7 +94,7 @@ namespace Billingares.App.Components
 		{
 			IsBusy = true;
 
-			var response = await CreateClaimsClient().List(AppState.ClientId);
+			var response = await CreateClient().List(AppState.ClientId);
 
 			IsBusy = false;
 
@@ -111,7 +105,7 @@ namespace Billingares.App.Components
 		{
 			IsBusy = true;
 
-			var response = await CreateClaimsClient().Add(AppState.ClientId, claim);
+			var response = await CreateClient().Add(AppState.ClientId, claim);
 
 			IsBusy = false;
 
@@ -122,44 +116,21 @@ namespace Billingares.App.Components
 		{
 			IsBusy = true;
 
-			var response = await CreateClaimsClient().Update(AppState.ClientId, claims);
+			var response = await CreateClient().Update(AppState.ClientId, claims);
 
 			IsBusy = false;
 
 			return response;
 		}
 
-		private async Task<IEnumerable<Transaction>> ListTransactionsAsync(Claim[] claims, bool optimize)
-		{
-			var response = await CreateTransactionsClient().List(AppState.ClientId, claims, optimize);
-
-			return response;
-		}
-
 		#endregion
 
-		private IClaimsApi CreateClaimsClient()
+		private IClaimsApi CreateClient()
 		{
-			if (string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
-				return new Api.Client.Offline.ClaimsClient();
-
 			return AppSettings.ApiType switch
 			{
 				"REST" => new Api.Client.REST.ClaimsClient(AppSettings.ApiUrl),
 				"gRPC" => new Api.Client.gRPC.ClaimsClient(ClaimsClient),
-				_ => throw new NotImplementedException($"{ nameof(AppSettings.ApiType) }:{ AppSettings.ApiType }"),
-			};
-		}
-
-		private ITransactionsApi CreateTransactionsClient()
-		{
-			if (string.IsNullOrWhiteSpace(AppSettings?.ApiUrl))
-				return new Api.Client.Offline.TransactionsClient();
-
-			return AppSettings.ApiType switch
-			{
-				"REST" => new Api.Client.REST.TransactionsClient(AppSettings.ApiUrl),
-				"gRPC" => new Api.Client.gRPC.TransactionsClient(AppSettings.ApiUrl),
 				_ => throw new NotImplementedException($"{ nameof(AppSettings.ApiType) }:{ AppSettings.ApiType }"),
 			};
 		}

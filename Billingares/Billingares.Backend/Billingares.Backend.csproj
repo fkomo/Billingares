@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Billingares.Base\Billingares.Base.csproj" />
+    <ProjectReference Include="..\Billingares.Api\Billingares.Api.csproj" />
     <ProjectReference Include="..\Ujeby.Api.Base\Ujeby.Api.Base.csproj" />
   </ItemGroup>
 

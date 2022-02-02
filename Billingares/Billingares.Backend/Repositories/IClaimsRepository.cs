@@ -1,4 +1,4 @@
-﻿using Billingares.Base;
+﻿
 using Ujeby.Api.Base.Repositories;
 
 namespace Billingares.Backend.Repositories

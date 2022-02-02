@@ -8,9 +8,9 @@ namespace Billingares.Api.Client.gRPC
 		{
 		}
 
-		public async Task<string> Version()
+		public Task<string> Version()
 		{
-			return string.Empty;
+			return Task.FromResult(string.Empty);
 		}
 	}
 }

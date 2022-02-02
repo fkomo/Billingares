@@ -1,5 +1,4 @@
-﻿using Billingares.Base;
-using Ujeby.Blazor.Base;
+﻿using Ujeby.Blazor.Base;
 
 namespace Billingares.App
 {
@@ -9,18 +8,17 @@ namespace Billingares.App
 
         public ApplicationState()
 		{
-//#if DEBUG
-//            ClientId = "debug";
-//#else
             ClientId = Guid.NewGuid().ToString("N");
-//#endif
         }
 
-        public Transaction[] Transactions { get; private set; }
+        public Claim[] Claims { get; private set; } = Array.Empty<Claim>();
+        public bool OptimizeTransactions { get; private set; }
 
-        public void SetTransactions(Transaction[] transactions)
+        public void UpdateClaims(Claim[] claims, bool optimizeTransactions)
         {
-            Transactions = transactions;
+            Claims = claims;
+            OptimizeTransactions = optimizeTransactions;
+
             NotifyStateChanged();
         }
 	}

@@ -1,6 +1,4 @@
-﻿using Billingares.Base;
-
-namespace Billingares.Api.Interfaces
+﻿namespace Billingares.Api.Interfaces
 {
 	public interface ITransactionsApi
 	{

@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Billingares.Api\Billingares.Api.csproj" />
-    <ProjectReference Include="..\Billingares.Base\Billingares.Base.csproj" />
     <ProjectReference Include="..\Ujeby.Api.Client.Base\Ujeby.Api.Client.Base.csproj" />
   </ItemGroup>
 

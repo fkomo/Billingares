@@ -1,5 +1,4 @@
-﻿using Billingares.Base;
-using Ujeby.Blazor.Base.ViewModels;
+﻿using Ujeby.Blazor.Base.ViewModels;
 
 namespace Billingares.App.ViewModels
 {

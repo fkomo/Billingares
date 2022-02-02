@@ -1,5 +1,4 @@
-﻿
-namespace Billingares.Base
+﻿namespace Billingares
 {
 	public class Balance
 	{

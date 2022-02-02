@@ -1,4 +1,4 @@
-﻿namespace Billingares.Api
+﻿namespace Billingares
 {
 	public class AppInfo
 	{

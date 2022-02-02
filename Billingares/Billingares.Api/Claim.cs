@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Billingares.Base
+namespace Billingares
 {
 	public class Claim
 	{

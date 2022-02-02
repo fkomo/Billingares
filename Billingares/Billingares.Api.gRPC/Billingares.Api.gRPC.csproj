@@ -15,7 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Billingares.Api\Billingares.Api.csproj" />
     <ProjectReference Include="..\Billingares.Backend\Billingares.Backend.csproj" />
-    <ProjectReference Include="..\Billingares.Base\Billingares.Base.csproj" />
   </ItemGroup>
 
   <ItemGroup>

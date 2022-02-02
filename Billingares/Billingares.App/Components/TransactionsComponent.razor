@@ -1,41 +1,40 @@
 ﻿@using Billingares.App.ViewModels
-@using Billingares.Base
 @using Ujeby.Blazor.Base.Components
 
-@inherits ComponentBase<TransactionsViewModel, ApplicationState>;
+@inherits ComponentBase<TransactionsViewModel, ApplicationState, ApplicationSettings>;
 
-<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
-	<MudTabPanel Text="Table" Icon="@Icons.Material.Filled.TableView">
-		<MudTable Items="@ViewModel.Transactions" Loading="@IsBusy"
-				  Hover="true" Dense="false" ReadOnly="true" FixedHeader="false" Striped="true">
-			<ToolBarContent>
-				<MudText Typo="Typo.h6">Transactions (@ViewModel.Transactions.Length)</MudText>
-			</ToolBarContent>
-			<HeaderContent>
-				<MudTh>@nameof(Transaction.From)</MudTh>
-				<MudTh>@nameof(Transaction.To)</MudTh>
-				<MudTh Style="text-align:right;">@nameof(Transaction.Amount)</MudTh>
-			</HeaderContent>
-			<RowTemplate>
-				<MudTd DataLabel="@nameof(context.From)">@context.From</MudTd>
-				<MudTd DataLabel="@nameof(context.To)">@context.To</MudTd>
-				<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount)</MudTd>
-			</RowTemplate>
-		</MudTable>
-	</MudTabPanel>
-	<MudTabPanel Text="Matrix" Icon="@Icons.Material.Filled.Apps">
-		@if (ViewModel.Users.Any())
-		{
+@if (ViewModel.Transactions.Any())
+{
+	<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+		<MudTabPanel Text="Table" Icon="@Icons.Material.Filled.TableView">
+			<MudTable Items="@ViewModel.Transactions" Loading="@IsBusy"
+					  Hover="true" Dense="false" ReadOnly="true" FixedHeader="false" Striped="true">
+				<ToolBarContent>
+					<MudText Typo="Typo.h6">Transactions (@ViewModel.Transactions.Length)</MudText>
+				</ToolBarContent>
+				<HeaderContent>
+					<MudTh>@nameof(Transaction.From)</MudTh>
+					<MudTh>@nameof(Transaction.To)</MudTh>
+					<MudTh Style="text-align:right;">@nameof(Transaction.Amount)</MudTh>
+				</HeaderContent>
+				<RowTemplate>
+					<MudTd DataLabel="@nameof(context.From)">@context.From</MudTd>
+					<MudTd DataLabel="@nameof(context.To)">@context.To</MudTd>
+					<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount)</MudTd>
+				</RowTemplate>
+			</MudTable>
+		</MudTabPanel>
+		<MudTabPanel Text="Matrix" Icon="@Icons.Material.Filled.Apps">
 			<MudSimpleTable Dense="false" Hover="false" Bordered="true" Striped="true" Style="overflow-x: auto;">
 				<tbody>
 					<tr>
 						<td style="background-color:var(--mud-palette-primary-lighten)">&nbsp;</td>
-						@foreach (var user in ViewModel.Users)
+						@foreach (var user in ViewModel.Transactions.ListUniqueUsersOrdered())
 						{
 							<td><strong>@user</strong></td>
 						}
 					</tr>
-					@foreach (var user in ViewModel.Users)
+					@foreach (var user in ViewModel.Transactions.ListUniqueUsersOrdered())
 					{
 						<tr>
 							<td><strong>@user</strong></td>
@@ -54,29 +53,26 @@
 					}
 				</tbody>
 			</MudSimpleTable>
-		}
-	</MudTabPanel>
-	<MudTabPanel Text="Balance" Icon="@Icons.Material.Filled.AccountBalance">
-		<MudSimpleTable Dense="false" Hover="true" Bordered="false" Striped="true" Style="overflow-x: auto;">
-			<thead>
-				<tr>
-					<th>@nameof(Balance.Name)</th>
-					<th style="text-align:right;">Balance</th>
-					<th style="text-align:right;">In</th>
-					<th style="text-align:right;">Out</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var balance in ViewModel.Balance())
-				{
-					<tr>
-						<td>@balance.Name</td>
-						<td style="text-align:right;">@Transaction.FormatCurrency(balance.Amount)</td>
-						<td style="text-align:right;">@Transaction.FormatCurrency(balance.AmountIn)</td>
-						<td style="text-align:right;">@Transaction.FormatCurrency(balance.AmountOut)</td>
-					</tr>
-				}
-			</tbody>
-		</MudSimpleTable>
-	</MudTabPanel>
-</MudTabs> 
+		</MudTabPanel>
+		<MudTabPanel Text="Balance" Icon="@Icons.Material.Filled.AccountBalance">
+			<MudTable Items="@ViewModel.Balance()" Loading="@IsBusy"
+					  Hover="true" Dense="false" ReadOnly="true" FixedHeader="false" Striped="true">
+				@*			<ToolBarContent>
+					<MudText Typo="Typo.h6">Users (@ViewModel.Balance().Count())</MudText>
+					</ToolBarContent>
+				*@			<HeaderContent>
+					<MudTh>@nameof(Balance.Name)</MudTh>
+					<MudTh Style="text-align:right;">Balance</MudTh>
+					<MudTh Style="text-align:right;">In</MudTh>
+					<MudTh Style="text-align:right;">Out</MudTh>
+				</HeaderContent>
+				<RowTemplate>
+					<MudTd DataLabel="@nameof(context.Name)">@context.Name</MudTd>
+					<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount)</MudTd>
+					<MudTd DataLabel="@nameof(context.AmountIn)" Style="text-align:right;">@Transaction.FormatCurrency(context.AmountIn)</MudTd>
+					<MudTd DataLabel="@nameof(context.AmountOut)" Style="text-align:right;">@Transaction.FormatCurrency(context.AmountOut)</MudTd>
+				</RowTemplate>
+			</MudTable>
+		</MudTabPanel>
+	</MudTabs>
+}

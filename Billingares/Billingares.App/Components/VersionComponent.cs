@@ -1,15 +1,11 @@
 ﻿using Billingares.Api.Interfaces;
 using Billingares.App.ViewModels;
-using Microsoft.AspNetCore.Components;
 using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.App.Components
 {
-	public partial class VersionComponent : ComponentBase<VersionViewModel, ApplicationState>
+	public partial class VersionComponent : ComponentBase<VersionViewModel, ApplicationState, ApplicationSettings>
 	{
-		[Inject]
-		private ApplicationSettings AppSettings { get; set; }
-
 		protected async override Task OnLoadDataAsync()
 		{
 			ViewModel.ApiVersion = await ApiVersion();

@@ -1,5 +1,4 @@
 ﻿using Billingares.Api.Interfaces;
-using Billingares.Base;
 using Grpc.Net.Client;
 
 namespace Billingares.Api.Client.gRPC
@@ -43,12 +42,12 @@ namespace Billingares.Api.Client.gRPC
 			return claims;
 		}
 
-		public async Task<IEnumerable<Claim>> Update(string clientId, Claim[] claims)
+		public Task<IEnumerable<Claim>> Update(string clientId, Claim[] claims)
 		{
 			throw new NotImplementedException();
 		}
 
-		public async Task<Claim> Add(string clientId, Claim claim)
+		public Task<Claim> Add(string clientId, Claim claim)
 		{
 			throw new NotImplementedException();
 		}

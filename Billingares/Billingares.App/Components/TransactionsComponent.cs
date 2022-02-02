@@ -1,9 +1,10 @@
-﻿using Billingares.App.ViewModels;
+﻿using Billingares.Api.Interfaces;
+using Billingares.App.ViewModels;
 using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.App.Components
 {
-	public partial class TransactionsComponent : ComponentBase<TransactionsViewModel, ApplicationState>, IDisposable
+	public partial class TransactionsComponent : ComponentBase<TransactionsViewModel, ApplicationState, ApplicationSettings>, IDisposable
 	{
 		protected override async Task OnInitializedAsync()
 		{
@@ -26,13 +27,30 @@ namespace Billingares.App.Components
 
 		protected override async Task OnUpdateAsync()
 		{
+			var response = await ListTransactionsAsync(AppState.Claims, AppState.OptimizeTransactions);
+
+			ViewModel.Transactions = response.ToArray();
+		}
+
+		private async Task<IEnumerable<Transaction>> ListTransactionsAsync(Claim[] claims, bool optimize)
+		{
 			IsBusy = true;
 
-			ViewModel.Transactions = AppState.Transactions;
+			var response = await CreateClient().List(AppState.ClientId, claims, optimize);
 
 			IsBusy = false;
 
-			await Task.CompletedTask;
+			return response;
+		}
+
+		private ITransactionsApi CreateClient()
+		{
+			return AppSettings.ApiType switch
+			{
+				"REST" => new Api.Client.REST.TransactionsClient(AppSettings.ApiUrl),
+				"gRPC" => new Api.Client.gRPC.TransactionsClient(AppSettings.ApiUrl),
+				_ => throw new NotImplementedException($"{ nameof(AppSettings.ApiType) }:{ AppSettings.ApiType }"),
+			};
 		}
 	}
 }

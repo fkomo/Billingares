@@ -1,5 +1,5 @@
 ﻿
-namespace Billingares.Base
+namespace Billingares.Backend
 {
 	public class TransactionBag
 	{
@@ -47,13 +47,9 @@ namespace Billingares.Base
 			Transactions.Clear();
 		}
 
-		public static IEnumerable<string> ListUsers(IEnumerable<Transaction> transactions) =>
-			transactions.Select(t => t.From).Union(transactions.Select(t => t.To))
-				.Distinct();
-
 		public IEnumerable<Transaction> Optimize()
 		{
-			var users = ListUsers(Transactions);
+			var users = Transactions.ListUniqueUsers();
 
 			var balance = new List<Balance>();
 			foreach (var user in users)
@@ -82,7 +78,7 @@ namespace Billingares.Base
 
 		public static string[] MatrixCsv(IEnumerable<Transaction> transactions)
 		{
-			var orderedUsers = ListUsers(transactions).OrderBy(t => t);
+			var orderedUsers = transactions.ListUniqueUsersOrdered();
 
 			var lines = new List<string>
 			{

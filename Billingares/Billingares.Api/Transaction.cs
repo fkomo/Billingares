@@ -1,7 +1,7 @@
 ﻿
 using System.Globalization;
 
-namespace Billingares.Base
+namespace Billingares
 {
 	public class Transaction
 	{
@@ -19,7 +19,7 @@ namespace Billingares.Base
 			Amount = amount;
 		}
 
-		public override string ToString() => $"{ Flow }={ Amount.ToString("0.00") }";
+		public override string ToString() => $"{ Flow }={ Amount:0.00}";
 
 		public static string FormatCurrency(decimal c)
 		{
@@ -30,6 +30,19 @@ namespace Billingares.Base
 				return ((int)c).ToString("C0", cultureInfo);
 
 			return c.ToString("C2", cultureInfo);
+		}
+	}
+
+	public static class Extension
+	{
+		public static IEnumerable<string> ListUniqueUsers(this IEnumerable<Transaction> transactions)
+		{
+			return transactions.Select(t => t.From).Union(transactions.Select(t => t.To)).Distinct();
+		}
+
+		public static IEnumerable<string> ListUniqueUsersOrdered(this IEnumerable<Transaction> transactions)
+		{
+			return ListUniqueUsers(transactions).OrderBy(u => u);
 		}
 	}
 }

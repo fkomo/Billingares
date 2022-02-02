@@ -4,11 +4,10 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Billingares.Api.REST/Billingares.Api.REST.csproj", "Billingares.Api.REST/"]
-COPY ["Billingares.Api/Billingares.Api.csproj", "Billingares.Api/"]
-COPY ["Billingares.Base/Billingares.Base.csproj", "Billingares.Base/"]
-COPY ["Billingares.Backend/Billingares.Backend.csproj", "Billingares.Backend/"]
 COPY ["Ujeby.Api.Base/Ujeby.Api.Base.csproj", "Ujeby.Api.Base/"]
+COPY ["Billingares.Backend/Billingares.Backend.csproj", "Billingares.Backend/"]
+COPY ["Billingares.Api/Billingares.Api.csproj", "Billingares.Api/"]
+COPY ["Billingares.Api.REST/Billingares.Api.REST.csproj", "Billingares.Api.REST/"]
 RUN dotnet restore "Billingares.Api.REST/Billingares.Api.REST.csproj"
 COPY . .
 WORKDIR "/src/Billingares.Api.REST"

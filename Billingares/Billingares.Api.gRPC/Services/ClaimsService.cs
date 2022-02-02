@@ -15,7 +15,7 @@ namespace Billingares.Api.gRPC.Services
 		{
 			var response = new ListResponse();
 			response.Claims.Add(
-				new Claim()
+				new Interfaces.gRPC.Claim()
 				{
 					Creditor = "test",
 					Amount = 100.5f,

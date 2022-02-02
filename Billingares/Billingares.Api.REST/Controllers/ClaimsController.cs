@@ -1,5 +1,4 @@
 ﻿using Billingares.Api.Interfaces;
-using Billingares.Base;
 using Billingares.Backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Ujeby.Api.Base;

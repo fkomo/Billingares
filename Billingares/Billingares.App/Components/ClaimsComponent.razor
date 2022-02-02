@@ -1,10 +1,9 @@
 ﻿@using System.Net.Http.Json
 @using Billingares.App.ViewModels
-@using Billingares.Base
 @using System.ComponentModel.DataAnnotations
 @using Ujeby.Blazor.Base.Components
 
-@inherits ComponentBase<ClaimsViewModel, ApplicationState>;
+@inherits ComponentBase<ClaimsViewModel, ApplicationState, ApplicationSettings>;
 
 <MudGrid>
 	<MudItem xs="12">
@@ -34,70 +33,66 @@
 		</EditForm>
 	</MudItem>
 
-	<MudItem xs="12">
-		<MudTable Items="@ViewModel.Claims" Loading="@IsBusy" Striped="true" MultiSelection="true" LoadingProgressColor="Color.Primary"
+	@if (ViewModel.Claims.Any())
+	{
+		<MudItem xs="12">
+			<MudTable Items="@ViewModel.Claims" Loading="@IsBusy" Striped="true" MultiSelection="true" LoadingProgressColor="Color.Primary"
 				  Dense="true" Hover="true" ReadOnly="false" CanCancelEdit="true" Filter="new Func<Claim, bool>(ViewModel.FilterFunc)"
 				  RowEditCommit="OnItemEditCommitAsync" IsEditRowSwitchingBlocked="false"
 				  SortLabel="Sort By" CommitEditTooltip="Commit Edit"
 				  RowEditPreview="OnItemEditPreview" RowEditCancel="OnItemEditCancel"
 				  @bind-SelectedItem="ViewModel.Selected" @bind-SelectedItems="ViewModel.SelectedItems">
-			<ToolBarContent>
-				<MudText Typo="Typo.h6">Claims (@ViewModel.Claims.Count)</MudText>
-				<MudSpacer />
-				<MudTextField @bind-Value="@ViewModel.SearchString" Placeholder="Search" Adornment="Adornment.Start"
+				<ToolBarContent>
+					<MudText Typo="Typo.h6">Claims (@ViewModel.Claims.Count)</MudText>
+					<MudSpacer />
+					<MudTextField @bind-Value="@ViewModel.SearchString" Placeholder="Search" Adornment="Adornment.Start"
 							  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Small" Class="mt-0" />
-			</ToolBarContent>
-			<HeaderContent>
-				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Creditor)">@nameof(Claim.Creditor)</MudTableSortLabel></MudTh>
-				<MudTh Style="text-align:right;"><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Amount)">@nameof(Claim.Amount)</MudTableSortLabel></MudTh>
-				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.DebtorList)">@nameof(Claim.Debtors)</MudTableSortLabel></MudTh>
-				<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Description)">@nameof(Claim.Description)</MudTableSortLabel></MudTh>
-			</HeaderContent>
-			<RowTemplate>
-				<MudTd DataLabel="@nameof(context.Creditor)">@context.Creditor</MudTd>
-				<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount.Value)</MudTd>
-				<MudTd>
-					@foreach (var debtor in @context.Debtors)
-					{
-						<MudChip Label="true" Variant="Variant.Text" Size="Size.Medium">@debtor</MudChip>
-					}
-				</MudTd>
-				<MudTd DataLabel="@nameof(context.Description)">@context.Description</MudTd>
-			</RowTemplate>
-			<RowEditingTemplate>
-				<MudTd DataLabel="@nameof(context.Creditor)">
-					<MudTextField @bind-Value="@context.Creditor" Required />
-				</MudTd>
-				<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">
-					<MudNumericField @bind-Value="@context.Amount" Min="1" Required />
-				</MudTd>
-				<MudTd DataLabel="@nameof(context.Debtors)">
-					<MudTextField @bind-Value="@context.DebtorList" Required />
-				</MudTd>
-				<MudTd DataLabel="@nameof(context.Description)">
-					<MudTextField @bind-Value="@context.Description" />
-				</MudTd>
-			</RowEditingTemplate>
-		</MudTable>
-	</MudItem>
+				</ToolBarContent>
+				<HeaderContent>
+					<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Creditor)">@nameof(Claim.Creditor)</MudTableSortLabel></MudTh>
+					<MudTh Style="text-align:right;"><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Amount)">@nameof(Claim.Amount)</MudTableSortLabel></MudTh>
+					<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.DebtorList)">@nameof(Claim.Debtors)</MudTableSortLabel></MudTh>
+					<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Description)">@nameof(Claim.Description)</MudTableSortLabel></MudTh>
+				</HeaderContent>
+				<RowTemplate>
+					<MudTd DataLabel="@nameof(context.Creditor)">@context.Creditor</MudTd>
+					<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount.Value)</MudTd>
+					<MudTd>
+						@foreach (var debtor in @context.Debtors)
+						{
+							<MudChip Label="true" Variant="Variant.Text" Size="Size.Medium">@debtor</MudChip>
+						}
+					</MudTd>
+					<MudTd DataLabel="@nameof(context.Description)">@context.Description</MudTd>
+				</RowTemplate>
+				<RowEditingTemplate>
+					<MudTd DataLabel="@nameof(context.Creditor)">
+						<MudTextField @bind-Value="@context.Creditor" Required />
+					</MudTd>
+					<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">
+						<MudNumericField @bind-Value="@context.Amount" Min="1" Required />
+					</MudTd>
+					<MudTd DataLabel="@nameof(context.Debtors)">
+						<MudTextField @bind-Value="@context.DebtorList" Required />
+					</MudTd>
+					<MudTd DataLabel="@nameof(context.Description)">
+						<MudTextField @bind-Value="@context.Description" />
+					</MudTd>
+				</RowEditingTemplate>
+			</MudTable>
+		</MudItem>
 
-	<MudItem xs="12">
-		<div class="d-flex flex-wrap mt-4">
-			<MudSwitch @bind-Checked="@ViewModel.Optimize" Label="Optimize" Color="Color.Primary" />
-			@if (ViewModel.Claims.Any())
-			{
+		<MudItem xs="12">
+			<div class="d-flex flex-wrap mt-4">
+				<MudSwitch @bind-Checked="@ViewModel.Optimize" Label="Optimize" Color="Color.Primary" />
 				<MudSpacer />
 				@if (ViewModel.SelectedItems.Any())
 				{
 					<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Style="margin-right:10px;"
-					   OnClick="RemoveSelectedItemsAsync">Delete</MudButton>
+					OnClick="RemoveSelectedItemsAsync">Delete</MudButton>
 				}
 				<ShareComponent />
-			}
-		</div>
-	</MudItem>
+			</div>
+		</MudItem>
+	}
 </MudGrid>
-
-@code {
-	private MudTheme Theme = new MudTheme();
-}

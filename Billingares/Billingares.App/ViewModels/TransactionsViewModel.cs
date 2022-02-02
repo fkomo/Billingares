@@ -1,5 +1,4 @@
-﻿using Billingares.Base;
-using Ujeby.Blazor.Base.ViewModels;
+﻿using Ujeby.Blazor.Base.ViewModels;
 
 namespace Billingares.App.ViewModels
 {
@@ -7,15 +6,13 @@ namespace Billingares.App.ViewModels
 	{
 		public Transaction[] Transactions { get; set; } = Array.Empty<Transaction>();
 
-		public string[] Users => TransactionBag.ListUsers(Transactions).OrderBy(u => u).ToArray();
-
 		public TransactionsViewModel() : base()
 		{
 		}
 
 		public decimal?[] MatrixRow(string user)
 		{
-			return Users.Select(u =>
+			return Transactions.ListUniqueUsersOrdered().Select(u =>
 			{
 				if (u == user)
 					return decimal.MinValue;
@@ -26,7 +23,7 @@ namespace Billingares.App.ViewModels
 
 		public IEnumerable<Balance> Balance()
 		{
-			return Users.Select(u =>
+			return Transactions.ListUniqueUsersOrdered().Select(u =>
 			{
 				var amountIn = Transactions.Where(t => t.To == u).Sum(t => t.Amount);
 				var amountOut = Transactions.Where(t => t.From == u).Sum(t => t.Amount);

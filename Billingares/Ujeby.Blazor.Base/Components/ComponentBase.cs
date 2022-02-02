@@ -4,7 +4,7 @@ using Ujeby.Blazor.Base.ViewModels;
 
 namespace Ujeby.Blazor.Base.Components
 {
-	public class ComponentBase<TViewModel, TAppState> : Microsoft.AspNetCore.Components.ComponentBase, IDisposable, IAsyncDisposable
+	public class ComponentBase<TViewModel, TAppState, TAppSettings> : Microsoft.AspNetCore.Components.ComponentBase, IDisposable, IAsyncDisposable
 		 where TViewModel : ViewModelBase, new()
 	{
 		public TViewModel ViewModel { get; set; }
@@ -15,6 +15,9 @@ namespace Ujeby.Blazor.Base.Components
 
 		[Inject]
 		protected TAppState AppState { get; set; }
+
+		[Inject]
+		protected TAppSettings AppSettings { get; set; }
 
 		public ComponentBase()
 		{
@@ -95,10 +98,8 @@ namespace Ujeby.Blazor.Base.Components
 			// Dispose of unmanaged resources.
 			Dispose(false);
 
-#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
 			// Suppress finalization.
 			GC.SuppressFinalize(this);
-#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
 		}
 
 		/// <summary>
