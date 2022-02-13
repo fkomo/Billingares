@@ -1,6 +1,6 @@
 ﻿using Ujeby.Blazor.Base;
 
-namespace Billingares.App
+namespace Billingares.Blazor
 {
     public class ApplicationState : ApplicationStateBase
     {

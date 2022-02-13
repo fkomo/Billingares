@@ -1,15 +1,17 @@
 ﻿@page "/{ClientId?}"
 
+@using Billingares.Blazor
+
 <PageTitle>Billingares</PageTitle>
 
 <h1>Billingares</h1>
 
 <MudGrid>
 	<MudItem xs="12">
-		<Billingares.App.Components.ClaimsComponent />
+		<Billingares.Blazor.Components.ClaimsComponent />
 	</MudItem>
 	<MudItem xs="12">
-		<Billingares.App.Components.TransactionsComponent />
+		<Billingares.Blazor.Components.TransactionsComponent />
 	</MudItem>
 </MudGrid>
 

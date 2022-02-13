@@ -1,6 +1,6 @@
 ﻿using Ujeby.Blazor.Base.ViewModels;
 
-namespace Billingares.App.ViewModels
+namespace Billingares.Blazor.ViewModels
 {
 	public class ShareViewModel : ViewModelBase
 	{

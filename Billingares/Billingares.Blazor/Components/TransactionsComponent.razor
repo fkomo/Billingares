@@ -1,4 +1,4 @@
-﻿@using Billingares.App.ViewModels
+﻿@using Billingares.Blazor.ViewModels
 @using Ujeby.Blazor.Base.Components
 
 @inherits ComponentBase<TransactionsViewModel, ApplicationState, ApplicationSettings>;
@@ -9,9 +9,11 @@
 		<MudTabPanel Text="Table" Icon="@Icons.Material.Filled.TableView">
 			<MudTable Items="@ViewModel.Transactions" Loading="@IsBusy"
 					  Hover="true" Dense="false" ReadOnly="true" FixedHeader="false" Striped="true">
+@*				
 				<ToolBarContent>
 					<MudText Typo="Typo.h6">Transactions (@ViewModel.Transactions.Length)</MudText>
 				</ToolBarContent>
+*@
 				<HeaderContent>
 					<MudTh>@nameof(Transaction.From)</MudTh>
 					<MudTh>@nameof(Transaction.To)</MudTh>
@@ -57,10 +59,12 @@
 		<MudTabPanel Text="Balance" Icon="@Icons.Material.Filled.AccountBalance">
 			<MudTable Items="@ViewModel.Balance()" Loading="@IsBusy"
 					  Hover="true" Dense="false" ReadOnly="true" FixedHeader="false" Striped="true">
-				@*			<ToolBarContent>
+@*			
+					<ToolBarContent>
 					<MudText Typo="Typo.h6">Users (@ViewModel.Balance().Count())</MudText>
 					</ToolBarContent>
-				*@			<HeaderContent>
+*@	
+				<HeaderContent>
 					<MudTh>@nameof(Balance.Name)</MudTh>
 					<MudTh Style="text-align:right;">Balance</MudTh>
 					<MudTh Style="text-align:right;">In</MudTh>

@@ -1,8 +1,8 @@
 ﻿using Billingares.Api.Interfaces;
-using Billingares.App.ViewModels;
+using Billingares.Blazor.ViewModels;
 using Ujeby.Blazor.Base.Components;
 
-namespace Billingares.App.Components
+namespace Billingares.Blazor.Components
 {
 	public partial class VersionComponent : ComponentBase<VersionViewModel, ApplicationState, ApplicationSettings>
 	{

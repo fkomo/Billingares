@@ -1,9 +1,10 @@
 ﻿using Billingares.Api.Interfaces;
 using Grpc.Net.Client;
+using Ujeby.Api.Client.Base;
 
 namespace Billingares.Api.Client.gRPC
 {
-	public class ClaimsClient : GRPCClientBase, IClaimsApi
+	public class ClaimsClient : ClientBase, IClaimsApi
 	{
 		protected Interfaces.gRPC.Claims.ClaimsClient Client { get; set; }
 
@@ -18,10 +19,10 @@ namespace Billingares.Api.Client.gRPC
 
 		public async Task<IEnumerable<Claim>> List(string clientId)
 		{
-			if (Client == null && !string.IsNullOrWhiteSpace(BaseUrl))
+			if (Client == null && BaseUri != null)
 			{
-				//var channel = GrpcChannel.ForAddress(BaseUrl);
-				var channel = GrpcChannel.ForAddress(BaseUrl,
+				//var channel = GrpcChannel.ForAddress(BaseUri);
+				var channel = GrpcChannel.ForAddress(BaseUri,
 					new GrpcChannelOptions
 					{
 						HttpHandler = new Grpc.Net.Client.Web.GrpcWebHandler(new HttpClientHandler())

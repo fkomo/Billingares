@@ -1,9 +1,9 @@
 ﻿using Billingares.Api.Interfaces;
-using Billingares.App.ViewModels;
+using Billingares.Blazor.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Ujeby.Blazor.Base.Components;
 
-namespace Billingares.App.Components
+namespace Billingares.Blazor.Components
 {
 	public partial class ClaimsComponent : ComponentBase<ClaimsViewModel, ApplicationState, ApplicationSettings>
 	{

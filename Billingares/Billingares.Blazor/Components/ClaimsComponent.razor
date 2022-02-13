@@ -1,6 +1,7 @@
 ﻿@using System.Net.Http.Json
-@using Billingares.App.ViewModels
+@using Billingares.Blazor.ViewModels
 @using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
 @using Ujeby.Blazor.Base.Components
 
 @inherits ComponentBase<ClaimsViewModel, ApplicationState, ApplicationSettings>;
@@ -43,7 +44,9 @@
 				  RowEditPreview="OnItemEditPreview" RowEditCancel="OnItemEditCancel"
 				  @bind-SelectedItem="ViewModel.Selected" @bind-SelectedItems="ViewModel.SelectedItems">
 				<ToolBarContent>
+@*					
 					<MudText Typo="Typo.h6">Claims (@ViewModel.Claims.Count)</MudText>
+*@
 					<MudSpacer />
 					<MudTextField @bind-Value="@ViewModel.SearchString" Placeholder="Search" Adornment="Adornment.Start"
 							  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Small" Class="mt-0" />

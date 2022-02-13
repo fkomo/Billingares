@@ -1,8 +1,9 @@
 ﻿using Billingares.Api.Interfaces;
+using Ujeby.Api.Client.Base;
 
 namespace Billingares.Api.Client.gRPC
 {
-	public class TransactionsClient : GRPCClientBase, ITransactionsApi
+	public class TransactionsClient : ClientBase, ITransactionsApi
 	{
 		public TransactionsClient(string baseUrl) : base(baseUrl)
 		{

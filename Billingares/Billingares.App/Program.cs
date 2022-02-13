@@ -1,4 +1,5 @@
 using Billingares.App;
+using Billingares.Blazor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -17,6 +18,15 @@ builder.Services.AddScoped<ApplicationState>();
 builder.Services.AddSingleton((_) =>
 	builder.Configuration.GetSection(nameof(ApplicationSettings)).Get<ApplicationSettings>());
 
+builder.Services.AddMudServices(config =>
+{
+	config.SnackbarConfiguration.PositionClass = MudBlazor.Defaults.Classes.Position.BottomLeft;
+	config.SnackbarConfiguration.PreventDuplicates = false;
+	config.SnackbarConfiguration.NewestOnTop = false;
+	config.SnackbarConfiguration.VisibleStateDuration = 1000;
+	config.SnackbarConfiguration.HideTransitionDuration = 100;
+	config.SnackbarConfiguration.SnackbarVariant = MudBlazor.Variant.Filled;
+});
 
 if (builder.Configuration["ApplicationSettings:ApiType"] == "gRPC")
 {

@@ -1,22 +1,27 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
+<MudThemeProvider IsDarkMode="true" Theme="_theme"/>
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <div class="page">
 	<main>
 
-		<MudAppBar Color="Color.Primary" Fixed="false" Dense="true">
+@*		<MudAppBar Color="Color.Dark" Fixed="false" Dense="true">
 			<MudSpacer />
 			<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit"
 						   Target="_blank" Link="https://github.com/fkomo/Billingares" />
-		</MudAppBar>
+		</MudAppBar>*@
 
 		<article class="content px-4">
 			@Body
 		</article>
 
-		<Billingares.App.Components.VersionComponent />
+		<Billingares.Blazor.Components.VersionComponent />
+		<Billingares.Blazor.Components.NotificationsComponent />
 	</main>
 </div>
+
+@code{
+	private MudTheme _theme = new();
+}

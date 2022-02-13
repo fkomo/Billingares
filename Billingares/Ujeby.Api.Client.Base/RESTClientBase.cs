@@ -3,26 +3,22 @@ using System.Net.Http.Json;
 
 namespace Ujeby.Api.Client.Base
 {
-	public class RESTClientBase
+	public abstract class RESTClientBase : ClientBase
 	{
-		protected Uri BaseUri { get; private set; }
-
 		protected static HttpClient HttpClient { get; set; }
+
+		public RESTClientBase(string baseUrl) : base(baseUrl)
+		{
+		}
 
 		static RESTClientBase()
 		{
 			HttpClient = new HttpClient();
 		}
 
-		public RESTClientBase(string baseUrl)
-		{
-			BaseUri = new Uri(baseUrl);
-		}
-
 		protected async Task<TResponse> Post<TRequest, TResponse>(string route, TRequest request)
 		{
 			var uri = new Uri(BaseUri, route);
-
 			var response = await HttpClient.PostAsJsonAsync(uri, request);
 
 			response.EnsureSuccessStatusCode();

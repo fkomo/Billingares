@@ -1,9 +1,9 @@
-﻿using Billingares.App.ViewModels;
+﻿using Billingares.Blazor.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Ujeby.Blazor.Base.Components;
 using Ujeby.Blazor.Base.Services;
 
-namespace Billingares.App.Components
+namespace Billingares.Blazor.Components
 {
 	public partial class ShareComponent : ComponentBase<ShareViewModel, ApplicationState, ApplicationSettings>
 	{

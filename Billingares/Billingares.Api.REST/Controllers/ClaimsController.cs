@@ -1,6 +1,8 @@
 ﻿using Billingares.Api.Interfaces;
+using Billingares.Api.REST.Hubs;
 using Billingares.Backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Ujeby.Api.Base;
 
 namespace Billingares.Api.REST.Controllers

@@ -4,6 +4,7 @@ COPY ["Ujeby.Blazor.Base/Ujeby.Blazor.Base.csproj", "Ujeby.Blazor.Base/"]
 COPY ["Ujeby.Api.Client.Base/Ujeby.Api.Client.Base.csproj", "Ujeby.Api.Client.Base/"]
 COPY ["Billingares.Api/Billingares.Api.csproj", "Billingares.Api/"]
 COPY ["Billingares.Api.Client/Billingares.Api.Client.csproj", "Billingares.Api.Client/"]
+COPY ["Billingares.Blazor/Billingares.Blazor.csproj", "Billingares.Blazor/"]
 COPY ["Billingares.App/Billingares.App.csproj", "Billingares.App/"]
 RUN dotnet restore "Billingares.App/Billingares.App.csproj"
 COPY . .

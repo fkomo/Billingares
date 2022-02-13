@@ -34,6 +34,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.Api.REST", "Bil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.App", "Test.App\Test.App.csproj", "{BF93C143-6E08-441A-9F85-891A7D99E4D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billingares.Blazor", "Billingares.Blazor\Billingares.Blazor.csproj", "{CE084BA5-3578-4C36-9646-0B748F45E350}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{BF93C143-6E08-441A-9F85-891A7D99E4D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF93C143-6E08-441A-9F85-891A7D99E4D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF93C143-6E08-441A-9F85-891A7D99E4D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE084BA5-3578-4C36-9646-0B748F45E350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE084BA5-3578-4C36-9646-0B748F45E350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE084BA5-3578-4C36-9646-0B748F45E350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE084BA5-3578-4C36-9646-0B748F45E350}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +100,7 @@ Global
 		{27268601-220D-4879-AB6E-9E8E3AC4CDFB} = {9C351003-F98E-4B56-B02D-059DDA2A68FD}
 		{AF4182BA-D2B5-4AE0-A358-42D407BEFB48} = {9C351003-F98E-4B56-B02D-059DDA2A68FD}
 		{BF93C143-6E08-441A-9F85-891A7D99E4D8} = {1CEA7F57-929E-4DA8-B872-44C0697B5564}
+		{CE084BA5-3578-4C36-9646-0B748F45E350} = {2A3EA043-BDB2-4903-AF52-B027444A75FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F7678A3-7720-421B-9432-7B56C2514208}
