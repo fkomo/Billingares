@@ -14,6 +14,7 @@ builder.Logging.AddJsonConsole();
 //builder.Services.AddScoped<IClaimsRepository, ClaimsRepository>();
 // created only once per application
 builder.Services.AddSingleton<IClaimsRepository, ClaimsRepository>();
+builder.Services.AddSingleton<ISessionsRepository, SessionsRepository>();
 
 var allowedOrigins = builder.Configuration["AllowedOrigins"].Split(',', StringSplitOptions.RemoveEmptyEntries);
 builder.Services.AddCors(options =>

@@ -4,12 +4,6 @@ using Dapper;
 
 namespace Ujeby.Api.Base.Db
 {
-	public class KeyDataItem
-	{
-		public string Key { get; set; }
-		public string Data { get; set; }
-	}
-
 	public class KeyDataRepository : ICRUD<KeyDataItem>
 	{
 		protected string ConnectionString { get; set; }
@@ -55,6 +49,17 @@ namespace Ujeby.Api.Base.Db
 					{
 						key = item.Key,
 					});
+			}
+		}
+
+		public async Task<IEnumerable<KeyDataChangedItem>> ListAsync()
+		{
+			using (var connection = new MySqlConnection(ConnectionString))
+			{
+				await connection.OpenAsync();
+
+				return await connection.QueryAsync<KeyDataChangedItem>(
+					"select `Key`, `Data`, `Changed` from bill.KeyData order by `Changed` desc");
 			}
 		}
 

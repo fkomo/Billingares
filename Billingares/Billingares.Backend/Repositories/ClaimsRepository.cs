@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
+using Ujeby.Api.Base;
 using Ujeby.Api.Base.Db;
 
 namespace Billingares.Backend.Repositories
