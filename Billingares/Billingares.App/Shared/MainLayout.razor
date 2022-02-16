@@ -1,17 +1,18 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider IsDarkMode="true" Theme="_theme"/>
+<MudThemeProvider @bind-IsDarkMode="@IsDarkMode" Theme="Theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <div class="page">
 	<main>
-
-@*		<MudAppBar Color="Color.Dark" Fixed="false" Dense="true">
+		<MudAppBar Color="Color.Transparent" Fixed="false" Dense="true">
 			<MudSpacer />
+			<MudToggleIconButton @bind-Toggled="@IsDarkMode"
+								 Icon="@Icons.Material.Filled.DarkMode" ToggledIcon="@Icons.Material.Filled.LightMode" />
 			<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit"
 						   Target="_blank" Link="https://github.com/fkomo/Billingares" />
-		</MudAppBar>*@
+		</MudAppBar>
 
 		<article class="content px-4">
 			@Body
@@ -22,6 +23,8 @@
 	</main>
 </div>
 
-@code{
-	private MudTheme _theme = new();
+@code {
+
+	private MudTheme Theme = new();
+	public bool IsDarkMode = true;
 }
