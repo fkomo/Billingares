@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option csharp_namespace = "Billingares.Api.Interfaces.gRPC";
+
+package Api;
+
+service Claims {
+	rpc List (ListRequest) returns (ListResponse);
+}
+
+message ListRequest {
+	string clientId = 1;
+}
+
+message ListResponse {
+	repeated Claim claims = 1;
+}
+
+message Claim {
+	string creditor = 1;
+	float amount = 2;
+	string debtors = 3;
+	string description = 4;
+}

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Billingares.Api.gRPC": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Debug"
+      },
+      "applicationUrl": "https://localhost:7063;http://localhost:5063",
+      "dotnetRunMessages": true
+    }
+  }
+}

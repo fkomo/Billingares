@@ -7,7 +7,7 @@ try
 	powershell .\build-and-save-docker.ps1
 	Set-Location -Path "..\.."
 
-	Set-Location -Path "Billingares.WebApi\Deploy"
+	Set-Location -Path "Billingares.Api.REST\Deploy"
 	powershell .\build-and-save-docker.ps1
 	Set-Location -Path "..\.."
 }
