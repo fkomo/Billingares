@@ -6,8 +6,12 @@
 
 <div class="page">
 	<main>
-		<MudAppBar Color="Color.Transparent" Fixed="false" Dense="true">
+		<MudAppBar Color="Color.Dark" Fixed="false" Dense="true">
+			<MudIconButton Icon="@Icons.Material.Filled.Home" Color="Color.Inherit"
+						   Target="_self" Link="/" />
 			<MudSpacer />
+			<MudIconButton Icon="@Icons.Material.Filled.AdminPanelSettings" Color="Color.Inherit"
+						   Target="_self" Link="/admin" />
 			<MudToggleIconButton @bind-Toggled="@IsDarkMode"
 								 Icon="@Icons.Material.Filled.DarkMode" ToggledIcon="@Icons.Material.Filled.LightMode" />
 			<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit"

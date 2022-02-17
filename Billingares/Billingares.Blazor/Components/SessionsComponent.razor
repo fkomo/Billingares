@@ -1,0 +1,24 @@
+﻿@using Billingares.Blazor.ViewModels
+@using Ujeby.Blazor.Base.Components
+
+@inherits ComponentBase<SessionsViewModel, ApplicationState, ApplicationSettings>;
+
+@if (ViewModel.Sessions.Any())
+{
+	<MudTable Items="@ViewModel.Sessions" Loading="@IsBusy"
+		  Hover="true" Dense="false" ReadOnly="true" FixedHeader="false" Striped="true">
+		<ToolBarContent>
+			<MudText Typo="Typo.h6">Sessions (@ViewModel.Sessions.Length)</MudText>
+		</ToolBarContent>
+		<HeaderContent>
+			<MudTh>Session</MudTh>
+			<MudTh>@nameof(Session.LastChange)</MudTh>
+		</HeaderContent>
+		<RowTemplate>
+			<MudTd DataLabel="Session">
+				<MudLink Href="@($"{ BaseUri }{ context.Id }")" Typo="Typo.body2">@context.Id</MudLink>
+			</MudTd>
+			<MudTd DataLabel="@nameof(context.LastChange)">@context.LastChange</MudTd>
+		</RowTemplate>
+	</MudTable>
+}
