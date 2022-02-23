@@ -1,6 +1,7 @@
 ﻿@using Billingares.Blazor.Components
 
 @inject IStringLocalizer<Resource> localizer
+@inject NavigationManager NavManager
 
 @inherits LayoutComponentBase
 
@@ -21,8 +22,11 @@
 
 			<CultureSelectorComponent />
 
-			<MudIconButton Icon="@Icons.Material.Filled.AdminPanelSettings" Color="Color.Inherit"
-						   Target="_self" Link="/admin" />
+			@if (NavManager.BaseUri.Contains("localhost"))
+			{
+				<MudIconButton Icon="@Icons.Material.Filled.AdminPanelSettings" Color="Color.Inherit"
+							   Target="_self" Link="/admin" />
+			}
 
 			<MudToggleIconButton @bind-Toggled="@IsDarkMode"
 								 Icon="@Icons.Material.Filled.DarkMode" ToggledIcon="@Icons.Material.Filled.LightMode" />
