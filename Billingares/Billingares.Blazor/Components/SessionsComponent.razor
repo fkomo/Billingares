@@ -1,5 +1,9 @@
-﻿@using Billingares.Blazor.ViewModels
+﻿@using Billingares.Blazor.Shared
+@using Billingares.Blazor.ViewModels
+@using Microsoft.Extensions.Localization
 @using Ujeby.Blazor.Base.Components
+
+@inject IStringLocalizer<Resource> localizer
 
 @inherits ComponentBase<SessionsViewModel, ApplicationState, ApplicationSettings>;
 
@@ -8,17 +12,17 @@
 	<MudTable Items="@ViewModel.Sessions" Loading="@IsBusy"
 		  Hover="true" Dense="false" ReadOnly="true" FixedHeader="false" Striped="true">
 		<ToolBarContent>
-			<MudText Typo="Typo.h6">Sessions (@ViewModel.Sessions.Length)</MudText>
+			<MudText Typo="Typo.h6">@localizer["Sessions"] (@ViewModel.Sessions.Length)</MudText>
 		</ToolBarContent>
 		<HeaderContent>
-			<MudTh>Session</MudTh>
-			<MudTh>@nameof(Session.LastChange)</MudTh>
+			<MudTh>Id</MudTh>
+			<MudTh>@localizer["LastChange"]</MudTh>
 		</HeaderContent>
 		<RowTemplate>
-			<MudTd DataLabel="Session">
+			<MudTd DataLabel="Id">
 				<MudLink Href="@($"{ BaseUri }{ context.Id }")" Typo="Typo.body2">@context.Id</MudLink>
 			</MudTd>
-			<MudTd DataLabel="@nameof(context.LastChange)">@context.LastChange</MudTd>
+			<MudTd DataLabel="@localizer["LastChange"]">@context.LastChange</MudTd>
 		</RowTemplate>
 	</MudTable>
 }

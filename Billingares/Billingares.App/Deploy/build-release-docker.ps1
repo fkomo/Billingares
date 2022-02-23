@@ -10,16 +10,16 @@ try
 	Copy-Item Billingares.App\Deploy\dockerfile -Destination .\dockerfile-Billingares.App -verbose
 	Copy-Item Billingares.App\Deploy\nginx.conf -Destination . -verbose
 
-	# stop&remove old docker image
-	docker stop billingares.app
-	docker rm billingares.app
-	docker image prune -a -f
-
 	# build new docker image
 	docker build -f dockerfile-Billingares.App -t billingares.app-docker .
 
-	# run new image on localhost
-	docker run -d --name billingares.app -p 8088:80 billingares.app-docker
+	# save & copy image to deploy dir
+	$timestamp = (Get-Date).ToString('yyyyMMddHHmmss')
+	$deployDestination = '.\Deploy\billingares.app-docker_' + $timestamp + '.tar'
+	docker save -o $deployDestination billingares.app-docker
+
+	# load image
+	#docker load -i billingares.app-docker.tar
 
 	Write-Output "... Success!"
 }

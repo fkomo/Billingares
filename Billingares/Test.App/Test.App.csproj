@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Billingares.Api.Client\Billingares.Api.Client.csproj" />
+    <ProjectReference Include="..\Billingares.Backend\Billingares.Backend.csproj" />
   </ItemGroup>
 
 </Project>

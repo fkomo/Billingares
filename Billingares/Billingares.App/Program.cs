@@ -1,5 +1,6 @@
 using Billingares.App;
 using Billingares.Blazor;
+using Ujeby.Blazor.Base.Extensions;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -52,4 +53,10 @@ if (builder.Configuration["ApplicationSettings:ApiType"] == "gRPC")
 	//        () => new Grpc.Net.Client.Web.GrpcWebHandler(new HttpClientHandler()));
 }
 
-await builder.Build().RunAsync();
+builder.Services.AddLocalization();
+
+var host = builder.Build();
+
+await host.SetDefaultCulture();
+
+await host.RunAsync();

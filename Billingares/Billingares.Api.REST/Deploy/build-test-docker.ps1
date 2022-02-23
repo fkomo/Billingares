@@ -3,8 +3,8 @@ Set-Location -Path "..\.."
 
 try
 {
-	# use appsettings.Release.json
-	Copy-Item Billingares.Api.REST\appsettings.Release.json -Destination Billingares.Api.REST\appsettings.json -verbose
+	# use appsettings.Test.json
+	Copy-Item Billingares.Api.REST\appsettings.Test.json -Destination Billingares.Api.REST\appsettings.json -verbose
 
 	# copy config files to solution root (temporary)
 	Copy-Item Billingares.Api.REST\Deploy\dockerfile -Destination .\dockerfile-Billingares.Api.REST -verbose
@@ -18,7 +18,7 @@ try
 	docker build -f dockerfile-Billingares.Api.REST -t billingares.api-docker .
 
 	# run new image on localhost
-	docker run -d --name billingares.api -p 8089:80 billingares.api-docker
+	docker run -d --name billingares.api -p 8093:80 billingares.api-docker
 
 	Write-Output "... Success!"
 }

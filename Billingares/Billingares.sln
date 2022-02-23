@@ -17,7 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ujeby.Api.Client.Base", "Uj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{FE7C41A7-7B6E-463F-B971-0CFF90AD37AA}"
 	ProjectSection(SolutionItems) = preProject
-		Deploy\build-and-save-docker.ps1 = Deploy\build-and-save-docker.ps1
+		Deploy\build-release-docker.ps1 = Deploy\build-release-docker.ps1
+		Deploy\build-test-docker.ps1 = Deploy\build-test-docker.ps1
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.Api.gRPC", "Billingares.Api.gRPC\Billingares.Api.gRPC.csproj", "{37FCB7E0-81B4-4BBB-AA8D-A5698EE48F13}"
@@ -32,9 +33,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{9C3510
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.Api.REST", "Billingares.Api.REST\Billingares.Api.REST.csproj", "{AF4182BA-D2B5-4AE0-A358-42D407BEFB48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.App", "Test.App\Test.App.csproj", "{BF93C143-6E08-441A-9F85-891A7D99E4D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.App", "Test.App\Test.App.csproj", "{BF93C143-6E08-441A-9F85-891A7D99E4D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billingares.Blazor", "Billingares.Blazor\Billingares.Blazor.csproj", "{CE084BA5-3578-4C36-9646-0B748F45E350}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Billingares.Blazor", "Billingares.Blazor\Billingares.Blazor.csproj", "{CE084BA5-3578-4C36-9646-0B748F45E350}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

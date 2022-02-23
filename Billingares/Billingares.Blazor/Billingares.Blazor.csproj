@@ -12,7 +12,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.2" />
     <PackageReference Include="MudBlazor" Version="6.0.5" />
   </ItemGroup>
 
@@ -20,6 +22,30 @@
     <ProjectReference Include="..\Billingares.Api.Client\Billingares.Api.Client.csproj" />
     <ProjectReference Include="..\Billingares.Api\Billingares.Api.csproj" />
     <ProjectReference Include="..\Ujeby.Blazor.Base\Ujeby.Blazor.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Shared\Resource.Designer.cs">
+      <DependentUpon>Resource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Shared\Resource.sk.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.sk.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Shared\Resource.resx">
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Shared\Resource.sk.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.sk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

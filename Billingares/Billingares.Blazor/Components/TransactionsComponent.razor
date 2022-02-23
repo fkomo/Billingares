@@ -1,32 +1,38 @@
-﻿@using Billingares.Blazor.ViewModels
+﻿@using Billingares.Blazor.Shared
+@using Billingares.Blazor.ViewModels
+@using Microsoft.Extensions.Localization
 @using Ujeby.Blazor.Base.Components
+
+@inject IStringLocalizer<Resource> localizer
 
 @inherits ComponentBase<TransactionsViewModel, ApplicationState, ApplicationSettings>;
 
 @if (ViewModel.Transactions.Any())
 {
 	<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
-		<MudTabPanel Text="Table" Icon="@Icons.Material.Filled.TableView">
+		<MudTabPanel Text="@localizer["TabTitleTransactions"]" Icon="@Icons.Material.Filled.TableView">
 			<MudTable Items="@ViewModel.Transactions" Loading="@IsBusy"
-					  Hover="true" Dense="false" ReadOnly="true" FixedHeader="false" Striped="true">
-@*				
+				  Hover="true" Dense="false" ReadOnly="true" FixedHeader="false" Striped="true">
+@*
 				<ToolBarContent>
-					<MudText Typo="Typo.h6">Transactions (@ViewModel.Transactions.Length)</MudText>
+					<MudText Typo="Typo.h6">@localizer["Transactions"] (@ViewModel.Transactions.Length)</MudText>
 				</ToolBarContent>
 *@
 				<HeaderContent>
-					<MudTh>@nameof(Transaction.From)</MudTh>
-					<MudTh>@nameof(Transaction.To)</MudTh>
-					<MudTh Style="text-align:right;">@nameof(Transaction.Amount)</MudTh>
+					<MudTh>@localizer["From"]</MudTh>
+					<MudTh>@localizer["To"]</MudTh>
+					<MudTh Style="text-align:right;">@localizer["Amount"]</MudTh>
 				</HeaderContent>
 				<RowTemplate>
-					<MudTd DataLabel="@nameof(context.From)">@context.From</MudTd>
-					<MudTd DataLabel="@nameof(context.To)">@context.To</MudTd>
-					<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount)</MudTd>
+					<MudTd DataLabel="@localizer["From"]">@context.From</MudTd>
+					<MudTd DataLabel="@localizer["To"]">@context.To</MudTd>
+					<MudTd DataLabel="@localizer["Amount"]" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount)</MudTd>
 				</RowTemplate>
 			</MudTable>
 		</MudTabPanel>
-		<MudTabPanel Text="Matrix" Icon="@Icons.Material.Filled.Apps">
+
+@*		
+		<MudTabPanel Text="@localizer["TabTitleMatrix"]" Icon="@Icons.Material.Filled.Apps">
 			<MudSimpleTable Dense="false" Hover="false" Bordered="true" Striped="true" Style="overflow-x: auto;">
 				<tbody>
 					<tr>
@@ -56,25 +62,27 @@
 				</tbody>
 			</MudSimpleTable>
 		</MudTabPanel>
-		<MudTabPanel Text="Balance" Icon="@Icons.Material.Filled.AccountBalance">
+*@
+
+		<MudTabPanel Text="@localizer["TabTitleParticipants"]" Icon="@Icons.Material.Filled.AccountBalance">
 			<MudTable Items="@ViewModel.Balance()" Loading="@IsBusy"
-					  Hover="true" Dense="false" ReadOnly="true" FixedHeader="false" Striped="true">
-@*			
-					<ToolBarContent>
-					<MudText Typo="Typo.h6">Users (@ViewModel.Balance().Count())</MudText>
-					</ToolBarContent>
-*@	
+				  Hover="true" Dense="false" ReadOnly="true" FixedHeader="false" Striped="true">
+@*
+				<ToolBarContent>
+					<MudText Typo="Typo.h6">@localizer["Users"] (@ViewModel.Balance().Count())</MudText>
+				</ToolBarContent>
+*@
 				<HeaderContent>
-					<MudTh>@nameof(Balance.Name)</MudTh>
-					<MudTh Style="text-align:right;">Balance</MudTh>
-					<MudTh Style="text-align:right;">In</MudTh>
-					<MudTh Style="text-align:right;">Out</MudTh>
+					<MudTh>@localizer["Name"]</MudTh>
+					<MudTh Style="text-align:right;">@localizer["Balance"]</MudTh>
+					<MudTh Style="text-align:right;">@localizer["AmountIn"]</MudTh>
+					<MudTh Style="text-align:right;">@localizer["AmountOut"]</MudTh>
 				</HeaderContent>
 				<RowTemplate>
-					<MudTd DataLabel="@nameof(context.Name)">@context.Name</MudTd>
-					<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount)</MudTd>
-					<MudTd DataLabel="@nameof(context.AmountIn)" Style="text-align:right;">@Transaction.FormatCurrency(context.AmountIn)</MudTd>
-					<MudTd DataLabel="@nameof(context.AmountOut)" Style="text-align:right;">@Transaction.FormatCurrency(context.AmountOut)</MudTd>
+					<MudTd DataLabel="@localizer["Name"]">@context.Name</MudTd>
+					<MudTd DataLabel="@localizer["Amount"]" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount)</MudTd>
+					<MudTd DataLabel="@localizer["AmountIn"]" Style="text-align:right;">@Transaction.FormatCurrency(context.AmountIn)</MudTd>
+					<MudTd DataLabel="@localizer["AmountOut"]" Style="text-align:right;">@Transaction.FormatCurrency(context.AmountOut)</MudTd>
 				</RowTemplate>
 			</MudTable>
 		</MudTabPanel>

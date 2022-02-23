@@ -13,11 +13,14 @@
 	<link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
 </head>
 
-<!--<body style="background-color:#32333dff;color:#ffffffb2;">-->
 <body>
 	<div id="app">
 		<div class="center-container">
-			<span><strong>Billingares</strong> is loading...</span>
+			<div class="loader">
+				<svg class="circular">
+					<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="8" stroke-miterlimit="10"></circle>
+				</svg>
+			</div>
 		</div>
 	</div>
 
@@ -28,6 +31,14 @@
 	</div>
 	<script src="_framework/blazor.webassembly.js"></script>
 	<script src="_content/MudBlazor/MudBlazor.min.js"></script>
+	
+	<script>
+		window.blazorCulture = {
+			get: () => localStorage['BlazorCulture'],
+			set: (value) => localStorage['BlazorCulture'] = value
+		};
+	</script>
+
 </body>
 
 </html>

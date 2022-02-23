@@ -1,16 +1,20 @@
-﻿@using Billingares.Blazor.ViewModels
+﻿@using Billingares.Blazor.Shared
+@using Billingares.Blazor.ViewModels
+@using Microsoft.Extensions.Localization
 @using Ujeby.Blazor.Base.Components
+
+@inject IStringLocalizer<Resource> localizer
 
 @inherits ComponentBase<ShareViewModel, ApplicationState, ApplicationSettings>;
 
 <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Share" Color="Color.Info"
-		   OnClick="GenerateShareLinkAsync">Share</MudButton>
+		   OnClick="GenerateShareLinkAsync">@localizer["Share"]</MudButton>
 
 <MudOverlay @bind-Visible="ViewModel.IsOpen" DarkBackground="true" AutoClose="true"/>
 <MudPopover Open="@ViewModel.IsOpen" Fixed="true" Class="px-4 pt-4" OverflowBehavior="OverflowBehavior.FlipAlways"
 			AnchorOrigin="Origin.CenterCenter" TransformOrigin="Origin.CenterCenter" Paper="true">
 	<div class="d-flex flex-column">
 		<MudText><a target="_blank" href="@ViewModel.ShareUrl">@ViewModel.ShareUrl</a></MudText>
-		<MudButton OnClick="CopyUrlToClipboardAsync" Class="ml-auto mr-n3 mb-1" Color="Color.Info" Disabled="!IsSecureConnection">Copy</MudButton>
+		<MudButton OnClick="CopyUrlToClipboardAsync" Class="ml-auto mr-n3 mb-1" Color="Color.Info" Disabled="!IsSecureConnection">@localizer["Copy"]</MudButton>
 	</div>
 </MudPopover>
