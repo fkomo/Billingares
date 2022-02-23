@@ -1,0 +1,16 @@
+﻿@using Billingares.Blazor.Shared
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<Resource> localizer
+
+<div>
+	<MudSelect T="System.Globalization.CultureInfo" @bind-Value="Culture" 
+		AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" Variant="Variant.Outlined">
+		@foreach (var culture in cultures)
+		{
+			<MudSelectItem Value="@culture">
+				<img src="@GetFlagUrl(culture)" height="16" class="mr-1" />
+			</MudSelectItem>
+		}
+	</MudSelect>
+</div>

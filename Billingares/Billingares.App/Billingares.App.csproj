@@ -1,30 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>8f779e67-26b9-4d52-a37d-47c63bfd4781</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>8f779e67-26b9-4d52-a37d-47c63bfd4781</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Grpc.Net.Client.Web" Version="2.42.0" />
-    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.42.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.1" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
-    <PackageReference Include="MudBlazor" Version="6.0.5" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Grpc.Net.Client.Web" Version="2.42.0" />
+		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.42.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.1" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.2" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+		<PackageReference Include="MudBlazor" Version="6.0.5" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Billingares.Api\Billingares.Api.csproj" />
-    <ProjectReference Include="..\Billingares.Blazor\Billingares.Blazor.csproj" />
-    <ProjectReference Include="..\Ujeby.Blazor.Base\Ujeby.Blazor.Base.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Billingares.Api\Billingares.Api.csproj" />
+		<ProjectReference Include="..\Billingares.Blazor\Billingares.Blazor.csproj" />
+		<ProjectReference Include="..\Ujeby.Blazor.Base\Ujeby.Blazor.Base.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="..\.dockerignore" Link="Deploy\.dockerignore" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="..\.dockerignore" Link="Deploy\.dockerignore" />
+	</ItemGroup>
 
 </Project>

@@ -1,4 +1,10 @@
-﻿@inherits LayoutComponentBase
+﻿@using Billingares.Blazor.Components
+
+@inject IStringLocalizer<Resource> localizer
+
+@inherits LayoutComponentBase
+
+<PageTitle>@localizer["ApplicationTitle"]</PageTitle>
 
 <MudThemeProvider @bind-IsDarkMode="@IsDarkMode" Theme="Theme" />
 <MudDialogProvider />
@@ -6,14 +12,21 @@
 
 <div class="page">
 	<main>
-		<MudAppBar Color="Color.Dark" Fixed="false" Dense="true">
-			<MudIconButton Icon="@Icons.Material.Filled.Home" Color="Color.Inherit"
-						   Target="_self" Link="/" />
+@*		<MudAppBar style="background-color:#27272f;" Fixed="false" Dense="false">
+*@		<MudAppBar Fixed="false" Dense="false">
+
+			<HomeComponent />
+			
 			<MudSpacer />
+
+			<CultureSelectorComponent />
+
 			<MudIconButton Icon="@Icons.Material.Filled.AdminPanelSettings" Color="Color.Inherit"
 						   Target="_self" Link="/admin" />
+
 			<MudToggleIconButton @bind-Toggled="@IsDarkMode"
 								 Icon="@Icons.Material.Filled.DarkMode" ToggledIcon="@Icons.Material.Filled.LightMode" />
+
 			<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit"
 						   Target="_blank" Link="https://github.com/fkomo/Billingares" />
 		</MudAppBar>

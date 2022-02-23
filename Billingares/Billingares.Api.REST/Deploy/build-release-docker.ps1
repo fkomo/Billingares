@@ -12,14 +12,10 @@ try
 	# build new docker image
 	docker build -f dockerfile-Billingares.Api.REST -t billingares.api-docker .
 	
-	# save image
-	docker save -o billingares.api-docker.tar billingares.api-docker
-
+	# save & copy image to deploy dir
 	$timestamp = (Get-Date).ToString('yyyyMMddHHmmss')
 	$deployDestination = '.\Deploy\billingares.api-docker_' + $timestamp + '.tar'
-
-	# copy image to deploy dir
-	Move-Item -Path billingares.api-docker.tar -Destination $deployDestination -verbose
+	docker save -o $deployDestination billingares.api-docker
 
 	# load image
 	#docker load -i billingares.api-docker.tar

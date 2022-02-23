@@ -3,27 +3,23 @@ Set-Location -Path "..\.."
 
 try
 {
-	# use appsettings.Release.json
-	Copy-Item Billingares.App\wwwroot\appsettings.Release.json -Destination Billingares.App\wwwroot\appsettings.json -verbose
+	# use appsettings.Test.json
+	Copy-Item Billingares.App\wwwroot\appsettings.Test.json -Destination Billingares.App\wwwroot\appsettings.json -verbose
 
 	# copy config files to solution root (temporary)
 	Copy-Item Billingares.App\Deploy\dockerfile -Destination .\dockerfile-Billingares.App -verbose
 	Copy-Item Billingares.App\Deploy\nginx.conf -Destination . -verbose
 
+	# stop&remove old docker image
+	docker stop billingares.app
+	docker rm billingares.app
+	docker image prune -a -f
+
 	# build new docker image
 	docker build -f dockerfile-Billingares.App -t billingares.app-docker .
 
-	# save image
-	docker save -o billingares.app-docker.tar billingares.app-docker
-
-	$timestamp = (Get-Date).ToString('yyyyMMddHHmmss')
-	$deployDestination = '.\Deploy\billingares.app-docker_' + $timestamp + '.tar'
-
-	# copy image to deploy dir
-	Move-Item -Path billingares.app-docker.tar -Destination $deployDestination -verbose
-
-	# load image
-	#docker load -i billingares.app-docker.tar
+	# run new image on localhost
+	docker run -d --name billingares.app -p 8091:80 billingares.app-docker
 
 	Write-Output "... Success!"
 }

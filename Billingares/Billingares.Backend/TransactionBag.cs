@@ -27,12 +27,13 @@ namespace Billingares.Backend
 			var reverseTransaction = Transactions.SingleOrDefault(t => t.ReverseFlow == transaction.Flow);
 			if (reverseTransaction != null)
 			{
-				reverseTransaction.Amount = Math.Abs(transaction.Amount - reverseTransaction.Amount);
+				reverseTransaction.Amount = reverseTransaction.Amount - transaction.Amount;
 
-				if (transaction.Amount > reverseTransaction.Amount)
+				if (reverseTransaction.Amount < 0)
 				{
 					reverseTransaction.From = transaction.From;
 					reverseTransaction.To = transaction.To;
+					reverseTransaction.Amount = -reverseTransaction.Amount;
 				}
 
 				return reverseTransaction;

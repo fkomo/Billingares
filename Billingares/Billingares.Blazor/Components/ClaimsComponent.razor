@@ -3,6 +3,10 @@
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Components.Forms
 @using Ujeby.Blazor.Base.Components
+@using Microsoft.Extensions.Localization
+@using Billingares.Blazor.Shared
+
+@inject IStringLocalizer<Resource> localizer
 
 @inherits ComponentBase<ClaimsViewModel, ApplicationState, ApplicationSettings>;
 
@@ -13,23 +17,23 @@
 			<MudCardContent>
 				<MudTextField @bind-Value="ViewModel.ToAdd.Creditor"
 							  For="@(() => ViewModel.ToAdd.Creditor)"
-							  Label="@nameof(Claim.Creditor)" />
+							  Label="@localizer["Creditor"]" />
 				<MudTextField @bind-Value="ViewModel.ToAdd.Amount"
 							  For="@(() => ViewModel.ToAdd.Amount)"
-							  Label="Debt Amount [€]"
+							  Label="@localizer["AmountWithCurrency"]"
 							  InputType="InputType.Number"
 							  Style="text-align:right;" />
 				<MudTextField @bind-Value="ViewModel.ToAdd.DebtorList"
 							  For="@(() => ViewModel.ToAdd.DebtorList)"
-							  Label="@nameof(Claim.Debtors)"
-							  HelperText="Multiple names needs to be separated by comma." />
+							  Label="@localizer["Debtors"]"
+							  HelperText="@localizer["MultipleNamesSeparatedInfo"]" />
 				<MudTextField @bind-Value="ViewModel.ToAdd.Description"
 							  For="@(() => ViewModel.ToAdd.Description)"
-							  Label="@nameof(Claim.Description)" />
+							  Label="@localizer["Description"]" />
 			</MudCardContent>
 			<MudCardActions>
 				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto"
-						   Icon="@Icons.Material.Filled.Add">Add</MudButton>
+						   Icon="@Icons.Material.Filled.Add">@localizer["Add"]</MudButton>
 			</MudCardActions>
 		</EditForm>
 	</MudItem>
@@ -44,55 +48,55 @@
 				  RowEditPreview="OnItemEditPreview" RowEditCancel="OnItemEditCancel"
 				  @bind-SelectedItem="ViewModel.Selected" @bind-SelectedItems="ViewModel.SelectedItems">
 				<ToolBarContent>
-@*					
-					<MudText Typo="Typo.h6">Claims (@ViewModel.Claims.Count)</MudText>
-*@
+					@*
+						<MudText Typo="Typo.h6">@localizer["Claims"] (@ViewModel.Claims.Count)</MudText>
+					*@
 					<MudSpacer />
-					<MudTextField @bind-Value="@ViewModel.SearchString" Placeholder="Search" Adornment="Adornment.Start"
+					<MudTextField @bind-Value="@ViewModel.SearchString" Placeholder="@localizer["Search"]" Adornment="Adornment.Start"
 							  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Small" Class="mt-0" />
 				</ToolBarContent>
 				<HeaderContent>
-					<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Creditor)">@nameof(Claim.Creditor)</MudTableSortLabel></MudTh>
-					<MudTh Style="text-align:right;"><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Amount)">@nameof(Claim.Amount)</MudTableSortLabel></MudTh>
-					<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.DebtorList)">@nameof(Claim.Debtors)</MudTableSortLabel></MudTh>
-					<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Description)">@nameof(Claim.Description)</MudTableSortLabel></MudTh>
+					<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Creditor)">@localizer["CreditorTitle"]</MudTableSortLabel></MudTh>
+					<MudTh Style="text-align:right;"><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Amount)">@localizer["AmountTitle"]</MudTableSortLabel></MudTh>
+					<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.DebtorList)">@localizer["DebtorsTitle"]</MudTableSortLabel></MudTh>
+					<MudTh><MudTableSortLabel SortBy="new Func<Claim, object>(x=>x.Description)">@localizer["Description"]</MudTableSortLabel></MudTh>
 				</HeaderContent>
 				<RowTemplate>
-					<MudTd DataLabel="@nameof(context.Creditor)">@context.Creditor</MudTd>
-					<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount.Value)</MudTd>
+					<MudTd DataLabel="@localizer["Creditor"]">@context.Creditor</MudTd>
+					<MudTd DataLabel="@localizer["Amount"]" Style="text-align:right;">@Transaction.FormatCurrency(context.Amount.Value)</MudTd>
 					<MudTd>
 						@foreach (var debtor in @context.Debtors)
 						{
-							<MudChip Label="true" Variant="Variant.Text" Size="Size.Medium">@debtor</MudChip>
+						<MudChip Label="true" Variant="Variant.Text" Size="Size.Medium">@debtor</MudChip>
 						}
-					</MudTd>
-					<MudTd DataLabel="@nameof(context.Description)">@context.Description</MudTd>
-				</RowTemplate>
-				<RowEditingTemplate>
-					<MudTd DataLabel="@nameof(context.Creditor)">
-						<MudTextField @bind-Value="@context.Creditor" Required />
-					</MudTd>
-					<MudTd DataLabel="@nameof(context.Amount)" Style="text-align:right;">
-						<MudNumericField @bind-Value="@context.Amount" Min="1" Required />
-					</MudTd>
-					<MudTd DataLabel="@nameof(context.Debtors)">
-						<MudTextField @bind-Value="@context.DebtorList" Required />
-					</MudTd>
-					<MudTd DataLabel="@nameof(context.Description)">
-						<MudTextField @bind-Value="@context.Description" />
-					</MudTd>
-				</RowEditingTemplate>
-			</MudTable>
-		</MudItem>
+				</MudTd>
+				<MudTd DataLabel="@localizer["Description"]">@context.Description</MudTd>
+			</RowTemplate>
+			<RowEditingTemplate>
+				<MudTd DataLabel="@localizer["Creditor"]">
+					<MudTextField @bind-Value="@context.Creditor" Required />
+				</MudTd>
+				<MudTd DataLabel="@localizer["Amount"]" Style="text-align:right;">
+					<MudNumericField @bind-Value="@context.Amount" Min="1" Required />
+				</MudTd>
+				<MudTd DataLabel="@localizer["Debtors"]">
+					<MudTextField @bind-Value="@context.DebtorList" Required />
+				</MudTd>
+				<MudTd DataLabel="@localizer["Description"]">
+					<MudTextField @bind-Value="@context.Description" />
+				</MudTd>
+			</RowEditingTemplate>
+		</MudTable>
+	</MudItem>
 
 		<MudItem xs="12">
 			<div class="d-flex flex-wrap mt-4">
-				<MudSwitch @bind-Checked="@ViewModel.Optimize" Label="Optimize" Color="Color.Primary" />
+				<MudSwitch @bind-Checked="@ViewModel.Optimize" Label="@localizer["Optimize"]" Color="Color.Primary" />
 				<MudSpacer />
 				@if (ViewModel.SelectedItems.Any())
 				{
 					<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Style="margin-right:10px;"
-					OnClick="RemoveSelectedItemsAsync">Delete</MudButton>
+					   OnClick="RemoveSelectedItemsAsync">@localizer["Delete"]</MudButton>
 				}
 				<ShareComponent />
 			</div>

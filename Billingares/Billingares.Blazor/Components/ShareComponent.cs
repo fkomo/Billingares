@@ -9,17 +9,18 @@ namespace Billingares.Blazor.Components
 	{
 		private bool IsSecureConnection =>
 			new string[] { "https://", "http://localhost" }
-				.Any(s => MyNavigationManager.BaseUri.StartsWith(s));
+				.Any(s => NavManager.BaseUri.StartsWith(s));
 
 		[Inject] 
 		private ClipboardService ClipboardService { get; set; }
 
 		[Inject]
-		public NavigationManager MyNavigationManager { get; set; }
+		public NavigationManager NavManager { get; set; }
+
 
 		private async Task GenerateShareLinkAsync()
 		{
-			ViewModel.ShareUrl = $"{ MyNavigationManager.BaseUri }{ AppState.ClientId }";
+			ViewModel.ShareUrl = $"{ NavManager.BaseUri }{ AppState.ClientId }";
 			ViewModel.IsOpen = true;
 
 			await Task.CompletedTask;
