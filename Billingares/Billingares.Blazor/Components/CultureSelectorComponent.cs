@@ -17,8 +17,7 @@ namespace Billingares.Blazor.Components
 
 		readonly CultureInfo[] cultures = new[]
 		{
-			new CultureInfo("en-US"),
-			new CultureInfo("en-GB"),           
+			new CultureInfo("en-GB"),         
 			new CultureInfo("sk-SK")
 		};
 
@@ -34,6 +33,15 @@ namespace Billingares.Blazor.Components
 					NavManager.NavigateTo($"{ NavManager.BaseUri }{ AppState.ClientId }", forceLoad: true);
 				}
 			}
+		}
+
+		private int CurrentCultureId => Array.IndexOf(cultures, Culture);
+		private int NextCultureId => (CurrentCultureId + 1) % cultures.Length;
+		public CultureInfo NextCulture => cultures[NextCultureId];
+
+		public void ToggleCulture()
+		{
+			Culture = NextCulture;
 		}
 
 		public string GetFlagUrl(CultureInfo culture)

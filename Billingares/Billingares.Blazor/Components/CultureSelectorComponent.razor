@@ -3,7 +3,9 @@
 
 @inject IStringLocalizer<Resource> localizer
 
-<div>
+<MudButton OnClick="ToggleCulture"><img src="@GetFlagUrl(NextCulture)" height="16" class="mr-1" /></MudButton>
+
+@*<div>
 	<MudSelect T="System.Globalization.CultureInfo" @bind-Value="Culture" 
 		AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" Variant="Variant.Outlined">
 		@foreach (var culture in cultures)
@@ -13,4 +15,4 @@
 			</MudSelectItem>
 		}
 	</MudSelect>
-</div>
+</div>*@

@@ -1,6 +1,15 @@
 ﻿@using Billingares.Blazor.ViewModels
 @using Ujeby.Blazor.Base.Components
 
+@inject NavigationManager NavManager
+
 @inherits ComponentBase<VersionViewModel, ApplicationState, ApplicationSettings>;
 
-<div style="margin-top:20px;font-size:small;width:95%;text-align:right;@($"color:{ Colors.Grey.Darken2 }")">@ViewModel.Version</div>
+<div style="margin-top:20px;font-size:small;padding-right:24px;margin-bottom:20px;text-align:right;@($"color:{ Colors.Grey.Darken2 }")">
+	@ViewModel.Version
+
+	@if (NavManager.BaseUri.Contains("localhost"))
+	{
+		<a style="padding-left:10px;@($"color:{ Colors.Grey.Darken2 }")" target="_self" href="/admin">&pi;</a>
+	}
+</div>

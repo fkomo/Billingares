@@ -72,6 +72,24 @@ namespace Billingares.Blazor.Components
 			await OnUpdateAsync();
 		}
 
+		private async void ToggleIgnoreSelectedItemsAsync()
+		{
+			var newIgnoredList = new List<Claim>();
+
+			foreach (var oldIgnored in ViewModel.IgnoredClaims)
+				if (!ViewModel.SelectedItems.Contains(oldIgnored))
+					newIgnoredList.Add(oldIgnored);
+
+			foreach (var toIgnored in ViewModel.SelectedItems)
+				if (!ViewModel.IgnoredClaims.Contains(toIgnored))
+					newIgnoredList.Add(toIgnored);
+
+			ViewModel.IgnoredClaims = newIgnoredList.ToArray();
+			ViewModel.SelectedItems.Clear();
+
+			await OnUpdateAsync();
+		}
+
 		protected override async Task OnLoadDataAsync()
 		{
 			var claims = await ListClaimsAsync();
@@ -83,9 +101,14 @@ namespace Billingares.Blazor.Components
 
 		protected override async Task OnUpdateAsync()
 		{
-			AppState.UpdateClaims(ViewModel.Claims.ToArray(), ViewModel.Optimize);
+			AppState.UpdateClaims(ViewModel.Claims.ToArray(), ViewModel.IgnoredClaims.ToArray(), ViewModel.Optimize);
 
 			await base.OnUpdateAsync();
+		}
+
+		private bool IsIgnored(Claim claim)
+		{
+			return ViewModel.IgnoredClaims.Contains(claim);
 		}
 
 		#region api calls

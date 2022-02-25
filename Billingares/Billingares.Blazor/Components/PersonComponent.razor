@@ -1,0 +1,31 @@
+﻿@using Billingares.Blazor.ViewModels
+@using Ujeby.Blazor.Base.Components
+
+@inherits ComponentBase<PersonViewModel, ApplicationState, ApplicationSettings>;
+
+@if (Disabled)
+{
+	if (AppState.DarkMode)
+	{
+		<MudChip Label="true" Variant="Variant.Filled" Size="Size.Medium" Icon="@Icons.Material.Filled.Person"
+			style="@(Helpers.GetChipStyle(Name))" Disabled="true"><del>@Name</del></MudChip>
+	}
+	else
+	{
+		<MudChip Label="true" Variant="Variant.Filled" Size="Size.Medium" Icon="@Icons.Material.Filled.Person"
+			Color="Color.Default" Disabled="true"><del>@Name</del></MudChip>
+	}
+}
+else
+{
+	if (AppState.DarkMode)
+	{
+		<MudChip Label="true" Variant="Variant.Filled" Size="Size.Medium" Icon="@Icons.Material.Filled.Person"
+			style="@(Helpers.GetChipStyle(Name))">@Name</MudChip>
+	}
+	else
+	{
+		<MudChip Label="true" Variant="Variant.Filled" Size="Size.Medium" Icon="@Icons.Material.Filled.Person"
+			Color="Color.Default">@Name</MudChip>
+	}
+}
