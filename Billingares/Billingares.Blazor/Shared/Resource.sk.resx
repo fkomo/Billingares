@@ -168,6 +168,9 @@
   <data name="From" xml:space="preserve">
     <value>Kto</value>
   </data>
+  <data name="Ignore" xml:space="preserve">
+    <value>Ignorovať</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Jazyk</value>
   </data>

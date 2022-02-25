@@ -1,35 +1,32 @@
-﻿@using Billingares.Blazor.Components
+﻿@using Billingares.Blazor
+@using Billingares.Blazor.Components
 
 @inject IStringLocalizer<Resource> localizer
-@inject NavigationManager NavManager
+@inject ApplicationState AppState
 
 @inherits LayoutComponentBase
 
 <PageTitle>@localizer["ApplicationTitle"]</PageTitle>
 
-<MudThemeProvider @bind-IsDarkMode="@IsDarkMode" Theme="Theme" />
+<MudThemeProvider @bind-IsDarkMode="@AppState.DarkMode" Theme="Theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <div class="page">
 	<main>
-@*		<MudAppBar style="background-color:#27272f;" Fixed="false" Dense="false">
-*@		<MudAppBar Fixed="false" Dense="false">
+		<MudAppBar Fixed="false" Dense="false">
 
 			<HomeComponent />
-			
+
 			<MudSpacer />
 
 			<CultureSelectorComponent />
 
-			@if (NavManager.BaseUri.Contains("localhost"))
-			{
-				<MudIconButton Icon="@Icons.Material.Filled.AdminPanelSettings" Color="Color.Inherit"
-							   Target="_self" Link="/admin" />
-			}
-
-			<MudToggleIconButton @bind-Toggled="@IsDarkMode"
+			<MudToggleIconButton @bind-Toggled="@AppState.DarkMode"
 								 Icon="@Icons.Material.Filled.DarkMode" ToggledIcon="@Icons.Material.Filled.LightMode" />
+
+			<MudToggleIconButton @bind-Toggled="@AppState.FancyMode"
+								 Icon="@Icons.Material.Filled.AutoFixHigh" ToggledIcon="@Icons.Material.Filled.AutoFixOff" />
 
 			<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit"
 						   Target="_blank" Link="https://github.com/fkomo/Billingares" />
@@ -40,12 +37,11 @@
 		</article>
 
 		<Billingares.Blazor.Components.VersionComponent />
+
 		<Billingares.Blazor.Components.NotificationsComponent />
 	</main>
 </div>
 
 @code {
-
 	private MudTheme Theme = new();
-	public bool IsDarkMode = true;
 }

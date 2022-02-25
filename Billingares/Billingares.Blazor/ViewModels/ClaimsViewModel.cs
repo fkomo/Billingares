@@ -7,6 +7,7 @@ namespace Billingares.Blazor.ViewModels
 		public string SearchString { get; set; } = string.Empty;
 
 		public List<Claim> Claims { get; set; } = new List<Claim>();
+		public Claim[] IgnoredClaims { get; set; } = Array.Empty<Claim>();
 
 		public Claim ToAdd { get; set; } = new Claim();
 		public Claim Selected { get; set; }
@@ -38,13 +39,13 @@ namespace Billingares.Blazor.ViewModels
 			if (string.IsNullOrWhiteSpace(SearchString))
 				return true;
 
-			if (claim.Creditor.Contains(SearchString, StringComparison.OrdinalIgnoreCase))
+			if (claim.Creditor?.Contains(SearchString, StringComparison.OrdinalIgnoreCase) == true)
 				return true;
 
-			if (claim.Description.Contains(SearchString, StringComparison.OrdinalIgnoreCase))
+			if (claim.Description?.Contains(SearchString, StringComparison.OrdinalIgnoreCase) == true)
 				return true;
 
-			if (claim.Debtors.Any(a => a.Contains(SearchString, StringComparison.OrdinalIgnoreCase)))
+			if (claim.Debtors?.Any(a => a.Contains(SearchString, StringComparison.OrdinalIgnoreCase)) == true)
 				return true;
 
 			return false;

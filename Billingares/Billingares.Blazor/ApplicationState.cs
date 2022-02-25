@@ -14,9 +14,28 @@ namespace Billingares.Blazor
         public Claim[] Claims { get; private set; } = Array.Empty<Claim>();
         public bool OptimizeTransactions { get; private set; }
 
-        public void UpdateClaims(Claim[] claims, bool optimizeTransactions)
+        private bool _fancyMode = false;
+        public bool FancyMode
+        { 
+            get { return _fancyMode; }
+            set 
+            { 
+                _fancyMode = value;              
+                NotifyStateChanged();
+            }  
+        }
+
+        private bool _darkMode = true;
+        public bool DarkMode
+        { 
+            get { return _darkMode; }
+            set {  _darkMode = value; }  
+        }
+
+        public void UpdateClaims(Claim[] claims, Claim[] ignoredClaims, bool optimizeTransactions)
         {
-            Claims = claims;
+            Claims = claims.Except(ignoredClaims).ToArray();
+
             OptimizeTransactions = optimizeTransactions;
 
             NotifyStateChanged();
