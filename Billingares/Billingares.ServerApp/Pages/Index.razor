@@ -1,0 +1,27 @@
+﻿@page "/{ClientId?}"
+
+@using Billingares.Blazor
+
+@*<MudGrid>
+	<MudItem xs="12">
+		<Billingares.Blazor.Components.ClaimsComponent />
+	</MudItem>
+	<MudItem xs="12">
+		<Billingares.Blazor.Components.TransactionsComponent />
+	</MudItem>
+</MudGrid>
+*@
+@code {
+	[Parameter]
+	public string ClientId { get; set; }
+
+	[Inject]
+	private ApplicationState AppState { get; set; }
+
+	protected override async Task OnParametersSetAsync()
+	{
+		AppState.ClientId = ClientId ?? AppState.ClientId;
+
+		await base.OnParametersSetAsync();
+	}
+}
