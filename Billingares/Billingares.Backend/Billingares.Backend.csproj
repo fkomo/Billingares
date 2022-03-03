@@ -6,8 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="MySqlConnector" Version="2.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Billingares.Api\Billingares.Api.csproj" />
-    <ProjectReference Include="..\Ujeby.Api.Base\Ujeby.Api.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Ujeby.Api.Base">
+      <HintPath>..\..\..\Ujeby\Deploy\Ujeby.Api.Base.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

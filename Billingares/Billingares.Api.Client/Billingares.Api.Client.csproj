@@ -12,7 +12,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Billingares.Api\Billingares.Api.csproj" />
-    <ProjectReference Include="..\Ujeby.Api.Client.Base\Ujeby.Api.Client.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Ujeby.Api.Client.Base">
+      <HintPath>..\..\..\Ujeby\Deploy\Ujeby.Api.Client.Base.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

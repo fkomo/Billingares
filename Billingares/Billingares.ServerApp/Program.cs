@@ -11,7 +11,7 @@ builder.Services.AddServerSideBlazor();
 
 builder.Services.AddMudServices();
 
-builder.Services.AddScoped<ApplicationState>();
+builder.Services.AddScoped<IBillingaresApplicationState, ApplicationState>();
 
 builder.Services.AddSingleton((_) =>
 	builder.Configuration.GetSection(nameof(ApplicationSettings)).Get<ApplicationSettings>());

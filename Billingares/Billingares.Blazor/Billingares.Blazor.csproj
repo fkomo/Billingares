@@ -21,7 +21,15 @@
   <ItemGroup>
     <ProjectReference Include="..\Billingares.Api.Client\Billingares.Api.Client.csproj" />
     <ProjectReference Include="..\Billingares.Api\Billingares.Api.csproj" />
-    <ProjectReference Include="..\Ujeby.Blazor.Base\Ujeby.Blazor.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Ujeby.Api.Client.Base">
+      <HintPath>..\..\..\Ujeby\Deploy\Ujeby.Api.Client.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Ujeby.Blazor.Base">
+      <HintPath>..\..\..\Ujeby\Deploy\Ujeby.Blazor.Base.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

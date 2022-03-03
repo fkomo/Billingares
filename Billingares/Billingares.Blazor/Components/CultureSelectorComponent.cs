@@ -13,7 +13,7 @@ namespace Billingares.Blazor.Components
 		public IJSRuntime JSRuntime { get; set; }
 
 		[Inject]
-		protected ApplicationState AppState { get; set; }
+		protected IBillingaresApplicationState AppState { get; set; }
 
 		readonly CultureInfo[] cultures = new[]
 		{

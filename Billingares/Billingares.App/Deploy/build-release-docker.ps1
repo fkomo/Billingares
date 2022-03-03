@@ -1,8 +1,18 @@
 # move to solution root
 Set-Location -Path "..\.."
 
+# path to referenced libraries/projects
+$ujeby = '..\..\Ujeby\Deploy\'
+$ujebyBlazorBase = $ujeby + 'Ujeby.Blazor.Base.dll'
+$ujebyApiClientBase = $ujeby + 'Ujeby.Api.Client.Base.dll'
+
 try
 {
+	# gather referenced libraries
+	New-Item -Force -ItemType directory -Path .\Deploy\3rd
+	Copy-Item $ujebyBlazorBase -Destination .\Deploy\3rd\Ujeby.Blazor.Base.dll -verbose -force
+	Copy-Item $ujebyApiClientBase -Destination .\Deploy\3rd\Ujeby.Api.Client.Base.dll -verbose -force
+
 	# use appsettings.Release.json
 	Copy-Item Billingares.App\wwwroot\appsettings.Release.json -Destination Billingares.App\wwwroot\appsettings.json -verbose
 

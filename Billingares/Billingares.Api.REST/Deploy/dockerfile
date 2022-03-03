@@ -3,14 +3,15 @@ WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["Ujeby.Api.Base/Ujeby.Api.Base.csproj", "Ujeby.Api.Base/"]
+WORKDIR /src/Ujeby/Deploy
+COPY ["Deploy/3rd/Ujeby.Api.Base.dll", "."]
+WORKDIR /src/Billingares/Billingares
 COPY ["Billingares.Backend/Billingares.Backend.csproj", "Billingares.Backend/"]
 COPY ["Billingares.Api/Billingares.Api.csproj", "Billingares.Api/"]
 COPY ["Billingares.Api.REST/Billingares.Api.REST.csproj", "Billingares.Api.REST/"]
 RUN dotnet restore "Billingares.Api.REST/Billingares.Api.REST.csproj"
 COPY . .
-WORKDIR "/src/Billingares.Api.REST"
+WORKDIR "/src/Billingares/Billingares/Billingares.Api.REST"
 RUN dotnet build "Billingares.Api.REST.csproj" -c Release -o /app/build
 
 FROM build AS publish

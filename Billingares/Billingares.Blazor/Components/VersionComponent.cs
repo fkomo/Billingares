@@ -4,7 +4,7 @@ using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.Blazor.Components
 {
-	public partial class VersionComponent : ComponentBase<VersionViewModel, ApplicationState, ApplicationSettings>
+	public partial class VersionComponent : ComponentBase<VersionViewModel, IBillingaresApplicationState, ApplicationSettings>
 	{
 		protected async override Task OnLoadDataAsync()
 		{

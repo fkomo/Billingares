@@ -5,7 +5,7 @@
 
 @inject IStringLocalizer<Resource> localizer
 
-@inherits ComponentBase<ShareViewModel, ApplicationState, ApplicationSettings>;
+@inherits ComponentBase<ShareViewModel, IBillingaresApplicationState, ApplicationSettings>;
 
 <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Share" Color="Color.Info"
 		   OnClick="GenerateShareLinkAsync">@localizer["Share"]</MudButton>

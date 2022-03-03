@@ -4,7 +4,7 @@ using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.Blazor.Components
 {
-	public partial class TransactionsComponent : ComponentBase<TransactionsViewModel, ApplicationState, ApplicationSettings>, IDisposable
+	public partial class TransactionsComponent : ComponentBase<TransactionsViewModel, IBillingaresApplicationState, ApplicationSettings>, IDisposable
 	{
 		protected override async Task OnInitializedAsync()
 		{

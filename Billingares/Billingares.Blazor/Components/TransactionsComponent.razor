@@ -5,7 +5,7 @@
 
 @inject IStringLocalizer<Resource> localizer
 
-@inherits ComponentBase<TransactionsViewModel, ApplicationState, ApplicationSettings>;
+@inherits ComponentBase<TransactionsViewModel, IBillingaresApplicationState, ApplicationSettings>;
 
 @if (ViewModel.Transactions.Any())
 {

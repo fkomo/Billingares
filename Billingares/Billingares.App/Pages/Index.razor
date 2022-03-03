@@ -16,11 +16,12 @@
 	public string ClientId { get; set; }
 
 	[Inject]
-	private ApplicationState AppState { get; set; }
+	private IBillingaresApplicationState AppState { get; set; }
 
 	protected override async Task OnParametersSetAsync()
 	{
-		AppState.ClientId = ClientId ?? AppState.ClientId;
+		if (!string.IsNullOrWhiteSpace(ClientId))
+			AppState.ClientId = ClientId;
 
 		await base.OnParametersSetAsync();
 	}

@@ -1,14 +1,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["Ujeby.Blazor.Base/Ujeby.Blazor.Base.csproj", "Ujeby.Blazor.Base/"]
-COPY ["Ujeby.Api.Client.Base/Ujeby.Api.Client.Base.csproj", "Ujeby.Api.Client.Base/"]
+WORKDIR /src/Ujeby/Deploy
+COPY ["Deploy/3rd/Ujeby.Blazor.Base.dll", "."]
+COPY ["Deploy/3rd/Ujeby.Api.Client.Base.dll", "."]
+WORKDIR /src/Billingares/Billingares
 COPY ["Billingares.Api/Billingares.Api.csproj", "Billingares.Api/"]
 COPY ["Billingares.Api.Client/Billingares.Api.Client.csproj", "Billingares.Api.Client/"]
 COPY ["Billingares.Blazor/Billingares.Blazor.csproj", "Billingares.Blazor/"]
 COPY ["Billingares.App/Billingares.App.csproj", "Billingares.App/"]
 RUN dotnet restore "Billingares.App/Billingares.App.csproj"
 COPY . .
-WORKDIR "/src/Billingares.App"
+WORKDIR "/src/Billingares/Billingares/Billingares.App"
 RUN dotnet build "Billingares.App.csproj" -c Release -o /app/build
 
 FROM build AS publish

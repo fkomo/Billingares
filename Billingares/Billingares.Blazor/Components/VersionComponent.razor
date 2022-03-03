@@ -3,7 +3,7 @@
 
 @inject NavigationManager NavManager
 
-@inherits ComponentBase<VersionViewModel, ApplicationState, ApplicationSettings>;
+@inherits ComponentBase<VersionViewModel, IBillingaresApplicationState, ApplicationSettings>;
 
 <div style="margin-top:20px;font-size:small;padding-right:24px;margin-bottom:20px;text-align:right;@($"color:{ Colors.Grey.Darken2 }")">
 	@ViewModel.Version

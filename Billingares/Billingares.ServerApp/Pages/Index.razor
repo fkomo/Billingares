@@ -16,7 +16,7 @@
 	public string ClientId { get; set; }
 
 	[Inject]
-	private ApplicationState AppState { get; set; }
+	private IBillingaresApplicationState AppState { get; set; }
 
 	protected override async Task OnParametersSetAsync()
 	{

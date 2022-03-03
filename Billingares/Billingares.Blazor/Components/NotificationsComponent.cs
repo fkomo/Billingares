@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Billingares.Blazor.Components
 {
-	public partial class NotificationsComponent : ComponentBase<NotificationsViewModel, ApplicationState, ApplicationSettings>, 
+	public partial class NotificationsComponent : ComponentBase<NotificationsViewModel, IBillingaresApplicationState, ApplicationSettings>, 
         IAsyncDisposable
 	{
 		private HubConnection HubConnection { get; set; }

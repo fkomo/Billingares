@@ -5,7 +5,7 @@ using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.Blazor.Components
 {
-	public partial class ClaimsComponent : ComponentBase<ClaimsViewModel, ApplicationState, ApplicationSettings>
+	public partial class ClaimsComponent : ComponentBase<ClaimsViewModel, IBillingaresApplicationState, ApplicationSettings>
 	{
 		[Inject]
 		private IServiceProvider ServiceProvider { get; set; }
