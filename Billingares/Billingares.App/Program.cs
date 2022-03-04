@@ -14,7 +14,8 @@ builder.Services.AddMudServices();
 
 builder.Services.AddScoped<ClipboardService>();
 
-builder.Services.AddScoped<ApplicationState>();
+builder.Services.AddScoped<Ujeby.Blazor.Base.IApplicationState, ApplicationState>();
+builder.Services.AddScoped<IBillingaresApplicationState, ApplicationState>();
 
 builder.Services.AddSingleton((_) =>
 	builder.Configuration.GetSection(nameof(ApplicationSettings)).Get<ApplicationSettings>());

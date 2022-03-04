@@ -5,7 +5,7 @@ using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.Blazor.Components
 {
-	public partial class SessionsComponent : ComponentBase<SessionsViewModel, ApplicationState, ApplicationSettings>
+	public partial class SessionsComponent : ComponentBase<SessionsViewModel, IBillingaresApplicationState, ApplicationSettings>
 	{
 		protected async override Task OnLoadDataAsync()
 		{

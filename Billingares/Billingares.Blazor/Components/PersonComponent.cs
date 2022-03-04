@@ -4,7 +4,7 @@ using Ujeby.Blazor.Base.Components;
 
 namespace Billingares.Blazor.Components
 {
-	public partial class PersonComponent : ComponentBase<PersonViewModel, ApplicationState, ApplicationSettings>
+	public partial class PersonComponent : ComponentBase<PersonViewModel, IBillingaresApplicationState, ApplicationSettings>
 	{
 		[Parameter]
 		public bool Disabled { get; set; } = false;

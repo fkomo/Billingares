@@ -11,17 +11,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.2" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.2" />
-    <PackageReference Include="MudBlazor" Version="6.0.5" />
+    <PackageReference Include="MudBlazor" Version="6.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Billingares.Api.Client\Billingares.Api.Client.csproj" />
     <ProjectReference Include="..\Billingares.Api\Billingares.Api.csproj" />
-    <ProjectReference Include="..\Ujeby.Blazor.Base\Ujeby.Blazor.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Ujeby.Api.Client.Base">
+      <HintPath>..\..\..\Ujeby\Deploy\Ujeby.Api.Client.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Ujeby.Blazor.Base">
+      <HintPath>..\..\..\Ujeby\Deploy\Ujeby.Blazor.Base.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

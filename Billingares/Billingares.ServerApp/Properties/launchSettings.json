@@ -1,0 +1,28 @@
+{
+	"iisSettings": {
+		"windowsAuthentication": false,
+		"anonymousAuthentication": true,
+		"iisExpress": {
+			"applicationUrl": "http://localhost:41796",
+			"sslPort": 44362
+		}
+	},
+	"profiles": {
+		"Billingares.ServerApp": {
+			"commandName": "Project",
+			"dotnetRunMessages": true,
+			"launchBrowser": true,
+			"applicationUrl": "https://localhost:8060;http://localhost:8061",
+			"environmentVariables": {
+				"ASPNETCORE_ENVIRONMENT": "Debug"
+			}
+		},
+		"IIS Express": {
+			"commandName": "IISExpress",
+			"launchBrowser": true,
+			"environmentVariables": {
+				"ASPNETCORE_ENVIRONMENT": "Debug"
+			}
+		}
+	}
+}

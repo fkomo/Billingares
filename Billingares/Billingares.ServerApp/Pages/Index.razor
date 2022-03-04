@@ -2,7 +2,7 @@
 
 @using Billingares.Blazor
 
-<MudGrid>
+@*<MudGrid>
 	<MudItem xs="12">
 		<Billingares.Blazor.Components.ClaimsComponent />
 	</MudItem>
@@ -10,7 +10,7 @@
 		<Billingares.Blazor.Components.TransactionsComponent />
 	</MudItem>
 </MudGrid>
-
+*@
 @code {
 	[Parameter]
 	public string ClientId { get; set; }
@@ -20,8 +20,7 @@
 
 	protected override async Task OnParametersSetAsync()
 	{
-		if (!string.IsNullOrWhiteSpace(ClientId))
-			AppState.ClientId = ClientId;
+		AppState.ClientId = ClientId ?? AppState.ClientId;
 
 		await base.OnParametersSetAsync();
 	}

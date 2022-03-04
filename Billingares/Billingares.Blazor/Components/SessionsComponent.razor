@@ -5,7 +5,7 @@
 
 @inject IStringLocalizer<Resource> localizer
 
-@inherits ComponentBase<SessionsViewModel, ApplicationState, ApplicationSettings>;
+@inherits ComponentBase<SessionsViewModel, IBillingaresApplicationState, ApplicationSettings>;
 
 @if (ViewModel.Sessions.Any())
 {
